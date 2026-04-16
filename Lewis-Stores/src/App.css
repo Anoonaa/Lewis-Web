@@ -81,6 +81,10 @@
   align-items: center;
 }
 
+.search-box-open .search-input {
+  padding-left: 1rem;
+}
+
 .search-icon {
   position: absolute;
   left: 0.9rem;
