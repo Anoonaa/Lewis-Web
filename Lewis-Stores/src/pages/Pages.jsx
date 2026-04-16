@@ -14,7 +14,6 @@ import {
   formatCurrency,
   orderHistory,
   products,
-  profileMenu,
   trackingSteps,
 } from '../data/mockData'
 import { useShop } from '../context/ShopContext'
@@ -741,6 +740,15 @@ export function CheckoutPage() {
   )
 }
 
+/* Shared profile navigation items */
+const profileNavItems = [
+  { label: 'Personal Info', to: '/profile' },
+  { label: 'Order History', to: '/orders' },
+  { label: 'Payment Methods', to: '/profile/payment' },
+  { label: 'Shipping Addresses', to: '/profile/addresses' },
+  { label: 'Settings', to: '/profile/settings' },
+]
+
 /* ─────────────────────────────────────────────
    PROFILE PAGE
 ────────────────────────────────────────────── */
@@ -755,7 +763,7 @@ export function ProfilePage() {
 
   return (
     <main className="page sidebar-layout">
-      <SidePanel active={0} items={profileMenu.map(m => ({ label: m, to: '#' }))} />
+      <SidePanel active={0} items={profileNavItems} />
       <section className="stack-md">
         <div>
           <h1 style={{ color: 'var(--primary)', marginBottom: '0.4rem' }}>My Account</h1>
@@ -816,7 +824,7 @@ export function OrderHistoryPage() {
   const { showToast } = useShop()
   return (
     <main className="page sidebar-layout">
-      <SidePanel active={1} items={profileMenu.map((m, i) => ({ label: m, to: i === 1 ? '/orders' : '#' }))} />
+      <SidePanel active={1} items={profileNavItems} />
       <section className="stack-md">
         <div>
           <h1 style={{ color: 'var(--primary)', marginBottom: '0.4rem' }}>Order History</h1>
@@ -1455,3 +1463,366 @@ export function CreditStatusPage() {
 
 /* Aliases for backward-compatible routes */
 export function CreditFinancialsPage() { return <CreditFormTwoPage /> }
+
+/* ─────────────────────────────────────────────
+   PAYMENT METHODS PAGE
+────────────────────────────────────────────── */
+export function PaymentMethodsPage() {
+  const { showToast } = useShop()
+  const [cards, setCards] = useState([
+    { id: 1, type: 'Visa', last4: '4242', expiry: '12/27', isDefault: true },
+    { id: 2, type: 'Mastercard', last4: '8765', expiry: '08/26', isDefault: false },
+  ])
+  const [showForm, setShowForm] = useState(false)
+  const [newCard, setNewCard] = useState({ cardNumber: '', expiry: '', cvv: '', name: '' })
+
+  const handleSetDefault = (id) => {
+    setCards(cs => cs.map(c => ({ ...c, isDefault: c.id === id })))
+    showToast('Card set as default.')
+  }
+
+  const handleRemoveCard = (id) => {
+    setCards(cs => cs.filter(c => c.id !== id))
+    showToast('Card removed.')
+  }
+
+  const handleAddCard = (e) => {
+    e.preventDefault()
+    const last4 = newCard.cardNumber.replace(/\s/g, '').slice(-4)
+    const type = newCard.cardNumber.replace(/\s/g, '').startsWith('4') ? 'Visa' : 'Mastercard'
+    setCards(cs => [...cs, { id: Date.now(), type, last4, expiry: newCard.expiry, isDefault: false }])
+    showToast('New payment method saved successfully.')
+    setShowForm(false)
+    setNewCard({ cardNumber: '', expiry: '', cvv: '', name: '' })
+  }
+
+  return (
+    <main className="page sidebar-layout">
+      <SidePanel active={2} items={profileNavItems} />
+      <section className="stack-md">
+        <div>
+          <h1 style={{ color: 'var(--primary)', marginBottom: '0.4rem' }}>Payment Methods</h1>
+          <p style={{ color: 'var(--on-surface-variant)' }}>Manage your saved cards and payment options.</p>
+        </div>
+
+        <div className="stack-sm">
+          {cards.map(card => (
+            <Card key={card.id} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '1.25rem 1.5rem' }}>
+              <div style={{ width: '48px', height: '32px', background: card.type === 'Visa' ? '#1a1f71' : '#eb001b', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ color: '#fff', fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.03em' }}>{card.type.toUpperCase()}</span>
+              </div>
+              <div style={{ flexGrow: 1 }}>
+                <p style={{ fontWeight: 600, color: 'var(--on-surface)', marginBottom: '0.15rem' }}>
+                  {card.type} ending in {card.last4}
+                  {card.isDefault && (
+                    <span style={{ marginLeft: '0.75rem', background: 'var(--surface-low)', color: 'var(--on-surface-variant)', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '3px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Default</span>
+                  )}
+                </p>
+                <p style={{ fontSize: '0.85rem', color: 'var(--on-surface-variant)' }}>Expires {card.expiry}</p>
+              </div>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                {!card.isDefault && (
+                  <Button variant="secondary" style={{ padding: '0.35rem 0.85rem', fontSize: '0.82rem' }}
+                    onClick={() => handleSetDefault(card.id)}>
+                    Set Default
+                  </Button>
+                )}
+                <Button variant="secondary" style={{ padding: '0.35rem 0.85rem', fontSize: '0.82rem', color: 'var(--secondary)', borderColor: 'var(--secondary)' }}
+                  onClick={() => handleRemoveCard(card.id)}>
+                  Remove
+                </Button>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        {showForm ? (
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '1.5rem' }}>Add New Card</h3>
+            <form className="form-grid" onSubmit={handleAddCard}>
+              <div className="form-group full-width">
+                <label className="form-label">Name on Card</label>
+                <input type="text" placeholder="e.g. Thabo Nkosi" value={newCard.name}
+                  onChange={e => setNewCard(c => ({ ...c, name: e.target.value }))} required />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Card Number</label>
+                <input type="text" placeholder="0000 0000 0000 0000" maxLength={19} value={newCard.cardNumber}
+                  onChange={e => setNewCard(c => ({ ...c, cardNumber: e.target.value.replace(/\D/g, '').replace(/(\d{4})/g, '$1 ').trim() }))} required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Expiry Date</label>
+                <input type="text" placeholder="MM / YY" maxLength={7} value={newCard.expiry}
+                  onChange={e => setNewCard(c => ({ ...c, expiry: e.target.value }))} required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">CVV</label>
+                <input type="text" placeholder="000" maxLength={4} value={newCard.cvv}
+                  onChange={e => setNewCard(c => ({ ...c, cvv: e.target.value }))} required />
+              </div>
+              <div className="full-width" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+                <Button variant="secondary" type="button" onClick={() => setShowForm(false)}>Cancel</Button>
+                <Button variant="primary" type="submit">Save Card</Button>
+              </div>
+            </form>
+          </Card>
+        ) : (
+          <Button variant="secondary" style={{ width: 'fit-content' }} onClick={() => setShowForm(true)}>
+            + Add New Card
+          </Button>
+        )}
+      </section>
+    </main>
+  )
+}
+
+/* ─────────────────────────────────────────────
+   SHIPPING ADDRESSES PAGE
+────────────────────────────────────────────── */
+export function ShippingAddressesPage() {
+  const { showToast } = useShop()
+  const [addresses, setAddresses] = useState([
+    { id: 1, label: 'Home', name: 'Thabo Nkosi', street: '12 Mandela Street', city: 'Sandton, Johannesburg', postal: '2196', phone: '+27 82 555 0123', isDefault: true },
+    { id: 2, label: 'Work', name: 'Thabo Nkosi', street: '45 Commissioner Street', city: 'Johannesburg CBD', postal: '2001', phone: '+27 82 555 0123', isDefault: false },
+  ])
+  const [showForm, setShowForm] = useState(false)
+  const [newAddress, setNewAddress] = useState({ label: '', name: '', street: '', city: '', postal: '', phone: '' })
+
+  const handleAddAddress = (e) => {
+    e.preventDefault()
+    const id = Date.now()
+    setAddresses(a => [...a, { ...newAddress, id, isDefault: false }])
+    showToast('New shipping address saved.')
+    setShowForm(false)
+    setNewAddress({ label: '', name: '', street: '', city: '', postal: '', phone: '' })
+  }
+
+  const handleRemoveAddress = (id) => {
+    setAddresses(a => a.filter(x => x.id !== id))
+    showToast('Address removed.')
+  }
+
+  const handleSetDefaultAddress = (id) => {
+    setAddresses(a => a.map(x => ({ ...x, isDefault: x.id === id })))
+    showToast('Address set as default.')
+  }
+
+  return (
+    <main className="page sidebar-layout">
+      <SidePanel active={3} items={profileNavItems} />
+      <section className="stack-md">
+        <div>
+          <h1 style={{ color: 'var(--primary)', marginBottom: '0.4rem' }}>Shipping Addresses</h1>
+          <p style={{ color: 'var(--on-surface-variant)' }}>Manage your saved delivery addresses.</p>
+        </div>
+
+        <div className="stack-sm">
+          {addresses.map(addr => (
+            <Card key={addr.id} style={{ padding: '1.25rem 1.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                    <p style={{ fontWeight: 700, color: 'var(--primary)' }}>{addr.label}</p>
+                    {addr.isDefault && (
+                      <span style={{ background: 'var(--surface-low)', color: 'var(--on-surface-variant)', fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '3px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Default</span>
+                    )}
+                  </div>
+                  <p style={{ color: 'var(--on-surface)', fontSize: '0.92rem', marginBottom: '0.2rem' }}>{addr.name}</p>
+                  <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.88rem' }}>{addr.street}</p>
+                  <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.88rem' }}>{addr.city}, {addr.postal}</p>
+                  <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.88rem', marginTop: '0.2rem' }}>{addr.phone}</p>
+                </div>
+                <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
+                  {!addr.isDefault && (
+                    <Button variant="secondary" style={{ padding: '0.35rem 0.85rem', fontSize: '0.82rem' }}
+                      onClick={() => handleSetDefaultAddress(addr.id)}>
+                      Set Default
+                    </Button>
+                  )}
+                  <Button variant="secondary" style={{ padding: '0.35rem 0.85rem', fontSize: '0.82rem', color: 'var(--secondary)', borderColor: 'var(--secondary)' }}
+                    onClick={() => handleRemoveAddress(addr.id)}>
+                    Remove
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        {showForm ? (
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '1.5rem' }}>Add New Address</h3>
+            <form className="form-grid" onSubmit={handleAddAddress}>
+              <div className="form-group">
+                <label className="form-label">Label (e.g. Home, Work)</label>
+                <input type="text" placeholder="Home" value={newAddress.label}
+                  onChange={e => setNewAddress(a => ({ ...a, label: e.target.value }))} required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Full Name</label>
+                <input type="text" placeholder="e.g. Thabo Nkosi" value={newAddress.name}
+                  onChange={e => setNewAddress(a => ({ ...a, name: e.target.value }))} required />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Street Address</label>
+                <input type="text" placeholder="e.g. 12 Mandela Street" value={newAddress.street}
+                  onChange={e => setNewAddress(a => ({ ...a, street: e.target.value }))} required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">City</label>
+                <input type="text" placeholder="e.g. Johannesburg" value={newAddress.city}
+                  onChange={e => setNewAddress(a => ({ ...a, city: e.target.value }))} required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Postal Code</label>
+                <input type="text" placeholder="e.g. 2196" value={newAddress.postal}
+                  onChange={e => setNewAddress(a => ({ ...a, postal: e.target.value }))} required />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Phone Number</label>
+                <input type="tel" placeholder="+27 82 000 0000" value={newAddress.phone}
+                  onChange={e => setNewAddress(a => ({ ...a, phone: e.target.value }))} required />
+              </div>
+              <div className="full-width" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+                <Button variant="secondary" type="button" onClick={() => setShowForm(false)}>Cancel</Button>
+                <Button variant="primary" type="submit">Save Address</Button>
+              </div>
+            </form>
+          </Card>
+        ) : (
+          <Button variant="secondary" style={{ width: 'fit-content' }} onClick={() => setShowForm(true)}>
+            + Add New Address
+          </Button>
+        )}
+      </section>
+    </main>
+  )
+}
+
+/* ─────────────────────────────────────────────
+   SETTINGS PAGE
+────────────────────────────────────────────── */
+function SettingsToggle({ checked, onChange }) {
+  return (
+    <button
+      type="button"
+      onClick={() => onChange(!checked)}
+      style={{
+        width: '44px', height: '24px', borderRadius: '12px', border: 'none', cursor: 'pointer',
+        background: checked ? 'var(--primary)' : 'var(--surface-high)',
+        position: 'relative', transition: 'background 0.2s', flexShrink: 0,
+      }}
+    >
+      <span style={{
+        position: 'absolute', top: '3px',
+        left: checked ? '23px' : '3px',
+        width: '18px', height: '18px', borderRadius: '50%',
+        background: '#fff', transition: 'left 0.2s',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+      }} />
+    </button>
+  )
+}
+
+export function SettingsPage() {
+  const { showToast } = useShop()
+  const [notifications, setNotifications] = useState({ orderUpdates: true, promotions: true, newsletter: false, sms: true })
+  const [pwForm, setPwForm] = useState({ current: '', newPw: '', confirm: '' })
+  const [pwErrors, setPwErrors] = useState({})
+
+  const handleNotificationSave = () => {
+    showToast('Notification preferences updated.')
+  }
+
+  const handlePasswordChange = (e) => {
+    e.preventDefault()
+    const errs = {}
+    if (!pwForm.current) errs.current = 'Current password is required'
+    if (!pwForm.newPw || pwForm.newPw.length < 8) errs.newPw = 'Password must be at least 8 characters long'
+    if (pwForm.newPw !== pwForm.confirm) errs.confirm = 'Passwords do not match'
+    setPwErrors(errs)
+    if (Object.keys(errs).length === 0) {
+      showToast('Password changed successfully.')
+      setPwForm({ current: '', newPw: '', confirm: '' })
+    }
+  }
+
+  return (
+    <main className="page sidebar-layout">
+      <SidePanel active={4} items={profileNavItems} />
+      <section className="stack-md">
+        <div>
+          <h1 style={{ color: 'var(--primary)', marginBottom: '0.4rem' }}>Settings</h1>
+          <p style={{ color: 'var(--on-surface-variant)' }}>Manage your account preferences and security.</p>
+        </div>
+
+        {/* Notification Preferences */}
+        <Card>
+          <h3 style={{ color: 'var(--primary)', marginBottom: '1.5rem' }}>Notification Preferences</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {[
+              { key: 'orderUpdates', label: 'Order Updates', desc: 'Get notified about your order status changes' },
+              { key: 'promotions', label: 'Promotions & Deals', desc: 'Receive alerts on sales and special offers' },
+              { key: 'newsletter', label: 'Newsletter', desc: 'Monthly newsletter with new arrivals and tips' },
+              { key: 'sms', label: 'SMS Notifications', desc: 'Receive important updates via SMS' },
+            ].map(item => (
+              <div key={item.key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem 0', borderBottom: '1px solid var(--border-color)' }}>
+                <div>
+                  <p style={{ fontWeight: 600, color: 'var(--on-surface)', marginBottom: '0.2rem' }}>{item.label}</p>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--on-surface-variant)' }}>{item.desc}</p>
+                </div>
+                <SettingsToggle checked={notifications[item.key]} onChange={val => setNotifications(n => ({ ...n, [item.key]: val }))} />
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'flex-end' }}>
+            <Button variant="primary" onClick={handleNotificationSave}>Save Preferences</Button>
+          </div>
+        </Card>
+
+        {/* Change Password */}
+        <Card>
+          <h3 style={{ color: 'var(--primary)', marginBottom: '1.5rem' }}>Change Password</h3>
+          <form className="form-grid" onSubmit={handlePasswordChange}>
+            <div className="form-group full-width">
+              <label className="form-label">Current Password</label>
+              <input type="password" placeholder="Enter current password" value={pwForm.current}
+                onChange={e => { setPwForm(f => ({ ...f, current: e.target.value })); setPwErrors(er => ({ ...er, current: undefined })) }}
+                style={{ borderColor: pwErrors.current ? 'var(--secondary)' : 'transparent' }} />
+              {pwErrors.current && <p style={{ color: 'var(--secondary)', fontSize: '0.78rem', marginTop: '0.2rem' }}>{pwErrors.current}</p>}
+            </div>
+            <div className="form-group">
+              <label className="form-label">New Password</label>
+              <input type="password" placeholder="Min. 8 characters" value={pwForm.newPw}
+                onChange={e => { setPwForm(f => ({ ...f, newPw: e.target.value })); setPwErrors(er => ({ ...er, newPw: undefined })) }}
+                style={{ borderColor: pwErrors.newPw ? 'var(--secondary)' : 'transparent' }} />
+              {pwErrors.newPw && <p style={{ color: 'var(--secondary)', fontSize: '0.78rem', marginTop: '0.2rem' }}>{pwErrors.newPw}</p>}
+            </div>
+            <div className="form-group">
+              <label className="form-label">Confirm New Password</label>
+              <input type="password" placeholder="Repeat new password" value={pwForm.confirm}
+                onChange={e => { setPwForm(f => ({ ...f, confirm: e.target.value })); setPwErrors(er => ({ ...er, confirm: undefined })) }}
+                style={{ borderColor: pwErrors.confirm ? 'var(--secondary)' : 'transparent' }} />
+              {pwErrors.confirm && <p style={{ color: 'var(--secondary)', fontSize: '0.78rem', marginTop: '0.2rem' }}>{pwErrors.confirm}</p>}
+            </div>
+            <div className="full-width" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button variant="primary" type="submit">Update Password</Button>
+            </div>
+          </form>
+        </Card>
+
+        {/* Danger Zone */}
+        <Card style={{ border: '1px solid rgba(211,17,33,0.25)', background: 'rgba(211,17,33,0.03)' }}>
+          <h3 style={{ color: 'var(--secondary)', marginBottom: '0.5rem' }}>Danger Zone</h3>
+          <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.9rem', marginBottom: '1.25rem' }}>
+            Permanently delete your account and all associated data. This action cannot be undone.
+          </p>
+          <Button variant="secondary" style={{ color: 'var(--secondary)', borderColor: 'var(--secondary)' }}
+            onClick={() => showToast('Please contact Lewis support to delete your account.')}>
+            Delete Account
+          </Button>
+        </Card>
+      </section>
+    </main>
+  )
+}
