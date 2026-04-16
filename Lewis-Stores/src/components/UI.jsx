@@ -63,7 +63,7 @@ export function TopNav({ links }) {
 
   const openSearch = () => {
     setSearchOpen(true)
-    setTimeout(() => inputRef.current?.focus(), 0)
+    requestAnimationFrame(() => inputRef.current?.focus())
   }
 
   const handleBlur = () => {

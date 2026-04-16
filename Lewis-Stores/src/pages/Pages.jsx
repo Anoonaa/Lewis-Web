@@ -66,10 +66,10 @@ export function HomePage() {
   const featured = products.filter(p => p.tag === 'Best Seller' || p.tag === 'On Sale').slice(0, 8)
 
   const searchResults = searchQuery
-    ? products.filter(p =>
-        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.description.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+    ? products.filter(p => {
+        const q = searchQuery.toLowerCase()
+        return p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)
+      })
     : []
 
   if (searchQuery) {
