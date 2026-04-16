@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Furniture Collection | Lewis Group</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#747684",
+                    "surface-tint": "#3557bc",
+                    "surface": "#f9f9fc",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-secondary": "#ffffff",
+                    "background": "#f9f9fc",
+                    "secondary-container": "#e51d24",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f0f0f3",
+                    "surface-bright": "#f9f9fc",
+                    "error-container": "#ffdad6",
+                    "on-surface-variant": "#444653",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#003399",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary-fixed-variant": "#153ea3",
+                    "primary": "#002068",
+                    "on-background": "#1a1c1e",
+                    "tertiary-fixed-dim": "#adcbda",
+                    "surface-container-high": "#e8e8ea",
+                    "primary-fixed": "#dce1ff",
+                    "on-primary-fixed": "#00164e",
+                    "secondary-fixed": "#ffdad6",
+                    "secondary": "#bb0014",
+                    "on-primary-container": "#8aa4ff",
+                    "tertiary": "#0b2b37",
+                    "on-secondary-fixed": "#410002",
+                    "outline-variant": "#c4c5d5",
+                    "surface-container-low": "#f3f3f6",
+                    "on-tertiary-container": "#8fadbc",
+                    "on-surface": "#1a1c1e",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "surface-dim": "#dadadc",
+                    "tertiary-container": "#24414e",
+                    "surface-container": "#eeeef0",
+                    "inverse-surface": "#2f3133",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#b5c4ff",
+                    "on-tertiary-fixed-variant": "#2e4b57",
+                    "on-secondary-fixed-variant": "#93000d",
+                    "inverse-primary": "#b5c4ff",
+                    "surface-variant": "#e2e2e5",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#001f2a",
+                    "tertiary-fixed": "#c9e7f7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition { transition: background-color 0.3s ease; }
+        .glass-header { backdrop-filter: blur(20px); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container/30">
+<!-- TopAppBar Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-md tonal-transition bg-slate-50 flex justify-between items-center px-8 h-20 max-w-full mx-auto shadow-xl shadow-slate-900/5">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tight text-blue-900 font-headline">Lewis Group</span>
+<div class="hidden md:flex items-center space-x-6">
+<a class="text-blue-900 border-b-4 border-red-700 pb-1 rounded-sm font-headline font-bold" href="#">Furniture</a>
+<a class="text-slate-600 font-medium hover:text-blue-900 transition-colors" href="#">Appliances</a>
+<a class="text-slate-600 font-medium hover:text-blue-900 transition-colors" href="#">Electronics</a>
+<a class="text-slate-600 font-medium hover:text-blue-900 transition-colors" href="#">Home Decor</a>
+<a class="text-slate-600 font-medium hover:text-blue-900 transition-colors" href="#">Promotions</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/15">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm ml-2 w-64" placeholder="Search curated styles..." type="text"/>
+</div>
+<button class="p-2 hover:bg-slate-100/50 transition-all duration-300 rounded-full active:scale-95">
+<span class="material-symbols-outlined text-blue-900" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="p-2 hover:bg-slate-100/50 transition-all duration-300 rounded-full active:scale-95">
+<span class="material-symbols-outlined text-blue-900" data-icon="person">person</span>
+</button>
+</div>
+</nav>
+<main class="pt-24 pb-20 px-8">
+<!-- Hero Section Title -->
+<header class="mb-12">
+<h1 class="text-4xl md:text-5xl font-bold font-headline text-primary tracking-tight mb-2">Curated Living</h1>
+<p class="text-outline max-w-2xl">Discover furniture that defines architectural elegance. Each piece is hand-selected to bring editorial authority to your home environment.</p>
+</header>
+<div class="flex gap-12">
+<!-- Sidebar Filters -->
+<aside class="hidden lg:block w-72 shrink-0">
+<div class="sticky top-28 space-y-8">
+<div>
+<h3 class="font-headline font-semibold text-lg text-primary mb-4">Category</h3>
+<ul class="space-y-3">
+<li class="flex items-center justify-between group cursor-pointer">
+<span class="text-on-surface-variant group-hover:text-primary transition-colors">Living Room</span>
+<span class="text-label-md text-outline">24</span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<span class="text-on-surface-variant group-hover:text-primary transition-colors">Bedroom</span>
+<span class="text-label-md text-outline">18</span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<span class="text-on-surface-variant group-hover:text-primary transition-colors">Dining</span>
+<span class="text-label-md text-outline">12</span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<span class="text-on-surface-variant group-hover:text-primary transition-colors">Office</span>
+<span class="text-label-md text-outline">9</span>
+</li>
+</ul>
+</div>
+<div>
+<h3 class="font-headline font-semibold text-lg text-primary mb-4">Price Range</h3>
+<div class="px-2">
+<input class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+<div class="flex justify-between mt-2 text-label-md text-outline">
+<span>R1,000</span>
+<span>R50,000+</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-headline font-semibold text-lg text-primary mb-4">Brand</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="rounded-sm border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-on-surface-variant">Signature Series</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="rounded-sm border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-on-surface-variant">Nordic Loft</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="rounded-sm border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-on-surface-variant">Heritage Oak</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-headline font-semibold text-lg text-primary mb-4">Aesthetic Colors</h3>
+<div class="flex flex-wrap gap-3">
+<button class="w-8 h-8 rounded-full bg-slate-900 border-2 border-transparent hover:border-outline transition-all"></button>
+<button class="w-8 h-8 rounded-full bg-stone-300 border-2 border-transparent hover:border-outline transition-all"></button>
+<button class="w-8 h-8 rounded-full bg-amber-900 border-2 border-transparent hover:border-outline transition-all"></button>
+<button class="w-8 h-8 rounded-full bg-blue-900 border-2 border-transparent hover:border-outline transition-all"></button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<section class="flex-1">
+<!-- Toolbar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+<p class="text-outline">Showing <span class="text-on-surface font-semibold">12</span> of 148 products</p>
+<div class="flex items-center gap-4">
+<span class="text-label-md text-outline uppercase tracking-wider">Sort By</span>
+<select class="bg-surface-container-low border-none rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-primary/20">
+<option>Most Popular</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Newest Arrivals</option>
+</select>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
+<!-- Card 1 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="minimalist dark green velvet sofa with gold metal legs in a bright white modern living room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg0OgDIGIqPASgRCNEGfAYGU0iy9_Ve1dkkNzqoEmfG1urdPICGjQxmHY-Ir_GkffzAZXdjPLaAanscKS2_ZReE_630ily-OSeGJt_eclT-L4KaTQK5h3svyY9Cs1XVjLnJlJ_sNCTGoHdArU9uQBVR9XMQrB32ss5cS9wvA260NGN8BeCah8vNUf4Ae2FWR6m-7wOqfMR67TfsEp8-BkMOXgF-Z67_R69g0sC7UygamIqX3sycVLIBcx53_1VFr22qWCnJmNBJg-Q"/>
+<button class="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-full shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="favorite">favorite</span>
+</button>
+<div class="absolute bottom-4 left-4">
+<span class="bg-secondary px-3 py-1 text-[10px] font-bold text-white uppercase tracking-tighter rounded-sm">Limited Edition</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold font-headline text-primary mb-1">Emerald Sovereign Sofa</h3>
+<p class="text-sm text-outline mb-4 line-clamp-2">Hand-tufted Italian velvet with architectural reinforced frame.</p>
+<div class="flex items-center justify-between">
+<span class="text-xl font-bold text-primary">R14,999</span>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="architectural wooden chair with woven seat in a gallery-like space with dramatic shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSTn3pzUesh-xjw2V4rBcwHGtn-17OWI23quJLxVhdj2gqyiLJhbwyV-u-p7836suoGK_vze0O2d-jDj_NN_vl2wTslnVz-KM4Sp6gBUd0qswwMk-J-pJXX0KmRJAMlZcx1YPNHR9ftijb1jMMH3CI8BO0riaB7i3ontQ5YJreHJCVYYqojOdYQm8OQof-VNs5H7wjzNZOCx1NsTYFvCVCiaTu6OpOSqUuRumncLS0E84774KTZaMV3-go55qTTQNB9sgDjGmKHZOw"/>
+<button class="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-full shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold font-headline text-primary mb-1">Oslo Ash Lounge Chair</h3>
+<p class="text-sm text-outline mb-4 line-clamp-2">Natural ash wood with hand-woven paper cord seat detailing.</p>
+<div class="flex items-center justify-between">
+<span class="text-xl font-bold text-primary">R4,250</span>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="sleek modern desk with white surface and wood accents in a sunlit minimal office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnWeLQw_1HKvFYQmGjrDX7fUuwiNXHTnj6oldTQvXzdQoy2auW2aGBoroq6JWrseJGWisAyFgbayQ7cIVmK8GAYVd8qJjH3BiTibyN4oTnLCCIOUPt6z70LF-XNSj64iI91CBlkLKbv0yL57iFYoIRGR86pIk02sIwhCnar2cYNciYlZ55-Kniwp_MpfYPEmxZeG3lr9WhjmJwj2sJrSv59arXBI3WDFKV3bkWkjos5fkjt57qnPI5KUHqIjo67ONLedBlIo-FK4pV"/>
+<button class="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-full shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold font-headline text-primary mb-1">Atelier Studio Desk</h3>
+<p class="text-sm text-outline mb-4 line-clamp-2">Anti-glare surface finish with integrated cable management.</p>
+<div class="flex items-center justify-between">
+<span class="text-xl font-bold text-primary">R8,800</span>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Repeat for 12+ items (Simulated Grid) -->
+<!-- Card 4 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="minimalist white bed frame with neutral linens in a soft airy bedroom setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-dSaBFh7rnS95KJjxLdjbo6LKdT4gsk3PHEvYWyLPI3w9N3kw0cElKk3e8UygWJrnKMxqvFtAVEqLWdR4H4Q5q0kdX42oU3FTQpgnJIOtcnpVO7_v49Dr9cTd6sWvI5BwKxQs3HL8YSnS1WI12OU8MlVfLvgoKo0LcVDGRkXXS3mGoU4wX_5vtohDslRwSRyuHNRvg_tL67j-qbDPdmw1BiiPogByIEJcgLzLRQXIUdAOXK8wUw5g7R-WY_o-yzecoEzZh3vN707V"/>
+<button class="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-full shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold font-headline text-primary mb-1">Cloud Modular Bed</h3>
+<p class="text-sm text-outline mb-4 line-clamp-2">Ultra-low profile design with integrated bedside shelving.</p>
+<div class="flex items-center justify-between">
+<span class="text-xl font-bold text-primary">R12,400</span>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="dark walnut wood coffee table with clean lines and a sculptural base" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrrKkJNjR-uB5K4Ffd2XKYmBLo1f10sidaJx3Nv85Kbt6vTL4bIIQZyh12vvlBG9dA3ZCdwNohPBtGBYLqE35AvGjzjVUiDaqALT2ytOPXZ3pKiYUYu5b5c6HO3VWz-yJT2-ee5mNdxfD_VN-scJDQCS2cSPvNXPPwFO5fDy1ZA4_aje109NCbyAnZ9ZYWxfwuBnNVGIOkhVwECdff52yHRWxADtgYdzTngl998aY7JMjdeGyt8IeNXFkltae7vKcxN7RYFohw0T2F"/>
+<button class="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-full shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold font-headline text-primary mb-1">Walnut Monolith Table</h3>
+<p class="text-sm text-outline mb-4 line-clamp-2">Solid walnut construction with invisible seam joinery.</p>
+<div class="flex items-center justify-between">
+<span class="text-xl font-bold text-primary">R5,900</span>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1">
+<div class="relative aspect-[4/5] overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="contemporary kitchen with light wood cabinetry and high end finishes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARzSDBCZRPkvqDmYywM6n1bD6pOorwl5D_s0JFBIiDR-qL18JTVzbhWHKxZr8o5QSR1IGPSMrBtMp4zqdBmLT6KgKjZN_C-UL0oqPgTI9GkBn8Mc0u9htvhN2GRJup4trzdZwNaaMSrcwvoASSTi9vbhCBz8YARaJEUususj1IdcC84UtuW1HxSJnBIVrPCSQDs129ANFVb7eg8rp4NEY06RUFLtZoC0zfN0hTlyHnRZc4Pij-HReQA-h6SrsLjhDYD4duGBzYgzaY"/>
+<button class="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-full shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<h3 class="text-lg font-semibold font-headline text-primary mb-1">Nordic Dining Suite</h3>
+<p class="text-sm text-outline mb-4 line-clamp-2">Set of 6 chairs and expandable table for editorial hosting.</p>
+<div class="flex items-center justify-between">
+<span class="text-xl font-bold text-primary">R22,500</span>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Placeholder for the rest of 12 items to ensure layout flow -->
+<div class="hidden xl:block col-span-3 py-12 text-center border-t border-outline-variant/10">
+<button class="bg-white border border-outline-variant/30 text-primary px-12 py-3 rounded-full font-semibold hover:bg-slate-50 transition-all active:scale-98">
+                            Load More Collections
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer Shell -->
+<footer class="w-full mt-20 bg-slate-100 tonal-transition bg-slate-200">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 w-full">
+<div class="col-span-1 md:col-span-1">
+<span class="text-lg font-bold text-blue-900 mb-4 block font-headline">Lewis Group</span>
+<p class="text-slate-500 text-sm mb-6 leading-relaxed">Defining the landscape of modern retail through curated collections and premium craftsmanship since 1934.</p>
+</div>
+<div>
+<h4 class="font-bold text-blue-900 mb-6 font-headline">Quick Links</h4>
+<ul class="space-y-3 font-inter text-sm">
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Store Locator</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Customer Service</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Careers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-blue-900 mb-6 font-headline">Legal</h4>
+<ul class="space-y-3 font-inter text-sm">
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Terms of Use</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-blue-900 mb-6 font-headline">Newsletter</h4>
+<div class="flex gap-2">
+<input class="bg-white border-none rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 w-full" placeholder="email@example.com" type="email"/>
+<button class="bg-primary text-white p-2 rounded-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="px-12 py-8 border-t border-slate-300/30 text-center">
+<p class="font-inter text-sm text-slate-500">© 2024 Lewis Group. All rights reserved. Editorial Authority in Retail.</p>
+</div>
+</footer>
+<!-- Mobile Bottom Navigation (Visible only on small screens) -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md h-16 flex items-center justify-around z-50 border-t border-outline-variant/10">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">search</span>
+<span class="text-[10px]">Explore</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-[10px]">Wishlist</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px]">Account</span>
+</button>
+</div>
+</body></html>

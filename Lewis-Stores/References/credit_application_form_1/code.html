@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lewis Group | Credit Application</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#fffbff",
+                        "on-surface-variant": "#444653",
+                        "tertiary": "#0b2b37",
+                        "surface-bright": "#f9f9fc",
+                        "background": "#f9f9fc",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#2e4b57",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#001f2a",
+                        "surface-variant": "#e2e2e5",
+                        "primary-fixed-dim": "#b5c4ff",
+                        "tertiary-container": "#24414e",
+                        "surface-container-high": "#e8e8ea",
+                        "primary": "#002068",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1a1c1e",
+                        "on-primary-fixed": "#00164e",
+                        "outline-variant": "#c4c5d5",
+                        "tertiary-fixed": "#c9e7f7",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#ffdad6",
+                        "secondary": "#bb0014",
+                        "on-primary-fixed-variant": "#153ea3",
+                        "secondary-container": "#e51d24",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#adcbda",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-tertiary-container": "#8fadbc",
+                        "on-secondary-fixed-variant": "#93000d",
+                        "surface-container-low": "#f3f3f6",
+                        "on-secondary-fixed": "#410002",
+                        "inverse-surface": "#2f3133",
+                        "surface": "#f9f9fc",
+                        "outline": "#747684",
+                        "on-primary-container": "#8aa4ff",
+                        "inverse-on-surface": "#f0f0f3",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#3557bc",
+                        "inverse-primary": "#b5c4ff",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eeeef0",
+                        "primary-container": "#003399",
+                        "primary-fixed": "#dce1ff",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "surface-dim": "#dadadc",
+                        "on-background": "#1a1c1e",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+        }
+        .signature-gradient {
+            background: linear-gradient(135deg, #002068 0%, #003399 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center px-8 h-20 max-w-7xl mx-auto w-full">
+<div class="text-2xl font-bold tracking-tight text-blue-900 dark:text-blue-100 font-headline">Lewis Group</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-headline font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 transition-colors" href="#">Catalog</a>
+<a class="font-headline font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 transition-colors" href="#">Stores</a>
+<a class="font-headline font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 transition-colors" href="#">Support</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-blue-900 dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+<button class="p-2 text-blue-900 dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+</div>
+</nav>
+<div class="flex pt-20 min-h-screen">
+<!-- Side Navigation Shell (Progress Indicator) -->
+<aside class="hidden lg:flex flex-col gap-2 p-6 fixed left-0 top-20 h-screen w-64 bg-slate-50 dark:bg-slate-950">
+<div class="mb-8">
+<div class="text-lg font-bold text-blue-900 dark:text-blue-400 font-headline">Credit Portal</div>
+<div class="text-xs text-slate-500 font-label">Application Ref: #8821</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 bg-white dark:bg-slate-800 text-blue-900 dark:text-blue-200 font-bold rounded-lg p-3 transition-all duration-200 ease-in-out hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label text-sm">Personal</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 ease-in-out hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label text-sm">Application</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 ease-in-out hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label text-sm">Financial</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 ease-in-out hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+<span class="font-label text-sm">Status</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 lg:ml-64 p-8 md:p-12 max-w-5xl mx-auto w-full">
+<div class="mb-12">
+<h1 class="text-4xl md:text-5xl font-headline font-bold text-primary tracking-tight mb-4">Personal &amp; Financial Details</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl">To provide you with the best credit options, please complete the first stage of your application with accurate information.</p>
+</div>
+<!-- Form Section: Bento Style Layout -->
+<form class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Personal Identity Card -->
+<div class="md:col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-sm space-y-6">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="id_card">id_card</span>
+<h2 class="text-xl font-headline font-semibold text-on-surface">Identity Information</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-xs font-label font-medium uppercase tracking-wider text-outline">Full Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="Johnathan Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-label font-medium uppercase tracking-wider text-outline">ID / Passport Number</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="900101 5000 081" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+<div class="space-y-2">
+<label class="block text-xs font-label font-medium uppercase tracking-wider text-outline">Email Address</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="john.doe@example.com" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-label font-medium uppercase tracking-wider text-outline">Mobile Number</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="+27 82 000 0000" type="tel"/>
+</div>
+</div>
+</div>
+<!-- Employment Status Card -->
+<div class="md:col-span-4 bg-surface-container-lowest p-8 rounded-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="work">work</span>
+<h2 class="text-xl font-headline font-semibold text-on-surface">Employment</h2>
+</div>
+<div class="space-y-4">
+<label class="block text-xs font-label font-medium uppercase tracking-wider text-outline">Current Status</label>
+<div class="space-y-2">
+<label class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg cursor-pointer hover:bg-surface-container transition-colors">
+<input class="text-primary focus:ring-primary border-outline-variant" name="employment" type="radio"/>
+<span class="text-sm font-medium">Permanently Employed</span>
+</label>
+<label class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg cursor-pointer hover:bg-surface-container transition-colors">
+<input class="text-primary focus:ring-primary border-outline-variant" name="employment" type="radio"/>
+<span class="text-sm font-medium">Self-Employed</span>
+</label>
+<label class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg cursor-pointer hover:bg-surface-container transition-colors">
+<input class="text-primary focus:ring-primary border-outline-variant" name="employment" type="radio"/>
+<span class="text-sm font-medium">Contract Basis</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Financial Breakdown Card -->
+<div class="md:col-span-12 bg-white p-10 rounded-xl shadow-sm">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance_wallet">account_balance_wallet</span>
+<h2 class="text-xl font-headline font-semibold text-on-surface">Monthly Financial Snapshot</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<div class="space-y-3">
+<label class="block text-xs font-label font-medium uppercase tracking-wider text-outline">Gross Monthly Income</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-primary">R</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-10 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="25,000" type="number"/>
+</div>
+<p class="text-[10px] text-outline italic">Total before taxes and deductions</p>
+</div>
+<div class="space-y-3">
+<label class="block text-xs font-label font-medium uppercase tracking-wider text-outline">Net Monthly Income</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-primary">R</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-10 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="18,500" type="number"/>
+</div>
+<p class="text-[10px] text-outline italic">Your take-home pay</p>
+</div>
+<div class="space-y-3">
+<label class="block text-xs font-label font-medium uppercase tracking-wider text-outline">Estimated Expenses</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-secondary">R</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-10 focus:ring-2 focus:ring-secondary/50 focus:bg-surface-container-lowest transition-all" placeholder="9,000" type="number"/>
+</div>
+<p class="text-[10px] text-outline italic">Rent, insurance, food, and bills</p>
+</div>
+</div>
+</div>
+<!-- Footer / Actions -->
+<div class="md:col-span-12 flex flex-col md:flex-row justify-between items-center py-6 gap-6">
+<div class="flex items-center gap-4 text-outline-variant">
+<span class="material-symbols-outlined text-3xl" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<p class="text-sm font-label max-w-xs">Your data is encrypted and processed according to our strict Privacy Policy guidelines.</p>
+</div>
+<button class="signature-gradient text-on-primary font-headline font-bold px-10 py-5 rounded-lg flex items-center gap-3 shadow-lg hover:shadow-primary/20 transition-all active:scale-95 group" type="submit">
+                        Next Step
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</form>
+</main>
+</div>
+<!-- Footer Shell -->
+<footer class="w-full py-12 px-8 bg-slate-100 dark:bg-slate-950 border-t border-slate-200/15 dark:border-slate-800/15">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
+<div class="text-slate-500 dark:text-slate-400 font-label text-xs uppercase tracking-wider">
+                © 2024 Lewis Group. Authorized Financial Services Provider.
+            </div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-label text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-red-700 dark:hover:text-red-400 transition-colors" href="#">Privacy Policy</a>
+<a class="font-label text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-red-700 dark:hover:text-red-400 transition-colors" href="#">Terms of Service</a>
+<a class="font-label text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-red-700 dark:hover:text-red-400 transition-colors" href="#">Compliance</a>
+<a class="font-label text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-red-700 dark:hover:text-red-400 transition-colors" href="#">Contact Us</a>
+</div>
+</div>
+</footer>
+</body></html>

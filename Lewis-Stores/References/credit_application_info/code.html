@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#fffbff",
+                        "on-surface-variant": "#444653",
+                        "tertiary": "#0b2b37",
+                        "surface-bright": "#f9f9fc",
+                        "background": "#f9f9fc",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#2e4b57",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#001f2a",
+                        "surface-variant": "#e2e2e5",
+                        "primary-fixed-dim": "#b5c4ff",
+                        "tertiary-container": "#24414e",
+                        "surface-container-high": "#e8e8ea",
+                        "primary": "#002068",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1a1c1e",
+                        "on-primary-fixed": "#00164e",
+                        "outline-variant": "#c4c5d5",
+                        "tertiary-fixed": "#c9e7f7",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#ffdad6",
+                        "secondary": "#bb0014",
+                        "on-primary-fixed-variant": "#153ea3",
+                        "secondary-container": "#e51d24",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#adcbda",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-tertiary-container": "#8fadbc",
+                        "on-secondary-fixed-variant": "#93000d",
+                        "surface-container-low": "#f3f3f6",
+                        "on-secondary-fixed": "#410002",
+                        "inverse-surface": "#2f3133",
+                        "surface": "#f9f9fc",
+                        "outline": "#747684",
+                        "on-primary-container": "#8aa4ff",
+                        "inverse-on-surface": "#f0f0f3",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#3557bc",
+                        "inverse-primary": "#b5c4ff",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eeeef0",
+                        "primary-container": "#003399",
+                        "primary-fixed": "#dce1ff",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "surface-dim": "#dadadc",
+                        "on-background": "#1a1c1e",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .signature-gradient {
+            background: linear-gradient(135deg, #002068 0%, #003399 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface selection:bg-primary-fixed selection:text-primary">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 w-full z-50 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md shadow-sm">
+<nav class="flex justify-between items-center px-8 h-20 max-w-7xl mx-auto w-full">
+<div class="text-2xl font-bold tracking-tight text-blue-900 dark:text-blue-100 font-headline">Lewis Group</div>
+<div class="hidden md:flex items-center gap-8 font-['Manrope'] font-semibold">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 transition-colors" href="#">Catalog</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 transition-colors" href="#">Stores</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 transition-colors" href="#">Support</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-blue-900 dark:text-blue-400">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-blue-900 dark:text-blue-400">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+</nav>
+</header>
+<main class="pt-20">
+<!-- Hero Section: The Gallery Intro -->
+<section class="relative min-h-[819px] flex items-center overflow-hidden bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-12 items-center w-full py-20">
+<div class="z-10">
+<span class="inline-block px-4 py-1.5 mb-6 text-sm font-bold uppercase tracking-widest text-secondary bg-secondary-fixed rounded-full font-label">Financing Excellence</span>
+<h1 class="text-5xl lg:text-7xl font-bold font-headline text-primary leading-[1.1] mb-8 tracking-tight">
+                        Furnish Your <br/> Dream Home <br/> Today.
+                    </h1>
+<p class="text-lg text-on-surface-variant mb-10 max-w-lg leading-relaxed">
+                        Experience the freedom of premium credit. Access architectural furniture and world-class appliances with flexible monthly installments tailored to your lifestyle.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="signature-gradient text-on-primary px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all active:scale-95">
+                            Apply Now
+                        </button>
+<button class="px-8 py-4 rounded-lg font-bold text-lg text-primary outline outline-variant/20 hover:bg-surface-container-lowest transition-all">
+                            View Terms
+                        </button>
+</div>
+</div>
+<div class="relative lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+<img alt="Modern luxury living room with high-end architectural furniture and warm cinematic lighting" class="w-full h-full object-cover" data-alt="Modern luxury living room with minimalist green velvet sofa, architectural floor lamp, and warm cinematic evening sunlight through large windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU2hKL7yub2_-TFvcG5wuuyNxgt0Yv-DRKngm8nzbejCdYPAjkSIlf4ympyifRQ42oyW1khynLVLYYIEidg3hj3JUCh24ItwZKzkfx8sE67P1aZ9Br9GAPhoo9rHIF5xM3z51E6ViWIVQrNo4KJrCvzJS5Uml4pbOLciKmxBPJfX0ku9r0NzIE21PisWZko5vuJK1fUiXg7rua-A3Y_EU0D-JufJ-vgCTO_5tEtFt2nDSOrzXDant_NNoCnlvFe5-vQYaSxb5jOAh8"/>
+</div>
+</div>
+</section>
+<!-- Value Proposition: Why Lewis Credit -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto px-8">
+<div class="text-center mb-20">
+<h2 class="text-3xl lg:text-4xl font-bold font-headline text-primary mb-4">Why Choose Lewis Credit?</h2>
+<div class="h-1 w-20 bg-secondary mx-auto rounded-full"></div>
+</div>
+<div class="grid md:grid-cols-3 gap-12">
+<div class="p-8 rounded-xl bg-surface-container-low transition-all hover:translate-y-[-4px]">
+<span class="material-symbols-outlined text-4xl text-secondary mb-6" data-icon="calendar_today">calendar_today</span>
+<h3 class="text-xl font-bold font-headline text-primary mb-4">Flexible Terms</h3>
+<p class="text-on-surface-variant leading-relaxed">Up to 36 months to pay with payment plans designed to fit your unique financial situation and monthly budget.</p>
+</div>
+<div class="p-8 rounded-xl bg-surface-container-low transition-all hover:translate-y-[-4px]">
+<span class="material-symbols-outlined text-4xl text-secondary mb-6" data-icon="verified_user">verified_user</span>
+<h3 class="text-xl font-bold font-headline text-primary mb-4">Peace of Mind</h3>
+<p class="text-on-surface-variant leading-relaxed">Included insurance cover against unforeseen events, ensuring your family's home remains protected and your lifestyle secure.</p>
+</div>
+<div class="p-8 rounded-xl bg-surface-container-low transition-all hover:translate-y-[-4px]">
+<span class="material-symbols-outlined text-4xl text-secondary mb-6" data-icon="shopping_cart">shopping_cart</span>
+<h3 class="text-xl font-bold font-headline text-primary mb-4">Instant Shopping</h3>
+<p class="text-on-surface-variant leading-relaxed">Once approved, enjoy the immediate freedom to shop across our wide range of furniture, appliances, and electronics.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid: What You Need & How it Works -->
+<section class="py-24 bg-surface">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid lg:grid-cols-12 gap-8">
+<!-- Checklist Card -->
+<div class="lg:col-span-5 bg-primary text-on-primary p-12 rounded-2xl flex flex-col justify-between">
+<div>
+<h2 class="text-3xl font-bold font-headline mb-8">What You Need</h2>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="check_circle">check_circle</span>
+<div>
+<p class="font-bold">Valid Identification</p>
+<p class="text-sm opacity-70">Passport or National ID Card</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="check_circle">check_circle</span>
+<div>
+<p class="font-bold">Proof of Income</p>
+<p class="text-sm opacity-70">Your most recent payslip</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="check_circle">check_circle</span>
+<div>
+<p class="font-bold">Bank Statements</p>
+<p class="text-sm opacity-70">Last 3 months of banking activity</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="mt-12 pt-8 border-t border-white/10">
+<p class="text-sm italic opacity-80">Applications are subject to credit vetting and affordability assessments.</p>
+</div>
+</div>
+<!-- Process Card -->
+<div class="lg:col-span-7 space-y-8">
+<div class="bg-surface-container-highest p-10 rounded-2xl">
+<h2 class="text-3xl font-bold font-headline text-primary mb-10">How It Works</h2>
+<div class="space-y-12">
+<div class="flex gap-8">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xl">1</div>
+<div>
+<h4 class="text-xl font-bold text-primary mb-2">Easy Application</h4>
+<p class="text-on-surface-variant">Complete our digital application form in under 5 minutes from any device.</p>
+</div>
+</div>
+<div class="flex gap-8">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xl">2</div>
+<div>
+<h4 class="text-xl font-bold text-primary mb-2">Rapid Verification</h4>
+<p class="text-on-surface-variant">Our team quickly reviews your documentation to provide a credit limit tailored to you.</p>
+</div>
+</div>
+<div class="flex gap-8">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xl">3</div>
+<div>
+<h4 class="text-xl font-bold text-primary mb-2">Start Shopping</h4>
+<p class="text-on-surface-variant">Visit any Lewis store nationwide or shop online with your new credit account.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA: Minimalist Shell -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-4xl mx-auto px-8 text-center">
+<h2 class="text-4xl font-bold font-headline text-primary mb-6">Ready to upgrade your home?</h2>
+<p class="text-xl text-on-surface-variant mb-12">Apply today and join over 1 million families who trust Lewis for their home furnishing needs.</p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+<button class="signature-gradient text-on-primary px-12 py-5 rounded-lg font-bold text-xl shadow-lg hover:shadow-2xl transition-all w-full sm:w-auto">
+                        Apply Now
+                    </button>
+<p class="text-label-md font-bold text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="speed">speed</span>
+                        Instant Pre-approval
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-slate-100 dark:bg-slate-950 w-full py-12 px-8 border-t border-slate-200/15 dark:border-slate-800/15">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
+<div class="font-['Inter'] text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                © 2024 Lewis Group. Authorized Financial Services Provider.
+            </div>
+<div class="flex gap-8 font-['Inter'] text-xs uppercase tracking-wider">
+<a class="text-slate-500 dark:text-slate-400 hover:text-red-700 dark:hover:text-red-400 transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-red-700 dark:hover:text-red-400 transition-colors" href="#">Terms of Service</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-red-700 dark:hover:text-red-400 transition-colors" href="#">Compliance</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-red-700 dark:hover:text-red-400 transition-colors" href="#">Contact Us</a>
+</div>
+</div>
+</footer>
+</body></html>

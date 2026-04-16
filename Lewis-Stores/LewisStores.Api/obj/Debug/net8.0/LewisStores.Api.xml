@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LewisStores.Api</name>
+    </assembly>
+    <members>
+        <member name="T:LewisStores.Api.Controllers.AuthController">
+            <summary>
+            Handles authentication flows for client applications.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.AuthController.LoginRequest">
+            <summary>
+            Request payload for login operations.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Controllers.AuthController.LoginRequest.Email">
+            <summary>
+            User email used for sign-in.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Controllers.AuthController.LoginRequest.Password">
+            <summary>
+            User password. In this mock API this is accepted for testing.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.AuthController.Login(LewisStores.Api.Controllers.AuthController.LoginRequest)">
+            <summary>
+            Authenticates a user and returns a JWT token for authorized calls.
+            </summary>
+            <remarks>
+            In this mock implementation, users are auto-created when the email does not exist.
+            </remarks>
+            <param name="request">Login credentials.</param>
+            <returns>JWT token and user profile details.</returns>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.CartController">
+            <summary>
+            Manages shopping cart operations.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.CartController.GetCart">
+            <summary>
+            Returns all cart items for the current test cart.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.CartController.AddToCart(LewisStores.Api.Models.CartItem)">
+            <summary>
+            Adds an item to the cart.
+            </summary>
+            <param name="item">Cart item to add.</param>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.CartController.RemoveFromCart(System.Int32)">
+            <summary>
+            Removes a cart item by internal database identifier.
+            </summary>
+            <param name="id">Internal cart item identifier.</param>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.CategoriesController">
+            <summary>
+            Exposes product category endpoints.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.CategoriesController.GetCategories">
+            <summary>
+            Returns all available product categories.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.CreditController">
+            <summary>
+            Handles credit application workflows.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.CreditController.GetApplications">
+            <summary>
+            Returns all submitted credit applications.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.CreditController.Apply(LewisStores.Api.Models.CreditApplication)">
+            <summary>
+            Submits a new credit application.
+            </summary>
+            <param name="application">Credit application payload.</param>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.OrdersController">
+            <summary>
+            Handles order retrieval and creation endpoints.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.OrdersController.GetOrders">
+            <summary>
+            Returns all orders.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.OrdersController.CreateOrder(LewisStores.Api.Models.Order)">
+            <summary>
+            Creates a new order and returns the created resource.
+            </summary>
+            <param name="order">Order payload.</param>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.ProductsController">
+            <summary>
+            Exposes product catalog endpoints.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.ProductsController.GetProducts">
+            <summary>
+            Returns the full list of products.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.ProductsController.GetProduct(System.String)">
+            <summary>
+            Returns a single product by identifier.
+            </summary>
+            <param name="id">Product identifier.</param>
+        </member>
+        <member name="T:LewisStores.Api.Models.Product">
+            <summary>
+            Product entity shown in catalog and product listing views.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.Id">
+            <summary>
+            Unique product identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.Title">
+            <summary>
+            Display title for the product.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.Description">
+            <summary>
+            Product description text.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.Price">
+            <summary>
+            Current selling price.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.OldPrice">
+            <summary>
+            Previous price used for promotions, when available.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.Tag">
+            <summary>
+            Optional promotional label, such as New or Sale.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.Rating">
+            <summary>
+            Average customer rating.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.Category">
+            <summary>
+            Category used to organize product catalog sections.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Category.Id">
+            <summary>
+            Unique category identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Category.Name">
+            <summary>
+            Category display name.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Category.Description">
+            <summary>
+            Category description text.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Category.To">
+            <summary>
+            UI route destination associated with the category.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Category.Tone">
+            <summary>
+            Visual tone identifier used by the frontend.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.CartItem">
+            <summary>
+            Cart line item representing a selected product and quantity.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CartItem.InternalId">
+            <summary>
+            Internal database key for the cart item.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CartItem.Id">
+            <summary>
+            Product identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CartItem.Title">
+            <summary>
+            Product title at the time it was added to cart.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CartItem.Variant">
+            <summary>
+            Selected product variant.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CartItem.Quantity">
+            <summary>
+            Number of units in the cart.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CartItem.Price">
+            <summary>
+            Unit price at time of cart update.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.Order">
+            <summary>
+            Customer order summary model.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Order.Id">
+            <summary>
+            Order identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Order.Date">
+            <summary>
+            Human-readable order date.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Order.Status">
+            <summary>
+            Current order status.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Order.Total">
+            <summary>
+            Final order total amount.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.User">
+            <summary>
+            Application user model used for mock authentication.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.User.Id">
+            <summary>
+            User identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.User.Email">
+            <summary>
+            User email address.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.User.Password">
+            <summary>
+            User password for mock login only.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.User.Role">
+            <summary>
+            User role used in authorization claims.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.CreditApplication">
+            <summary>
+            Credit application submitted by a user.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CreditApplication.Id">
+            <summary>
+            Numeric database identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CreditApplication.UserId">
+            <summary>
+            Associated user identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CreditApplication.Status">
+            <summary>
+            Current credit application status.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CreditApplication.ApplicationDate">
+            <summary>
+            UTC timestamp when the application was submitted.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CreditApplication.IdNumber">
+            <summary>
+            National ID number supplied by the applicant.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CreditApplication.EmploymentStatus">
+            <summary>
+            Applicant employment status.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CreditApplication.MonthlyIncome">
+            <summary>
+            Applicant's monthly income amount.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.CreditApplication.MonthlyExpenses">
+            <summary>
+            Applicant's monthly expenses amount.
+            </summary>
+        </member>
+    </members>
+</doc>

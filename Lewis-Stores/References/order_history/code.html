@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order History | Lewis Group</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#3557bc",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f9f9fc",
+                    "on-secondary-container": "#fffbff",
+                    "tertiary-fixed": "#c9e7f7",
+                    "tertiary-container": "#24414e",
+                    "on-surface": "#1a1c1e",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "secondary": "#bb0014",
+                    "on-tertiary-fixed-variant": "#2e4b57",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#410002",
+                    "surface-container-low": "#f3f3f6",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#93000d",
+                    "on-surface-variant": "#444653",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeef0",
+                    "primary": "#002068",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#0b2b37",
+                    "on-tertiary-fixed": "#001f2a",
+                    "surface-container-high": "#e8e8ea",
+                    "on-primary-container": "#8aa4ff",
+                    "inverse-primary": "#b5c4ff",
+                    "inverse-on-surface": "#f0f0f3",
+                    "surface-container-lowest": "#ffffff",
+                    "on-background": "#1a1c1e",
+                    "primary-fixed-dim": "#b5c4ff",
+                    "outline": "#747684",
+                    "primary-fixed": "#dce1ff",
+                    "on-primary-fixed-variant": "#153ea3",
+                    "tertiary-fixed-dim": "#adcbda",
+                    "background": "#f9f9fc",
+                    "inverse-surface": "#2f3133",
+                    "surface-dim": "#dadadc",
+                    "secondary-container": "#e51d24",
+                    "outline-variant": "#c4c5d5",
+                    "surface-variant": "#e2e2e5",
+                    "primary-container": "#003399",
+                    "on-primary-fixed": "#00164e",
+                    "surface": "#f9f9fc",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-tertiary-container": "#8fadbc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-gradient {
+            background: linear-gradient(135deg, #002068 0%, #003399 100%);
+        }
+        .glass-header {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md shadow-sm dark:shadow-none">
+<nav class="flex justify-between items-center px-8 py-4 max-w-full mx-auto">
+<div class="text-2xl font-bold tracking-tight text-[#002068] dark:text-white font-headline">
+                Lewis Group
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#002068] dark:hover:text-white font-inter text-sm transition-colors" href="#">Showroom</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#002068] dark:hover:text-white font-inter text-sm transition-colors" href="#">Collections</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#002068] dark:hover:text-white font-inter text-sm transition-colors" href="#">Services</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#002068] dark:hover:text-white font-inter text-sm transition-colors" href="#">Journal</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:block relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 w-64" placeholder="Search collection..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-50/50 dark:hover:bg-slate-800/50 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[#002068] dark:text-[#e0e1e9]">shopping_bag</span>
+</button>
+<button class="p-2 hover:bg-slate-50/50 dark:hover:bg-slate-800/50 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[#002068] dark:text-[#e0e1e9]">person</span>
+</button>
+</div>
+</div>
+</nav>
+</header>
+<div class="flex min-h-screen pt-20">
+<!-- SideNavBar -->
+<aside class="fixed left-0 h-[calc(100vh-5rem)] w-64 bg-slate-50 dark:bg-slate-950 flex flex-col py-8 gap-2 overflow-y-auto hidden md:flex">
+<div class="px-6 mb-8">
+<h2 class="font-manrope text-lg font-bold text-[#002068] dark:text-white">Welcome back</h2>
+<p class="font-inter text-xs text-slate-500 mt-1">Manage your editorial experience</p>
+</div>
+<nav class="flex flex-col gap-1 pr-4">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform group" href="#">
+<span class="material-symbols-outlined text-xl">person</span>
+<span class="font-inter text-sm font-medium">Personal Info</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 bg-white dark:bg-slate-900 text-[#002068] dark:text-white font-semibold rounded-r-full scale-95 duration-150 transition-transform" href="#">
+<span class="material-symbols-outlined text-xl">history</span>
+<span class="font-inter text-sm font-medium">Order History</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform group" href="#">
+<span class="material-symbols-outlined text-xl">payments</span>
+<span class="font-inter text-sm font-medium">Payment Methods</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform group" href="#">
+<span class="material-symbols-outlined text-xl">local_shipping</span>
+<span class="font-inter text-sm font-medium">Shipping Addresses</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform group" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="font-inter text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-6 pt-8 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man in a minimalist studio setting with soft directional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE1NZTq__r9tmh-2pWj0pVngeijkyws4USXY1074U4LQ7GmUqBwZBqUlkcR55VgUv6VxVn35gc2nNv-r8kO00DJGAeZHpzqedVp6L6L63gVD7_PUYdhLLyBv3eeTzTLNtwov5ZwCnQo_m13y1gSRbwfLdiXt-mHp_ILmScq3uMuJK2ZLrRAe3RmeYDNwFFgjmR9c7yfgaBYsMbAE70bbeVKoyJFqdpKZtiRb8SxGg4jf11z_DBK83u4lKCdrTS8gcYKgUWY0fvvP3M"/>
+</div>
+<div>
+<p class="text-sm font-semibold text-primary dark:text-white">Julian Lewis</p>
+<p class="text-[10px] text-slate-400 uppercase tracking-wider">Premium Member</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 p-8 lg:p-12">
+<header class="max-w-6xl mx-auto mb-12">
+<h1 class="text-4xl font-headline font-bold text-primary dark:text-white mb-2">Order History</h1>
+<p class="text-on-surface-variant font-body">Review and manage your architectural acquisitions and curated furniture pieces.</p>
+</header>
+<div class="max-w-6xl mx-auto space-y-6">
+<!-- Filters & Stats (Bento Style) -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-10">
+<div class="lg:col-span-1 p-6 bg-surface-container-lowest rounded-xl flex flex-col justify-between">
+<span class="text-xs font-label uppercase tracking-widest text-outline">Total Orders</span>
+<div class="mt-4">
+<span class="text-3xl font-headline font-bold text-primary">24</span>
+<span class="text-xs text-secondary font-semibold ml-2">+2 this month</span>
+</div>
+</div>
+<div class="lg:col-span-1 p-6 bg-surface-container-lowest rounded-xl flex flex-col justify-between">
+<span class="text-xs font-label uppercase tracking-widest text-outline">Active Shipments</span>
+<div class="mt-4">
+<span class="text-3xl font-headline font-bold text-primary">03</span>
+</div>
+</div>
+<div class="lg:col-span-2 p-6 bg-surface-container-lowest rounded-xl flex items-center justify-between">
+<div>
+<span class="text-xs font-label uppercase tracking-widest text-outline">Latest Acquisition</span>
+<p class="mt-2 text-lg font-headline font-semibold text-primary">Eames Lounge Chair &amp; Ottoman</p>
+<p class="text-xs text-on-surface-variant">Arrived March 12, 2024</p>
+</div>
+<div class="w-16 h-16 rounded-lg overflow-hidden bg-slate-100">
+<img alt="Latest order thumbnail" class="w-full h-full object-cover" data-alt="Modern designer lounge chair in a brightly lit architectural space with minimalist concrete walls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUGhd6-Nr67DoMPG2PWUbXwLGOlz3lQeY1qJnmuj6MTTs-lNpHgjFfszcKzxC_s44v7Rf67c7NVglsBjlySH2lPLrXL6zROBHfdnC6uGxt_3apKynEaSPvQRLoQegWAZSSPvSGFKv0RRXAWm-y72IcNvBA9XU7i4bDMXth7QPR-PycRxAS3UMV8Kz7QfUaJbTj-E3629DoGlAy6zrKQ_HScqFlnwLuL8lwDNXPV39T3TF7eQsMyIWBP5r9c6n8KUamqYexxRCkC1kM"/>
+</div>
+</div>
+</div>
+<!-- Order Entries -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-8 py-5 font-headline text-xs uppercase tracking-widest text-outline font-semibold">Order ID</th>
+<th class="px-8 py-5 font-headline text-xs uppercase tracking-widest text-outline font-semibold">Date</th>
+<th class="px-8 py-5 font-headline text-xs uppercase tracking-widest text-outline font-semibold">Status</th>
+<th class="px-8 py-5 font-headline text-xs uppercase tracking-widest text-outline font-semibold text-right">Total</th>
+<th class="px-8 py-5 font-headline text-xs uppercase tracking-widest text-outline font-semibold"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Order Row 1 -->
+<tr class="group hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-6">
+<span class="font-inter font-semibold text-primary">#LG-94281</span>
+</td>
+<td class="px-8 py-6 text-on-surface-variant text-sm">March 14, 2024</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                            Shipped
+                                        </span>
+</td>
+<td class="px-8 py-6 text-right font-inter font-bold text-primary">$4,250.00</td>
+<td class="px-8 py-6 text-right">
+<button class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-primary border border-primary/20 rounded-md hover:bg-primary hover:text-white transition-all">
+                                            View Details
+                                        </button>
+</td>
+</tr>
+<!-- Order Row 2 -->
+<tr class="group hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-6">
+<span class="font-inter font-semibold text-primary">#LG-93114</span>
+</td>
+<td class="px-8 py-6 text-on-surface-variant text-sm">Feb 28, 2024</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Delivered
+                                        </span>
+</td>
+<td class="px-8 py-6 text-right font-inter font-bold text-primary">$12,800.00</td>
+<td class="px-8 py-6 text-right">
+<button class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-primary border border-primary/20 rounded-md hover:bg-primary hover:text-white transition-all">
+                                            View Details
+                                        </button>
+</td>
+</tr>
+<!-- Order Row 3 -->
+<tr class="group hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-6">
+<span class="font-inter font-semibold text-primary">#LG-92885</span>
+</td>
+<td class="px-8 py-6 text-on-surface-variant text-sm">Feb 15, 2024</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Delivered
+                                        </span>
+</td>
+<td class="px-8 py-6 text-right font-inter font-bold text-primary">$850.00</td>
+<td class="px-8 py-6 text-right">
+<button class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-primary border border-primary/20 rounded-md hover:bg-primary hover:text-white transition-all">
+                                            View Details
+                                        </button>
+</td>
+</tr>
+<!-- Order Row 4 -->
+<tr class="group hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-6">
+<span class="font-inter font-semibold text-primary">#LG-91402</span>
+</td>
+<td class="px-8 py-6 text-on-surface-variant text-sm">Jan 12, 2024</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                                            Cancelled
+                                        </span>
+</td>
+<td class="px-8 py-6 text-right font-inter font-bold text-primary">$1,200.00</td>
+<td class="px-8 py-6 text-right">
+<button class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-primary border border-primary/20 rounded-md hover:bg-primary hover:text-white transition-all">
+                                            View Details
+                                        </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex justify-between items-center py-6">
+<p class="text-xs text-outline font-inter uppercase tracking-widest">Showing 4 of 24 acquisitions</p>
+<div class="flex gap-2">
+<button class="p-2 rounded-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="px-4 py-2 rounded-md bg-primary text-white text-xs font-bold">1</button>
+<button class="px-4 py-2 rounded-md hover:bg-surface-container text-xs font-bold transition-colors">2</button>
+<button class="px-4 py-2 rounded-md hover:bg-surface-container text-xs font-bold transition-colors">3</button>
+<button class="p-2 rounded-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-8 w-full max-w-full mx-auto">
+<div class="font-inter text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-6 md:mb-0">
+                © 2024 Lewis Group. Architectural Retail Excellence.
+            </div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-inter text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-[#002068] dark:hover:text-white transition-all duration-300" href="#">Privacy Policy</a>
+<a class="font-inter text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-[#002068] dark:hover:text-white transition-all duration-300" href="#">Terms of Service</a>
+<a class="font-inter text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-[#002068] dark:hover:text-white transition-all duration-300" href="#">Shipping Info</a>
+<a class="font-inter text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-[#002068] dark:hover:text-white transition-all duration-300" href="#">Contact Us</a>
+</div>
+</div>
+</footer>
+</body></html>

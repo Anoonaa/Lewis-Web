@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lewis Group - Premium Living</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "outline": "#747684",
+                "surface-tint": "#3557bc",
+                "surface": "#f9f9fc",
+                "surface-container-highest": "#e2e2e5",
+                "on-secondary": "#ffffff",
+                "background": "#f9f9fc",
+                "secondary-container": "#e51d24",
+                "on-error": "#ffffff",
+                "inverse-on-surface": "#f0f0f3",
+                "surface-bright": "#f9f9fc",
+                "error-container": "#ffdad6",
+                "on-surface-variant": "#444653",
+                "surface-container-lowest": "#ffffff",
+                "primary-container": "#003399",
+                "on-tertiary": "#ffffff",
+                "on-primary": "#ffffff",
+                "on-secondary-container": "#fffbff",
+                "on-primary-fixed-variant": "#153ea3",
+                "primary": "#002068",
+                "on-background": "#1a1c1e",
+                "tertiary-fixed-dim": "#adcbda",
+                "surface-container-high": "#e8e8ea",
+                "primary-fixed": "#dce1ff",
+                "on-primary-fixed": "#00164e",
+                "secondary-fixed": "#ffdad6",
+                "secondary": "#bb0014",
+                "on-primary-container": "#8aa4ff",
+                "tertiary": "#0b2b37",
+                "on-secondary-fixed": "#410002",
+                "outline-variant": "#c4c5d5",
+                "surface-container-low": "#f3f3f6",
+                "on-tertiary-container": "#8fadbc",
+                "on-surface": "#1a1c1e",
+                "secondary-fixed-dim": "#ffb4ac",
+                "surface-dim": "#dadadc",
+                "tertiary-container": "#24414e",
+                "surface-container": "#eeeef0",
+                "inverse-surface": "#2f3133",
+                "error": "#ba1a1a",
+                "primary-fixed-dim": "#b5c4ff",
+                "on-tertiary-fixed-variant": "#2e4b57",
+                "on-secondary-fixed-variant": "#93000d",
+                "inverse-primary": "#b5c4ff",
+                "surface-variant": "#e2e2e5",
+                "on-error-container": "#93000a",
+                "on-tertiary-fixed": "#001f2a",
+                "tertiary-fixed": "#c9e7f7"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .tonal-transition { transition: background-color 0.3s ease; }
+        .glass-header { backdrop-filter: blur(20px); }
+        .premium-gradient { background: linear-gradient(135deg, #002068 0%, #003399 100%); }
+        .ghost-border:focus-within { outline: 2px solid #00206815; outline-offset: 2px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e2e5; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-primary">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md shadow-xl shadow-slate-900/5 dark:shadow-none flex justify-between items-center px-8 h-20 max-w-full mx-auto tonal-transition">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-bold tracking-tight text-blue-900 dark:text-blue-50 font-headline">Lewis Group</span>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-blue-900 dark:text-blue-400 border-b-4 border-red-700 dark:border-red-600 pb-1 rounded-sm font-inter font-medium transition-colors" href="#">Furniture</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-900 dark:hover:text-blue-200 transition-colors" href="#">Appliances</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-900 dark:hover:text-blue-200 transition-colors" href="#">Electronics</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-900 dark:hover:text-blue-200 transition-colors" href="#">Home Decor</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-900 dark:hover:text-blue-200 transition-colors" href="#">Promotions</a>
+</div>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative hidden lg:block">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 w-64 focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Search curated collections..." type="text"/>
+</div>
+<button class="hover:bg-slate-100/50 dark:hover:bg-slate-800/50 p-2 rounded-full transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary dark:text-blue-400">shopping_cart</span>
+</button>
+<button class="hover:bg-slate-100/50 dark:hover:bg-slate-800/50 p-2 rounded-full transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary dark:text-blue-400">person</span>
+</button>
+</div>
+</nav>
+<main class="pt-28 pb-20 max-w-7xl mx-auto px-6 lg:px-8">
+<!-- Breadcrumb -->
+<nav class="mb-8 flex items-center space-x-2 text-sm text-outline">
+<a class="hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary" href="#">Furniture</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary" href="#">Living Room</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-on-surface font-semibold">The Kensington Sofa</span>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+<!-- Left: Gallery Component -->
+<div class="lg:col-span-7 flex flex-col md:flex-row gap-6">
+<!-- Thumbnails -->
+<div class="order-2 md:order-1 flex md:flex-col gap-4 overflow-x-auto md:overflow-x-visible">
+<div class="w-20 h-20 flex-shrink-0 rounded-lg bg-surface-container-lowest overflow-hidden ring-2 ring-primary cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="close-up detail of luxurious navy blue velvet upholstery with deep tufting and premium texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUAe2ku1iiDJ6cA6V6xAc87ppTUrDwu4BQ1NxDKYs6098CQg8x0nPd6NLopM-wRHkvJnGSV_SsRzICTducbLxxPLjHVDLohJqGcZ-04kx2MRLm5h2PRhdY9wE2Qw7zNWEMsviK3qFrfVJeIjqpHYQi9UY5aexn520B-FPm9IHJkj9_GorSy4xdiwChRuu5uTo2zM0DcMqP1_sUhSr3qdHsaB83WKtPb1MSgwDBJBiG4gQRKD5RiCRKGTg5RPkB6k3dfJaQkqlReK68"/>
+</div>
+<div class="w-20 h-20 flex-shrink-0 rounded-lg bg-surface-container-lowest overflow-hidden hover:opacity-80 transition-opacity cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="side profile of a modern sofa featuring elegant tapered mahogany wood legs and clean architectural lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiDvxjVatvFs3FlNThxd695IApArf-alePgQDLa7O_aDHjRLmP--HPocmBchs9OcwDoNtwG5Cw_q5qyg-J5kypYQebv0dmbKMstW0R8vuAw_xnF3iAmmiBCjnNYoronzB6SVhuYX-g0onpHorr6ii93IpNmWMsl2dO-72QVFoe7MaYhROP1OQPMBElREU7QAQV8SEJ5OEa82K7mxIPqbkqiGk9spRosbwZES6c5MGNS68HxSla2Gj8HeY6C5Ld2HPOHCfJQ_tqt2l6"/>
+</div>
+<div class="w-20 h-20 flex-shrink-0 rounded-lg bg-surface-container-lowest overflow-hidden hover:opacity-80 transition-opacity cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="wide angle view of the sofa in a minimalist sunlit living room with architectural plants and neutral tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPUzobqruOMDtJJo3wgWFujdryqX7HGDs4xiAoyTleAqp5sxaWPfvSUFVZkyE_g5Sr6GeZ7K4VGsD_zM7Ijw70Bf4_O_g1hSKfrQfRrX4k-f9tgwg9vVwk4t7RkpqNCr2H_1-Isek7OOedFzB8vUiEwXaFUbfqZIxqWDY3Ro-UQXvFRFa5AfUVcaAn3qmlTy2d3Gq98AmzZWftH_oRAWZAgKs9a0tHD0HeoTeglawQy1ioJG61uemn6ZbZm9D37GvMhdoQ-VOC-31z"/>
+</div>
+<div class="w-20 h-20 flex-shrink-0 rounded-lg bg-surface-container-lowest overflow-hidden hover:opacity-80 transition-opacity cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="detailed shot of the back of the sofa showing precise stitching and seamless structural integrity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXo2ujzuAnDxMxn3Mui4VResJLwSqlBxWAgLeqVj4-m3AUoXc9v_Klf5bvjckloIjrrRWXhhksnbCJYiLk-CE3wcBAAJkXdrgkRWdjjhF79DUnptJvEcrx_DO0he7SPLqm6YU8Pn0bZQ5cZJm6E3cBQAzJemXSbCg2wCa2T3Ppii7fpIq9wyrwmaqRLcDKK-hMxBWrOLyp8D17dl9SWAZcFDQ6YoqrCx5jJGuKCk2AYAmZjV5eEn_mOI1J5RpnmA3Q0Ttx2ZNFkjQe"/>
+</div>
+</div>
+<!-- Main Image -->
+<div class="order-1 md:order-2 flex-grow aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-lowest shadow-sm">
+<img class="w-full h-full object-cover" data-alt="large three-seater sofa upholstered in premium navy blue velvet with gold accents in a sophisticated high-end interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFS1RK5i0wOrn92bfi0IxhHkzMngfhGJx-8oZdwuf9xEAVk7PKqIY0VYJ_MyK9-kjdu2IDyIql4wCLjVLeKm4pDtF0wtdLU60BzU0jwGs7NJpabr_YKyHoWt6CPX28VUZaUDEQxZ-Ci755rdnzNN-zH8qQGs9_AB9LbWEYRO0QQFC2MTj27Wsx9picDqoKJGGc08RI9njhcEWIkjD7aL0cLTdnOI-Zcoq4YCz-gT9CA8RPnrx5DcdljTus1TgZYHY6sXI1TIT1-say"/>
+</div>
+</div>
+<!-- Right: Product Info Component -->
+<div class="lg:col-span-5 flex flex-col">
+<span class="text-secondary font-semibold uppercase tracking-widest text-xs mb-2">Exclusive Series</span>
+<h1 class="text-4xl lg:text-5xl font-extrabold font-headline text-primary mb-4 tracking-tight">The Kensington Sofa</h1>
+<div class="flex items-center gap-4 mb-6">
+<div class="flex text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0.5;">star_half</span>
+</div>
+<span class="text-sm font-medium text-outline">(48 Reviews)</span>
+</div>
+<div class="mb-8">
+<span class="text-3xl font-bold text-primary">$2,499.00</span>
+<span class="ml-4 text-outline line-through text-lg font-normal">$3,150.00</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl mb-8">
+<h3 class="text-sm font-semibold text-primary mb-2">Editorial Authority Note</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                        Handcrafted by master artisans, the Kensington features high-density resilient foam wrapped in responsibly sourced Italian velvet. An architectural masterpiece designed for both comfort and command.
+                    </p>
+</div>
+<!-- Selectors -->
+<div class="space-y-8 mb-10">
+<div>
+<label class="block text-xs font-bold uppercase text-outline tracking-wider mb-4">Fabric Color</label>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full bg-primary ring-2 ring-offset-2 ring-primary transition-transform hover:scale-110"></button>
+<button class="w-10 h-10 rounded-full bg-slate-400 hover:scale-110 transition-transform"></button>
+<button class="w-10 h-10 rounded-full bg-[#5d4037] hover:scale-110 transition-transform"></button>
+<button class="w-10 h-10 rounded-full bg-[#f5f5f5] ring-1 ring-outline-variant hover:scale-110 transition-transform"></button>
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase text-outline tracking-wider mb-4">Leg Finish</label>
+<div class="flex gap-3">
+<button class="px-4 py-2 border border-outline-variant rounded-md text-sm font-medium hover:border-primary transition-colors focus:ring-2 focus:ring-primary/10">Mahogany</button>
+<button class="px-4 py-2 border border-primary text-primary rounded-md text-sm font-bold bg-primary-container/5">Brushed Gold</button>
+<button class="px-4 py-2 border border-outline-variant rounded-md text-sm font-medium hover:border-primary transition-colors focus:ring-2 focus:ring-primary/10">Matte Black</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<button class="premium-gradient w-full py-4 text-on-primary font-bold rounded-lg shadow-lg shadow-primary/20 flex items-center justify-center gap-3 hover:shadow-xl hover:scale-[1.01] active:scale-95 transition-all">
+<span class="material-symbols-outlined">shopping_bag</span>
+                        Add to Cart
+                    </button>
+<div class="flex gap-4">
+<button class="flex-1 py-3 border border-outline-variant rounded-lg text-primary font-semibold flex items-center justify-center gap-2 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+                            Wishlist
+                        </button>
+<button class="px-4 py-3 border border-outline-variant rounded-lg text-primary hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+<div class="mt-8 flex items-center gap-6 py-6 border-t border-surface-container-high text-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">local_shipping</span>
+<span class="text-on-surface-variant">White Glove Delivery</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">verified</span>
+<span class="text-on-surface-variant">10 Year Warranty</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Details & Reviews Section -->
+<section class="mt-24">
+<div class="flex border-b border-surface-container-high mb-12">
+<button class="px-8 py-4 border-b-2 border-primary text-primary font-bold text-sm">Product Specifications</button>
+<button class="px-8 py-4 text-outline font-medium text-sm hover:text-primary transition-colors">Care Instructions</button>
+<button class="px-8 py-4 text-outline font-medium text-sm hover:text-primary transition-colors">Reviews (48)</button>
+</div>
+<div class="grid md:grid-cols-2 gap-20">
+<div class="space-y-6">
+<h3 class="text-2xl font-headline font-bold text-primary mb-8">Technical Details</h3>
+<div class="grid grid-cols-2 gap-y-4 text-sm">
+<div class="text-outline">Overall Dimensions</div>
+<div class="text-on-surface font-semibold">96"W x 40"D x 34"H</div>
+<div class="text-outline">Frame Material</div>
+<div class="text-on-surface font-semibold">Solid Kiln-Dried Maple</div>
+<div class="text-outline">Suspension</div>
+<div class="text-on-surface font-semibold">8-Way Hand-Tied Springs</div>
+<div class="text-outline">Cushion Fill</div>
+<div class="text-on-surface font-semibold">Down-Wrapped Polyurethane</div>
+<div class="text-outline">Origin</div>
+<div class="text-on-surface font-semibold">Made in Italy</div>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-bold text-primary mb-8">Recent Review</h3>
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container-low">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center font-bold">EM</div>
+<div>
+<div class="text-sm font-bold">Eleanor M.</div>
+<div class="text-xs text-outline">Verified Purchase • 2 weeks ago</div>
+</div>
+</div>
+<div class="flex text-secondary mb-3">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-on-surface-variant leading-relaxed text-sm italic">
+                            "The depth of this sofa is perfect for lounging. The velvet quality surpassed my expectations—it's incredibly soft yet feels durable enough for daily use. Truly a gallery-worthy piece."
+                        </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-20 bg-slate-100 dark:bg-slate-950 font-inter text-sm tonal-transition bg-slate-200 dark:bg-slate-900">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 w-full">
+<div class="col-span-1 md:col-span-1">
+<span class="text-lg font-bold text-blue-900 dark:text-white mb-4 block">Lewis Group</span>
+<p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Setting the standard for architectural retail and editorial authority in high-end home furnishings since 1934.
+                </p>
+</div>
+<div>
+<h4 class="font-bold text-blue-900 dark:text-blue-400 mb-6">Customer Service</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Store Locator</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Delivery Info</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Track Order</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Returns</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-blue-900 dark:text-blue-400 mb-6">Company</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Careers</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Terms of Use</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all" href="#">Editorial Voice</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-blue-900 dark:text-blue-400 mb-6">Newsletter</h4>
+<p class="text-slate-500 dark:text-slate-400 mb-4">Join our inner circle for exclusive collection previews.</p>
+<div class="flex">
+<input class="bg-surface-container-low border-none rounded-l-lg py-2 px-4 w-full focus:ring-0" placeholder="Email Address" type="email"/>
+<button class="bg-primary text-white px-4 rounded-r-lg hover:bg-primary-container transition-colors">Join</button>
+</div>
+</div>
+</div>
+<div class="border-t border-slate-200 dark:border-slate-800 px-12 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="text-slate-500 dark:text-slate-400 text-xs">© 2024 Lewis Group. All rights reserved. Editorial Authority in Retail.</span>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer transition-colors">brand_awareness</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer transition-colors">social_leaderboard</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer transition-colors">public</span>
+</div>
+</div>
+</footer>
+</body></html>

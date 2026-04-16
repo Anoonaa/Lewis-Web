@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#747684",
+                        "surface-tint": "#3557bc",
+                        "surface": "#f9f9fc",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-secondary": "#ffffff",
+                        "background": "#f9f9fc",
+                        "secondary-container": "#e51d24",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f0f0f3",
+                        "surface-bright": "#f9f9fc",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#444653",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#003399",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#153ea3",
+                        "primary": "#002068",
+                        "on-background": "#1a1c1e",
+                        "tertiary-fixed-dim": "#adcbda",
+                        "surface-container-high": "#e8e8ea",
+                        "primary-fixed": "#dce1ff",
+                        "on-primary-fixed": "#00164e",
+                        "secondary-fixed": "#ffdad6",
+                        "secondary": "#bb0014",
+                        "on-primary-container": "#8aa4ff",
+                        "tertiary": "#0b2b37",
+                        "on-secondary-fixed": "#410002",
+                        "outline-variant": "#c4c5d5",
+                        "surface-container-low": "#f3f3f6",
+                        "on-tertiary-container": "#8fadbc",
+                        "on-surface": "#1a1c1e",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "surface-dim": "#dadadc",
+                        "tertiary-container": "#24414e",
+                        "surface-container": "#eeeef0",
+                        "inverse-surface": "#2f3133",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#b5c4ff",
+                        "on-tertiary-fixed-variant": "#2e4b57",
+                        "on-secondary-fixed-variant": "#93000d",
+                        "inverse-primary": "#b5c4ff",
+                        "surface-variant": "#e2e2e5",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#001f2a",
+                        "tertiary-fixed": "#c9e7f7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition { transition: background-color 0.3s ease; }
+        .glass-header { backdrop-filter: blur(20px); }
+        .signature-gradient { background: linear-gradient(135deg, #002068 0%, #003399 100%); }
+        .ghost-border:focus-within { outline: 2px solid #002068; outline-offset: -1px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<!-- TopNavBar (Suppressed primary nav for transactional flow, but keeping Brand Identity) -->
+<header class="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-md shadow-xl shadow-slate-900/5 h-20 flex justify-between items-center px-8">
+<div class="text-2xl font-bold tracking-tight text-blue-900">Lewis Group</div>
+<div class="flex items-center space-x-4 text-slate-600">
+<span class="material-symbols-outlined">lock</span>
+<span class="font-inter text-sm font-medium">Secure Checkout</span>
+</div>
+</header>
+<main class="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Column: Checkout Form -->
+<div class="lg:col-span-8 space-y-12">
+<!-- Stepper -->
+<nav class="flex items-center space-x-4 mb-8">
+<div class="flex items-center text-blue-900 font-bold">
+<span class="w-8 h-8 rounded-full bg-blue-900 text-white flex items-center justify-center mr-2 text-xs">1</span>
+<span class="font-headline">Shipping</span>
+</div>
+<div class="w-12 h-px bg-slate-300"></div>
+<div class="flex items-center text-slate-400 font-medium">
+<span class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center mr-2 text-xs">2</span>
+<span class="font-headline">Payment</span>
+</div>
+<div class="w-12 h-px bg-slate-300"></div>
+<div class="flex items-center text-slate-400 font-medium">
+<span class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center mr-2 text-xs">3</span>
+<span class="font-headline">Review</span>
+</div>
+</nav>
+<!-- Section 1: Shipping Information -->
+<section class="bg-surface-container-lowest rounded-xl p-8 space-y-8">
+<div class="flex items-center justify-between border-b border-slate-100 pb-6">
+<h2 class="text-2xl font-headline font-semibold text-primary">Shipping Information</h2>
+<span class="text-secondary text-sm font-label font-medium">Step 1 of 2</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-xs font-label uppercase tracking-wider text-slate-500 font-semibold">Full Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-0 focus:bg-white outline-none transition-all ghost-border" placeholder="Johnathan Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-label uppercase tracking-wider text-slate-500 font-semibold">Phone Number</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-0 focus:bg-white outline-none transition-all ghost-border" placeholder="+27 00 000 0000" type="tel"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="block text-xs font-label uppercase tracking-wider text-slate-500 font-semibold">Street Address</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-0 focus:bg-white outline-none transition-all ghost-border" placeholder="123 Retail Avenue, Sandton" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-label uppercase tracking-wider text-slate-500 font-semibold">City</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-0 focus:bg-white outline-none transition-all ghost-border" placeholder="Johannesburg" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-label uppercase tracking-wider text-slate-500 font-semibold">Postal Code</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-0 focus:bg-white outline-none transition-all ghost-border" placeholder="2196" type="text"/>
+</div>
+</div>
+</section>
+<!-- Section 2: Payment Details -->
+<section class="bg-surface-container-lowest rounded-xl p-8 space-y-8 opacity-60 pointer-events-none grayscale">
+<div class="flex items-center justify-between border-b border-slate-100 pb-6">
+<h2 class="text-2xl font-headline font-semibold text-primary">Payment Details</h2>
+<span class="material-symbols-outlined text-slate-400">lock</span>
+</div>
+<div class="space-y-6">
+<div class="bg-primary/5 p-6 rounded-xl flex items-center space-x-4 border border-primary/10">
+<div class="w-12 h-8 bg-primary rounded flex items-center justify-center text-white text-[10px] font-bold">VISA</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-primary">Credit or Debit Card</p>
+<p class="text-xs text-slate-500">Secure encrypted payment processing</p>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-label uppercase tracking-wider text-slate-500 font-semibold">Card Number</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 pr-12 focus:ring-0" placeholder="0000 0000 0000 0000" type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">credit_card</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-xs font-label uppercase tracking-wider text-slate-500 font-semibold">Expiry Date</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-0" placeholder="MM/YY" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-label uppercase tracking-wider text-slate-500 font-semibold">CVV</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-0" placeholder="***" type="text"/>
+</div>
+</div>
+</div>
+</section>
+<div class="flex justify-between items-center">
+<button class="text-slate-500 font-semibold flex items-center hover:text-primary transition-colors">
+<span class="material-symbols-outlined mr-2">arrow_back</span>
+                        Return to Cart
+                    </button>
+<button class="signature-gradient text-white px-10 py-4 rounded-lg font-headline font-bold text-lg shadow-xl shadow-blue-900/20 hover:scale-[1.02] active:scale-95 transition-all">
+                        Place Order
+                    </button>
+</div>
+</div>
+<!-- Right Column: Order Summary -->
+<div class="lg:col-span-4">
+<aside class="sticky top-32 space-y-6">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-xl shadow-slate-900/5">
+<h3 class="text-xl font-headline font-bold text-primary mb-6">Order Summary</h3>
+<div class="space-y-6 mb-8">
+<!-- Product Item 1 -->
+<div class="flex space-x-4">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="luxury emerald velvet sofa with gold legs in a minimalist modern living room with natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzAvuEND4ghIM3LvqzzlqZAVrNR4yqqmeUjLNMFFeENXTO0JsJza8wFwVwqHTERgjklbmtfSbzGYCnsBm37SUM39fdmv3WLlHk-Nqg0hmxK9t7F8u2Jrn4WOoNodCD90m0Cct19ha8GYTdV6qkluGVJJnPl4kOQlsvQG2mpij1scSsCx03juqlHBogqhe6CfftOYRvaL1Mxt63LtX69wsyVehBfd9vAwZVT-pGOhpm4kc1SNX3CsrsPwWadyuzq9vr8Q2C9h18KylL"/>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-semibold text-slate-800">Emerald Velvet Sofa</h4>
+<p class="text-xs text-slate-500 mb-1">Qty: 1 • Large</p>
+<p class="text-sm font-bold text-primary">R 12,499.00</p>
+</div>
+</div>
+<!-- Product Item 2 -->
+<div class="flex space-x-4">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="high-end minimalist headphones on a dark oak table with soft dramatic shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjhRUtunwQ_XusSWnLCpyUxqtPYcQCMEdIVm52ZPUoivQ2nuejyGxwONyz9q9GGIRKzIAryjwjbvYyzNR5GGZAIx0iwjv6c3Wt2Q7hFStsFRq6BazX3iUfp2eq97emLFacSSueusQpByxtvEcesvTJjP1Qx3_t7kHdWBlZZOQAdx_E4dfw-rk6qvSyf4LcGK0eV6KRVK2qUAQFvVcGtp-aX4w2llgYKnO9N49QXdb84DcUs31uP5xwS_PEc9Gn1WM3eO4LO9e1gp-k"/>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-semibold text-slate-800">Studio Pro Audio</h4>
+<p class="text-xs text-slate-500 mb-1">Qty: 1 • Onyx</p>
+<p class="text-sm font-bold text-primary">R 4,200.00</p>
+</div>
+</div>
+</div>
+<div class="space-y-3 pt-6 border-t border-slate-100">
+<div class="flex justify-between text-sm text-slate-600">
+<span>Subtotal</span>
+<span>R 16,699.00</span>
+</div>
+<div class="flex justify-between text-sm text-slate-600">
+<span>Shipping</span>
+<span class="text-green-600 font-medium">Free</span>
+</div>
+<div class="flex justify-between text-sm text-slate-600">
+<span>Estimated Tax</span>
+<span>R 2,504.85</span>
+</div>
+<div class="flex justify-between text-xl font-headline font-bold text-primary pt-4 mt-2 border-t border-slate-100">
+<span>Total</span>
+<span>R 19,203.85</span>
+</div>
+</div>
+</div>
+<!-- Trust Badges -->
+<div class="bg-surface-container rounded-xl p-6 flex flex-col items-center space-y-4">
+<div class="flex items-center space-x-3 text-slate-500">
+<span class="material-symbols-outlined text-lg">shield</span>
+<span class="text-xs font-medium uppercase tracking-widest">Guaranteed Safe Checkout</span>
+</div>
+<div class="flex space-x-4 opacity-40">
+<span class="material-symbols-outlined text-3xl">credit_card</span>
+<span class="material-symbols-outlined text-3xl">account_balance_wallet</span>
+<span class="material-symbols-outlined text-3xl">payments</span>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Footer (Minimal version for checkout) -->
+<footer class="bg-slate-100 py-12 px-8 border-t border-slate-200 mt-20">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+<div class="text-sm text-slate-500 font-inter">
+                © 2024 Lewis Group. All rights reserved. Editorial Authority in Retail.
+            </div>
+<div class="flex space-x-8">
+<a class="text-xs font-semibold text-slate-400 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-xs font-semibold text-slate-400 hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-xs font-semibold text-slate-400 hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lewis Group | World-Class Retail Experience</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#747684",
+                        "surface-tint": "#3557bc",
+                        "surface": "#f9f9fc",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-secondary": "#ffffff",
+                        "background": "#f9f9fc",
+                        "secondary-container": "#e51d24",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f0f0f3",
+                        "surface-bright": "#f9f9fc",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#444653",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#003399",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#153ea3",
+                        "primary": "#002068",
+                        "on-background": "#1a1c1e",
+                        "tertiary-fixed-dim": "#adcbda",
+                        "surface-container-high": "#e8e8ea",
+                        "primary-fixed": "#dce1ff",
+                        "on-primary-fixed": "#00164e",
+                        "secondary-fixed": "#ffdad6",
+                        "secondary": "#bb0014",
+                        "on-primary-container": "#8aa4ff",
+                        "tertiary": "#0b2b37",
+                        "on-secondary-fixed": "#410002",
+                        "outline-variant": "#c4c5d5",
+                        "surface-container-low": "#f3f3f6",
+                        "on-tertiary-container": "#8fadbc",
+                        "on-surface": "#1a1c1e",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "surface-dim": "#dadadc",
+                        "tertiary-container": "#24414e",
+                        "surface-container": "#eeeef0",
+                        "inverse-surface": "#2f3133",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#b5c4ff",
+                        "on-tertiary-fixed-variant": "#2e4b57",
+                        "on-secondary-fixed-variant": "#93000d",
+                        "inverse-primary": "#b5c4ff",
+                        "surface-variant": "#e2e2e5",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#001f2a",
+                        "tertiary-fixed": "#c9e7f7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition { transition: background-color 0.3s ease; }
+        .glass-effect { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .shadow-ambient { box-shadow: 0 20px 40px rgba(26, 28, 30, 0.06); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-md tonal-transition bg-slate-50 shadow-xl shadow-slate-900/5 flex justify-between items-center px-8 h-20 max-w-full mx-auto">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-bold tracking-tight text-blue-900">Lewis Group</span>
+<div class="hidden lg:flex items-center gap-8">
+<a class="text-blue-900 border-b-4 border-red-700 pb-1 rounded-sm font-headline font-bold" href="#">Furniture</a>
+<a class="text-slate-600 font-medium hover:text-blue-900 transition-colors font-headline" href="#">Appliances</a>
+<a class="text-slate-600 font-medium hover:text-blue-900 transition-colors font-headline" href="#">Electronics</a>
+<a class="text-slate-600 font-medium hover:text-blue-900 transition-colors font-headline" href="#">Home Decor</a>
+<a class="text-slate-600 font-medium hover:text-blue-900 transition-colors font-headline" href="#">Promotions</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-lg gap-3">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 font-body" placeholder="Search curated collections..." type="text"/>
+</div>
+<button class="p-2 hover:bg-slate-100/50 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined text-blue-900" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="p-2 hover:bg-slate-100/50 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined text-blue-900" data-icon="person">person</span>
+</button>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[870px] flex items-center px-8 md:px-16 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Premium Living Room" class="w-full h-full object-cover" data-alt="luxury minimalist living room with high-end designer furniture soft sunlight streaming through floor to ceiling windows architectural shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnE2vSRNqY5mI_nfND8R4RipVWF6-eZrxwTf3vQ-F-cRB8PJQqumHEThv9h4BwqxKYSgCrN7ZkwQ3UHJ5V4EUY7qkbvlCFVwCLGw20fZDr1eOmGxb8s55mzZlEXAhYNxHliCGBLOndwU_Ocj3xA_7vEwkJGon7a-esx-pKMQ9xx06CIfXU8b3c9yIlWmqoseb4_Dxmo-So9rf4_P8wJZCTkLb2J6e8ax7Lx__SjMMve07YjknqF1EY9gVZ8yKi0tcIv5SjSYSFMlb-"/>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-2xl">
+<span class="inline-block px-4 py-1.5 bg-secondary text-on-secondary text-[0.75rem] font-semibold tracking-widest rounded-sm mb-6 font-headline">EXCLUSIVE SEASONAL CURATION</span>
+<h1 class="text-[3.5rem] font-bold font-headline text-primary leading-[1.1] mb-8">Elevate Your Architecture of Living.</h1>
+<p class="text-[1.125rem] text-on-surface-variant mb-10 max-w-lg leading-relaxed">Discover a curated gallery of premium furniture and sophisticated electronics designed to transform your house into a masterwork of modern retail.</p>
+<div class="flex gap-4">
+<button class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-md font-semibold text-[1rem] shadow-ambient hover:brightness-110 active:scale-95 transition-all">
+                        Explore Collections
+                    </button>
+<button class="px-8 py-4 bg-transparent border-primary/20 border-2 text-primary rounded-md font-semibold text-[1rem] hover:bg-primary/5 transition-all">
+                        View Lookbook
+                    </button>
+</div>
+</div>
+</section>
+<!-- Category Bento Grid -->
+<section class="py-24 px-8 md:px-16 bg-surface">
+<div class="flex justify-between items-end mb-16">
+<div>
+<h2 class="text-[1.75rem] font-semibold font-headline text-primary mb-2">The Editorial Categories</h2>
+<p class="text-on-surface-variant">Defining spaces through intentional design and technical excellence.</p>
+</div>
+<a class="text-secondary font-semibold flex items-center gap-2 group" href="#">
+                    Browse All Collections <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-[700px]">
+<!-- Large Furniture Tile -->
+<div class="md:col-span-2 md:row-span-2 relative rounded-xl overflow-hidden group shadow-ambient bg-surface-container-lowest">
+<img alt="Furniture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="modern emerald green velvet sofa in a bright minimalist room with hardwood floors and architectural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDye8wS-TwvQzvIkj05JSwp6vlnEIH2dwrD0_tyGTiNHt56GzJWSRLJ0A0Oi0UzrwMx-fq999KuQxRs-LEjyOyOodK6K4T7DZ5vQ2up0vzFLfusS73FIkB9xA---0yIwDYaHgNAOd6Ka_un79qTtz3barazorkqHluzND5PVNuhlMgZNS9Y9OtX71DAxeBdTbEhReYXHvz_PVH8tojcfAB4mCY_kUdaqBJkSX2Leq2n9BFVs10EJxyuKhh7K22pDKeNKaIsFHkdfMKJ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-10">
+<h3 class="text-2xl font-bold font-headline text-white mb-2">Furniture</h3>
+<p class="text-white/80 text-sm max-w-xs">Timeless pieces crafted for the contemporary home gallery.</p>
+</div>
+</div>
+<!-- Appliances Tile -->
+<div class="md:col-span-2 relative rounded-xl overflow-hidden group shadow-ambient bg-surface-container-lowest">
+<img alt="Appliances" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="ultra modern stainless steel kitchen appliances in a sleek dark grey kitchen setting with subtle ambient light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmN2eKws6rGR2b4_xSWNcdnjUiItwByWPUpTPkQU2Aqt_n3iZwZgdjYlUAqOqyLpVBmbXLcgW7Un3_3gtewdcX6bodC5viEAIwKzPhCdk59DZ95qvQhruNfYLzozBoJ8qI8whwmBSvTIZLHvanB3Fl53DLA0cWTzJUXLazqS9zEdc4HYiOaHsMsEX9KealFrpr2W79VFxe3mekYCdPHc43vb0PcuP14C6OdmWsh_KMd4msefZOZMDZvnIXALmFAuom5rIxARPs9OyA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-8">
+<h3 class="text-xl font-bold font-headline text-white mb-1">Appliances</h3>
+<p class="text-white/80 text-xs">Professional grade performance for the culinary enthusiast.</p>
+</div>
+</div>
+<!-- Electronics Tile -->
+<div class="md:col-span-1 relative rounded-xl overflow-hidden group shadow-ambient bg-surface-container-lowest">
+<img alt="Electronics" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="high end flat screen television and premium home theater audio system in a dark moody media room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuXJwrYIx63rYdh3asSnIZIH4gf_yCaBkGuie9EEXztp-VlHegJcPGKVg4tB_p5yxHBCtkr3aejLs4BzMph8qXYELAaAfW_tGhn5N6hYgnjl1UhZSL0lUHSVzVS-KWiIz1ysHEqSBD63ArMQ2NnTZA34mcqqaqiVyNW9ecPZRXX9duIxEHyLv734IPBD78ZTUpN00y7pZK21MFSWJH_tmxQ590KX7XZqFfal1q3_d4Pe1aiQ6p58sbU1-KVypwf6AQE3YFNU-C-mVu"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-6">
+<h3 class="text-lg font-bold font-headline text-white">Electronics</h3>
+</div>
+</div>
+<!-- Home Decor Tile -->
+<div class="md:col-span-1 relative rounded-xl overflow-hidden group shadow-ambient bg-surface-container-lowest">
+<img alt="Home Decor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="abstract ceramic vases and minimalist decor on a marble shelf with soft directional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdkd8LQV-oJGxzN6FWCVZoaO6GwLz1oFDVxVdMtU4B_ddChvlnedg_PCSdTlDWBii5i2kufOmCfNU2XaXeNzFPnKVPyfJ-_bpcdRyWp-g6RTiDkGVxFP2o7A4zSmjeE8LHXIyhw_quw-FUPGgyQxrY-pDcA_YqfYvSQxx4_AdSN2-73fmuclSrc2C98F1M0lWeoIaCBdxlFf0QGmVNiA0uNGd16_D83Rf7Eg42vrOG2lHrzVAxWsgcCZm48WJaIqfxLe7iBR6nAsWp"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-6">
+<h3 class="text-lg font-bold font-headline text-white">Decor</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- Trending Products Grid -->
+<section class="py-24 px-8 md:px-16 bg-surface-container-low">
+<div class="text-center mb-16">
+<h2 class="text-[1.75rem] font-bold font-headline text-primary mb-4">Trending Acquisitions</h2>
+<div class="h-1 w-20 bg-secondary mx-auto rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+<!-- Product 1 -->
+<div class="group">
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden mb-6 shadow-sm group-hover:shadow-ambient transition-all duration-300">
+<img alt="Nordic Lounge Chair" class="w-full aspect-[4/5] object-cover" data-alt="minimalist wooden lounge chair with grey upholstery on a white studio background with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChqImzPXaTHUxq4tIT-YQt09Q0MmqkiNwYRcupoaVJozPE-x_DnnlLllmunvzrCZbIQhFMeICcgswyycYnmEZguYVDbLkqCiRHTUyacd2gyOZgkGdnNQiRxdeWWqU5Z1eHvDQlOZTlqt3A7fw-hXAVHnI1bOt45fW2kdpBa1tF0zSQU9_ISa37LCBUJPxgt38mkI8PWwKOuj96U-YYEfYpawTCp4HrkuSjdGFp3ZlaMmr1GXOMB_AyszuvLdLzVnzv7zpSWhypZz7k"/>
+</div>
+<div class="px-2">
+<span class="text-[0.75rem] font-medium text-outline-variant uppercase tracking-widest font-label">Furniture</span>
+<h3 class="text-[1.125rem] font-semibold text-on-surface mt-1 mb-2 font-headline">Nordic Sculptural Lounge</h3>
+<p class="text-sm text-on-surface-variant mb-4 line-clamp-2">Hand-finished oak frame with Italian-woven wool upholstery for unparalleled comfort.</p>
+<span class="text-xl font-bold text-primary font-headline">R 12,499.00</span>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="group">
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden mb-6 shadow-sm group-hover:shadow-ambient transition-all duration-300">
+<img alt="Smart Coffee Master" class="w-full aspect-[4/5] object-cover" data-alt="brushed aluminum smart espresso machine with glowing interface on a dark stone countertop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDERK1rqHUIglHqv4i-hvRYDq7FUUb-GGwC_R8mt1FvZe9n09OuKhKbA7vD57VjG9bteMKJN2DrhjPLIXlrmzUm4AL7UjL_uqT1K2B3hDWYkxT1O4sEJ1m2DcdeDcA5K7kGvwbGyi672AA4vMvWFhyiAtVBE3AWu177q4gzu2Nugqmg4EraAmTcz43gOxmF_nHZvXbB6rumP_gHbaaVD9W0njohGjMMSxu-nVi4KsjiLIXcjqjpg3U405JMVOAgEPNSRZrOnUkz7IPV"/>
+</div>
+<div class="px-2">
+<span class="text-[0.75rem] font-medium text-outline-variant uppercase tracking-widest font-label">Appliances</span>
+<h3 class="text-[1.125rem] font-semibold text-on-surface mt-1 mb-2 font-headline">Professional Brew Master</h3>
+<p class="text-sm text-on-surface-variant mb-4 line-clamp-2">Precision temperature control and integrated ceramic burr grinder.</p>
+<span class="text-xl font-bold text-primary font-headline">R 8,999.00</span>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="group">
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden mb-6 shadow-sm group-hover:shadow-ambient transition-all duration-300">
+<img alt="Sonic Headphones" class="w-full aspect-[4/5] object-cover" data-alt="high fidelity over ear headphones with metallic finish and leather earcups in a clean minimal setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt8pm-0vOrupoT29s1AHtJrOt5EExeDxaBsju339xbFtYfHFNw-W-8iz2QzoWIcOhqVDuM6zCkK0ExcLpunfqBA6Pl3NozD0a4xMHTnli39zzpFyr5CjCBezGOtJUyn56FSm2GK6buutM5gG74wcQHXWaZblU8cs5hfCIj2qSQ51b6aCP724ZKU11DstnJRH8LoT5cd9F7-AZrxAOFIVB5A3TI40hz0g6NQOHAfb4PGWUrzfO_80OkjwcFQtXfrVribM0b1ykDf3mK"/>
+</div>
+<div class="px-2">
+<span class="text-[0.75rem] font-medium text-outline-variant uppercase tracking-widest font-label">Electronics</span>
+<h3 class="text-[1.125rem] font-semibold text-on-surface mt-1 mb-2 font-headline">Zenith Wireless Audio</h3>
+<p class="text-sm text-on-surface-variant mb-4 line-clamp-2">Adaptive noise cancellation with lossless studio-quality audio driver.</p>
+<span class="text-xl font-bold text-primary font-headline">R 5,499.00</span>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="group">
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden mb-6 shadow-sm group-hover:shadow-ambient transition-all duration-300">
+<img alt="Minimalist Desk" class="w-full aspect-[4/5] object-cover" data-alt="slim walnut desk with gold accents against a clean white wall with a single designer lamp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsaJl4Lt8rWoY5tIBbjSyYk9sFxyrIUija6RJO7TGdzmyCXMweTpUMFncc2sVLxXg5z3F7fDQHsos3v985zBdwR8xnDAoABz6zl9L03Hjf9CoeAQK7K9RtTgDACtmJFeCEK_m8aSumNkf_vtCru5CxNBG_gomA6ERzULoswGL-QfrPpc7qRLBOFjH5kRxdUe99Vs0516FL6bBYPYhQRengf8suRFi0j7AAVQkYsD2TLJGdBITWgDm0xmfb_2fnV8wJkNFbzWKnJLMM"/>
+</div>
+<div class="px-2">
+<span class="text-[0.75rem] font-medium text-outline-variant uppercase tracking-widest font-label">Furniture</span>
+<h3 class="text-[1.125rem] font-semibold text-on-surface mt-1 mb-2 font-headline">Marquette Executive Desk</h3>
+<p class="text-sm text-on-surface-variant mb-4 line-clamp-2">Walnut veneer with powder-coated steel accents for the modern workspace.</p>
+<span class="text-xl font-bold text-primary font-headline">R 15,200.00</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Promotional Newsletter Section -->
+<section class="py-24 px-8 md:px-16">
+<div class="bg-primary-container rounded-[1rem] p-12 md:p-20 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-12">
+<!-- Background texture simulation -->
+<div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2)_1px,transparent_1px)] bg-[length:20px_20px]"></div>
+<div class="relative z-10 max-w-xl">
+<h2 class="text-[2.5rem] font-bold font-headline text-white leading-tight mb-6">Join the Inner Circle of Retail Authority.</h2>
+<p class="text-on-primary-container text-lg">Receive curated design inspiration, early access to new collections, and exclusive private member events.</p>
+</div>
+<div class="relative z-10 w-full max-w-md">
+<form class="flex flex-col gap-4">
+<div class="relative">
+<input class="w-full px-6 py-4 rounded-md bg-white border-none focus:ring-2 focus:ring-secondary text-primary font-body" placeholder="Your professional email" type="email"/>
+</div>
+<button class="w-full py-4 bg-secondary text-on-secondary rounded-md font-bold text-[1rem] hover:bg-secondary-container transition-all active:scale-98">
+                            Subscribe to the Gallery
+                        </button>
+<p class="text-[0.75rem] text-on-primary-container/60 text-center">By subscribing, you agree to our Privacy Policy and Terms of Service.</p>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-20 bg-slate-100 tonal-transition bg-slate-200">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 w-full">
+<div class="col-span-1 md:col-span-1">
+<span class="text-lg font-bold text-blue-900 mb-4 block">Lewis Group</span>
+<p class="text-slate-500 text-sm mb-6 leading-relaxed">Defining the standard of premium retail since 1934. Curating living spaces for the discerning architectural mind.</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-400 hover:text-blue-900 cursor-pointer transition-colors">public</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-blue-900 cursor-pointer transition-colors">share</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-blue-900 cursor-pointer transition-colors">mail</span>
+</div>
+</div>
+<div>
+<h4 class="font-headline font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Collections</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all duration-200 font-body text-sm" href="#">Furniture</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all duration-200 font-body text-sm" href="#">Appliances</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all duration-200 font-body text-sm" href="#">Electronics</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all duration-200 font-body text-sm" href="#">Promotions</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Customer Focus</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all duration-200 font-body text-sm" href="#">Store Locator</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all duration-200 font-body text-sm" href="#">Customer Service</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all duration-200 font-body text-sm" href="#">Careers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline font-bold text-blue-900 mb-6 uppercase text-xs tracking-widest">Legal Authority</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all duration-200 font-body text-sm" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all duration-200 font-body text-sm" href="#">Terms of Use</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 hover:underline decoration-red-700 underline-offset-4 transition-all duration-200 font-body text-sm" href="#">Editorial Authority</a></li>
+</ul>
+</div>
+</div>
+<div class="px-12 py-8 border-t border-slate-300/30 flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="text-slate-500 text-xs font-inter">© 2024 Lewis Group. All rights reserved. Editorial Authority in Retail.</span>
+<div class="flex gap-8">
+<img alt="Visa" class="h-6 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgDyTmn7enM4AJTUHw247hhy9IM8dtsWlbrehA1A1Pb1gRX3VX7ZjpFThT8VBa5CioSMXulZaLG5_tuPSgnG6WNRXCoT_rsVnlsyPI15dClIA0orbNj4u7U8psd-JqQulbIGPRLvE0KKzAttAlq_ri674WfHnT4Acbhy-jMYjdx70_VkeyB2_kWELWvP0_vL4EMwCnpXFqOjt0ZKOg-EpBipi-A7hOG3pYc28jm_zz40gnGisPwHTv3x7EdY73cZO2VDTu_zYHkGvO"/>
+<img alt="Mastercard" class="h-6 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqDO3ACFeI3Z2XQK04U3ws_CPux9Ovbzg89cE7kdQ9F1IfBe7vHRXjtG5JJBYZKO-sdf11b6FbtwAbzQHQVTVpiNZ5LcLxevWw1rKwP4MqCOC2E6EUSrMXWubTv8UcS-Y5kGpJ9aPlQ8UqAYTX--8LKQtXox8id97zp60X1kTHNlLcLlrImTl4-v6iPYzgNVFt-ZxlDku7lwo5bZD4NaxLeWQpcdCGzBzgXL7CFgJUEgCGk7J4WWxXjUH_Gn1WiJE0f30S6AF-ON5v"/>
+</div>
+</div>
+</footer>
+</body></html>

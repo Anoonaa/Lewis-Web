@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Profile | Lewis Group</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#3557bc",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f9f9fc",
+                    "on-secondary-container": "#fffbff",
+                    "tertiary-fixed": "#c9e7f7",
+                    "tertiary-container": "#24414e",
+                    "on-surface": "#1a1c1e",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "secondary": "#bb0014",
+                    "on-tertiary-fixed-variant": "#2e4b57",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#410002",
+                    "surface-container-low": "#f3f3f6",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#93000d",
+                    "on-surface-variant": "#444653",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeef0",
+                    "primary": "#002068",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#0b2b37",
+                    "on-tertiary-fixed": "#001f2a",
+                    "surface-container-high": "#e8e8ea",
+                    "on-primary-container": "#8aa4ff",
+                    "inverse-primary": "#b5c4ff",
+                    "inverse-on-surface": "#f0f0f3",
+                    "surface-container-lowest": "#ffffff",
+                    "on-background": "#1a1c1e",
+                    "primary-fixed-dim": "#b5c4ff",
+                    "outline": "#747684",
+                    "primary-fixed": "#dce1ff",
+                    "on-primary-fixed-variant": "#153ea3",
+                    "tertiary-fixed-dim": "#adcbda",
+                    "background": "#f9f9fc",
+                    "inverse-surface": "#2f3133",
+                    "surface-dim": "#dadadc",
+                    "secondary-container": "#e51d24",
+                    "outline-variant": "#c4c5d5",
+                    "surface-variant": "#e2e2e5",
+                    "primary-container": "#003399",
+                    "on-primary-fixed": "#00164e",
+                    "surface": "#f9f9fc",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-tertiary-container": "#8fadbc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9fc;
+            color: #1a1c1e;
+        }
+        .editorial-header {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-md shadow-sm flex justify-between items-center px-8 py-4 max-w-full mx-auto">
+<div class="text-2xl font-bold tracking-tight text-[#002068] editorial-header">Lewis Group</div>
+<div class="hidden md:flex items-center space-x-8 font-inter text-sm tracking-wide">
+<a class="text-slate-600 hover:text-[#002068] transition-colors" href="#">Showroom</a>
+<a class="text-slate-600 hover:text-[#002068] transition-colors" href="#">Collections</a>
+<a class="text-slate-600 hover:text-[#002068] transition-colors" href="#">Services</a>
+<a class="text-slate-600 hover:text-[#002068] transition-colors" href="#">Journal</a>
+</div>
+<div class="flex items-center space-x-6">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity" data-icon="shopping_bag">shopping_bag</button>
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity" data-icon="person">person</button>
+</div>
+</nav>
+<div class="flex min-h-screen pt-20">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 bg-slate-50 flex flex-col py-8 gap-2 sticky top-20 border-r-0">
+<div class="px-6 mb-8">
+<h2 class="editorial-header text-lg font-bold text-[#002068]">Welcome back</h2>
+<p class="font-inter text-sm text-slate-500">Manage your editorial experience</p>
+</div>
+<nav class="flex flex-col gap-1 px-4">
+<!-- Personal Info Active -->
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-[#002068] font-semibold rounded-r-full hover:translate-x-1 transition-transform scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-inter text-sm">Personal Info</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-inter text-sm">Order History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-inter text-sm">Payment Methods</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-inter text-sm">Shipping Addresses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-100 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-inter text-sm">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-12 bg-background">
+<header class="max-w-4xl mb-12">
+<h1 class="editorial-header text-4xl font-bold text-primary mb-2">Personal Information</h1>
+<p class="text-on-surface-variant font-body">Update your architectural preference profile and account details.</p>
+</header>
+<!-- Bento Layout for Profile Details -->
+<div class="max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Profile Image Section -->
+<div class="md:col-span-1 bg-surface-container-lowest rounded-xl p-8 flex flex-col items-center justify-center text-center shadow-sm">
+<div class="relative group cursor-pointer mb-6">
+<img alt="User profile photo" class="w-32 h-32 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="portrait of a professional male architect in a clean studio setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL82V60NJzPRLZQQvdbzvZNNBu-YhemFeASF_dRooNmeWg_pImWwQC3k-PkJD-P0Omf4yAHdo2WOxOiWZV_6-kfn-3tV2krs94morf8Ncsvcz9vXRbS7G5Gq8P3fwodBAqhELueL5MBjbKoCThMYoGtNI2ayiWWpTwNaN50ZCgPFWvXUzyqBNKsou0_poavckec0Kx13W1COsakDy8vMLMVHIq7Rrt0MdO6ef0v9w8uFcxNXhMolyqXu9Ps5YsZ7SNmtCh508hZSfX"/>
+<div class="absolute inset-0 bg-primary/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="photo_camera">photo_camera</span>
+</div>
+</div>
+<h3 class="editorial-header font-semibold text-primary">Julian Lewis</h3>
+<p class="label-md text-slate-400 mt-1">Premium Member Since 2021</p>
+</div>
+<!-- Main Details Form Section -->
+<div class="md:col-span-2 bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 font-label">Full Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-3 font-body text-primary focus:bg-white focus:ring-2 focus:ring-primary-container transition-all outline-none" type="text" value="Julian Lewis"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 font-label">Phone Number</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-3 font-body text-primary focus:bg-white focus:ring-2 focus:ring-primary-container transition-all outline-none" type="text" value="+1 (555) 0123-4567"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 font-label">Email Address</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-3 font-body text-primary focus:bg-white focus:ring-2 focus:ring-primary-container transition-all outline-none" type="email" value="julian.lewis@architectural.com"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 font-label">Primary Address</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-lg p-3 font-body text-primary focus:bg-white focus:ring-2 focus:ring-primary-container transition-all outline-none" rows="3">450 Architecture Way, Design District
+San Francisco, CA 94103
+United States</textarea>
+</div>
+<div class="pt-4 flex justify-end">
+<button class="bg-gradient-to-br from-[#002068] to-[#003399] text-white px-8 py-3 rounded-lg font-semibold tracking-wide shadow-lg hover:shadow-xl hover:translate-y-[-1px] transition-all" type="submit">
+                                Save Architectural Changes
+                            </button>
+</div>
+</form>
+</div>
+<!-- Secondary Bento Tiles -->
+<div class="md:col-span-1 bg-[#002068] text-white rounded-xl p-8 flex flex-col justify-between overflow-hidden relative">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-secondary text-3xl mb-4" data-icon="stars" style="font-variation-settings: 'FILL' 1;">stars</span>
+<h4 class="editorial-header text-xl font-bold">Loyalty Rewards</h4>
+<p class="font-body text-sm text-slate-300 mt-2">You are 400 points away from your next designer furniture voucher.</p>
+</div>
+<div class="mt-8 relative z-10">
+<div class="w-full bg-white/10 h-1.5 rounded-full mb-2">
+<div class="bg-secondary h-1.5 rounded-full w-3/4"></div>
+</div>
+<span class="text-xs font-label">Progress: 75%</span>
+</div>
+<!-- Decorative architectural element -->
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[160px]" data-icon="architecture">architecture</span>
+</div>
+</div>
+<div class="md:col-span-2 bg-white rounded-xl p-8 flex items-center justify-between border-none shadow-sm group">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 bg-surface-container-high rounded-lg flex items-center justify-center group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors" data-icon="security">security</span>
+</div>
+<div>
+<h4 class="editorial-header font-bold text-primary">Security &amp; Privacy</h4>
+<p class="text-sm text-slate-500">Manage two-factor authentication and data access permissions.</p>
+</div>
+</div>
+<button class="text-primary hover:text-secondary font-semibold text-sm transition-colors flex items-center gap-1">
+                        Configure <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-100 bg-white flex flex-col md:flex-row justify-between items-center px-12 py-8 mt-auto">
+<p class="font-inter text-xs uppercase tracking-widest text-slate-400">© 2024 Lewis Group. Architectural Retail Excellence.</p>
+<div class="flex space-x-8 mt-4 md:mt-0">
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#002068] transition-all" href="#">Privacy Policy</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#002068] transition-all" href="#">Terms of Service</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#002068] transition-all" href="#">Shipping Info</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#002068] transition-all" href="#">Contact Us</a>
+</div>
+</footer>
+</body></html>

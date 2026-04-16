@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employment &amp; Financials | Lewis Group Finance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f3f3f6",
+                        "on-tertiary-container": "#8fadbc",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "on-surface": "#1a1c1e",
+                        "secondary-fixed": "#ffdad6",
+                        "on-primary-fixed": "#00164e",
+                        "secondary": "#bb0014",
+                        "on-primary-container": "#8aa4ff",
+                        "outline-variant": "#c4c5d5",
+                        "tertiary": "#0b2b37",
+                        "on-secondary-fixed": "#410002",
+                        "on-secondary-fixed-variant": "#93000d",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e2e2e5",
+                        "inverse-primary": "#b5c4ff",
+                        "on-tertiary-fixed": "#001f2a",
+                        "tertiary-fixed": "#c9e7f7",
+                        "tertiary-container": "#24414e",
+                        "surface-dim": "#dadadc",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeeef0",
+                        "inverse-surface": "#2f3133",
+                        "primary-fixed-dim": "#b5c4ff",
+                        "on-tertiary-fixed-variant": "#2e4b57",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#e51d24",
+                        "background": "#f9f9fc",
+                        "surface-bright": "#f9f9fc",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f0f0f3",
+                        "primary-container": "#003399",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#444653",
+                        "outline": "#747684",
+                        "surface-tint": "#3557bc",
+                        "surface": "#f9f9fc",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-secondary": "#ffffff",
+                        "primary": "#002068",
+                        "on-primary-fixed-variant": "#153ea3",
+                        "tertiary-fixed-dim": "#adcbda",
+                        "surface-container-high": "#e8e8ea",
+                        "on-background": "#1a1c1e",
+                        "primary-fixed": "#dce1ff",
+                        "on-secondary-container": "#fffbff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased">
+<!-- TopNavBar -->
+<header class="bg-white/85 dark:bg-slate-900/85 backdrop-blur-md fixed top-0 w-full z-50 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-8 h-16 w-full">
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold tracking-tight text-blue-900 dark:text-blue-50 font-headline">Lewis Group Finance</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-medium" href="#">Dashboard</a>
+<a class="text-red-700 dark:text-red-500 font-semibold border-b-2 border-red-700" href="#">Applications</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-medium" href="#">Loans</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors font-medium" href="#">Settings</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="text-blue-900 dark:text-blue-400 hover:text-blue-700"><span class="material-symbols-outlined">help</span></button>
+<button class="text-blue-900 dark:text-blue-400 hover:text-blue-700"><span class="material-symbols-outlined">account_circle</span></button>
+</div>
+</div>
+</header>
+<div class="flex min-h-screen pt-16">
+<!-- SideNavBar -->
+<aside class="bg-slate-50 dark:bg-slate-950 h-[calc(100vh-4rem)] w-64 border-r-0 flex flex-col py-8 px-4 gap-4 sticky top-16">
+<div class="mb-6 px-2">
+<h2 class="text-blue-900 dark:text-blue-400 font-headline font-bold text-lg">Application Status</h2>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-label">Credit Assessment</p>
+</div>
+<nav class="flex flex-col gap-1">
+<div class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-md transition-all cursor-default">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+<span class="font-medium text-sm">Identity</span>
+</div>
+<!-- Active Item -->
+<div class="flex items-center gap-3 px-4 py-3 bg-blue-900 text-white dark:bg-blue-800 rounded-md font-medium shadow-md">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="font-medium text-sm">Employment</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-md transition-all cursor-default">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+<span class="font-medium text-sm">Financials</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-md transition-all cursor-default">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="font-medium text-sm">Documents</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-md transition-all cursor-default">
+<span class="material-symbols-outlined text-[20px]">fact_check</span>
+<span class="font-medium text-sm">Review</span>
+</div>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-2 text-primary mb-2">
+<span class="material-symbols-outlined text-sm">info</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Progress</span>
+</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[40%]"></div>
+</div>
+<p class="text-[10px] text-slate-500 mt-2 font-medium">Step 2 of 5 Complete</p>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 bg-background px-12 py-12">
+<div class="max-w-4xl mx-auto">
+<header class="mb-12">
+<span class="text-secondary font-bold text-sm tracking-widest uppercase">Verification Phase</span>
+<h1 class="text-4xl font-headline font-bold text-primary mt-2">Step 2: Financial Details</h1>
+<p class="text-on-surface-variant mt-4 max-w-2xl leading-relaxed">Please provide accurate information regarding your current employment status and financial standing to ensure a fast and efficient credit assessment.</p>
+</header>
+<!-- Bento-style Layout for Form -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Employment Section -->
+<section class="md:col-span-12 bg-surface-container-lowest p-8 rounded-xl shadow-sm border-l-4 border-primary">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">business_center</span>
+</div>
+<h2 class="text-xl font-headline font-semibold text-on-surface">Employment Information</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-2">
+<label class="block text-sm font-label font-semibold text-on-surface-variant">Current Employer Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-md px-4 py-3 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="e.g. Acme Corporation" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-label font-semibold text-on-surface-variant">Industry</label>
+<select class="w-full bg-surface-container-low border-none rounded-md px-4 py-3 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none">
+<option value="">Select Industry</option>
+<option>Technology &amp; Software</option>
+<option>Healthcare &amp; Medical</option>
+<option>Finance &amp; Insurance</option>
+<option>Manufacturing</option>
+<option>Education</option>
+<option>Retail &amp; Wholesale</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-label font-semibold text-on-surface-variant">Years at Job</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-md px-4 py-3 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="0" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-medium">years</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Financials Section -->
+<section class="md:col-span-12 bg-surface-container-lowest p-8 rounded-xl shadow-sm border-l-4 border-secondary">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<h2 class="text-xl font-headline font-semibold text-on-surface">Income &amp; Expenses</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="space-y-2">
+<label class="block text-sm font-label font-semibold text-on-surface-variant">Monthly Gross Income</label>
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-bold">R</span>
+<input class="w-full bg-surface-container-low border-none rounded-md pl-10 pr-4 py-3 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all font-medium text-primary" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-label font-semibold text-on-surface-variant">Net Monthly Income</label>
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-bold">R</span>
+<input class="w-full bg-surface-container-low border-none rounded-md pl-10 pr-4 py-3 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all font-medium text-primary" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-label font-semibold text-on-surface-variant">Monthly Expenses</label>
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-secondary font-bold">R</span>
+<input class="w-full bg-surface-container-low border-none rounded-md pl-10 pr-4 py-3 focus:ring-2 focus:ring-secondary focus:bg-surface-container-lowest transition-all font-medium text-secondary" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Summary/Helper Card -->
+<section class="md:col-span-12 bg-primary/5 p-6 rounded-xl border border-primary/10 flex items-start gap-6">
+<div class="hidden md:block w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-white shadow-inner">
+<img alt="Financial Consultation" class="w-full h-full object-cover grayscale opacity-80" data-alt="Modern office desk with professional financial calculator and documents in soft, natural morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr2nXTfoJ4TdO6HhBsvB5X53tUW5HFapA_o0doawStgZOxPTU3ODD5bDYy8hCeCHUskcOhWpDpkwZ3mbcuJx_WA_wIghKlSL7RtW4umNnW9TtvX3KSDPvIsWsbaFvNo3o755IlWkNcAFzICWit-R1iDCTxW6pAlji4JelQ7nfiex24vUA48FMu-up2bVZZfth8GYmjNVDBgrDI03B9OhP-nZdUaF6o5oecOxOy596tUiBoHRSzep1gjFNwKJtVnsB5FEX33d4EnvPe"/>
+</div>
+<div>
+<h4 class="font-headline font-bold text-primary text-md">Why we need this?</h4>
+<p class="text-sm text-on-surface-variant mt-2 leading-relaxed">The Lewis Group Finance team uses these details to calculate your debt-to-income ratio. This ensures we provide you with a sustainable credit limit that fits your lifestyle without creating financial strain. All data is encrypted and managed under strict compliance protocols.</p>
+</div>
+</section>
+</div>
+<!-- Navigation Buttons -->
+<div class="mt-12 flex justify-between items-center">
+<button class="flex items-center gap-2 px-8 py-3 rounded-md font-semibold text-primary hover:bg-slate-200 transition-all active:scale-95">
+<span class="material-symbols-outlined">arrow_back</span>
+                        Previous
+                    </button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-10 py-4 rounded-md font-bold shadow-lg hover:shadow-primary/20 hover:scale-[1.02] active:scale-98 transition-all flex items-center gap-3">
+                        Next Step
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-slate-100 dark:bg-slate-950 w-full py-6 border-t border-slate-200/15">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 gap-4">
+<p class="text-slate-600 dark:text-slate-400 text-sm font-medium">© 2024 Lewis Group Finance. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-red-700 transition-colors text-xs font-label uppercase tracking-widest font-semibold" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-red-700 transition-colors text-xs font-label uppercase tracking-widest font-semibold" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-red-700 transition-colors text-xs font-label uppercase tracking-widest font-semibold" href="#">Compliance</a>
+<a class="text-slate-500 hover:text-red-700 transition-colors text-xs font-label uppercase tracking-widest font-semibold" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</body></html>
