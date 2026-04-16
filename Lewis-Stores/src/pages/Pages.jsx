@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   Badge,
@@ -16,6 +16,7 @@ import {
   products,
   trackingSteps,
 } from '../data/mockData'
+import { getCategories, getProducts } from '../lib/api'
 import { useShop } from '../context/ShopContext'
 
 /* ─────────────────────────────────────────────
@@ -24,7 +25,29 @@ import { useShop } from '../context/ShopContext'
 export function HomePage() {
   const { showToast, searchQuery } = useShop()
   const [email, setEmail] = useState('')
+  const [catalogProducts, setCatalogProducts] = useState(products)
+  const [catalogCategories, setCatalogCategories] = useState([])
   const navigate = useNavigate()
+
+  useEffect(() => {
+    let cancelled = false
+
+    Promise.allSettled([getProducts(), getCategories()]).then(([productsResult, categoriesResult]) => {
+      if (cancelled) return
+
+      if (productsResult.status === 'fulfilled' && Array.isArray(productsResult.value) && productsResult.value.length > 0) {
+        setCatalogProducts(productsResult.value)
+      }
+
+      if (categoriesResult.status === 'fulfilled' && Array.isArray(categoriesResult.value) && categoriesResult.value.length > 0) {
+        setCatalogCategories(categoriesResult.value)
+      }
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const handleSubscribe = (e) => {
     e.preventDefault()
@@ -36,34 +59,34 @@ export function HomePage() {
     setEmail('')
   }
 
-  const categories = [
+  const categories = catalogCategories.length > 0 ? catalogCategories : [
     {
-      label: 'Furniture',
+      name: 'Furniture',
+      description: 'Sofas, dining sets, beds and living room essentials',
       img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800',
-      desc: 'Sofas, dining sets, beds and living room essentials',
       filter: 'Furniture',
     },
     {
-      label: 'Appliances',
+      name: 'Appliances',
+      description: 'Fridges, washing machines, stoves and more',
       img: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&q=80&w=800',
-      desc: 'Fridges, washing machines, stoves and more',
       filter: 'Appliances',
     },
     {
-      label: 'Electronics',
+      name: 'Electronics',
+      description: 'TVs, sound systems, laptops and tablets',
       img: 'https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&q=80&w=800',
-      desc: 'TVs, sound systems, laptops and tablets',
       filter: 'Electronics',
     },
     {
-      label: 'Bedding',
+      name: 'Bedding',
+      description: 'Mattresses, pillows and bedroom accessories',
       img: 'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?auto=format&fit=crop&q=80&w=800',
-      desc: 'Mattresses, pillows and bedroom accessories',
       filter: 'Bedding',
     },
   ]
 
-  const featured = products.filter(p => p.tag === 'Best Seller' || p.tag === 'On Sale').slice(0, 8)
+  const featured = catalogProducts.filter(p => p.tag === 'Best Seller' || p.tag === 'On Sale').slice(0, 8)
 
   const searchResults = searchQuery
     ? products.filter(p => {
@@ -207,13 +230,13 @@ export function HomePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.25rem' }}>
           {categories.map(cat => (
             <Link
-              key={cat.label}
+              key={cat.name}
               to={`/products?cat=${cat.filter}`}
               style={{ textDecoration: 'none', color: 'inherit' }}
               onClick={() => {}}
             >
               <div style={{
-                backgroundImage: `linear-gradient(to top, rgba(0,31,92,0.88) 0%, rgba(0,31,92,0.2) 60%, transparent 100%), url("${cat.img}")`,
+                backgroundImage: `linear-gradient(to top, rgba(0,31,92,0.88) 0%, rgba(0,31,92,0.2) 60%, transparent 100%), url("${cat.img || 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800'}")`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 height: '320px',
@@ -228,8 +251,8 @@ export function HomePage() {
                 onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
                 onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
               >
-                <h3 style={{ fontSize: '1.2rem', marginBottom: '0.35rem', color: '#fff' }}>{cat.label}</h3>
-                <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.82rem', margin: 0 }}>{cat.desc}</p>
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '0.35rem', color: '#fff' }}>{cat.name}</h3>
+                <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.82rem', margin: 0 }}>{cat.description}</p>
               </div>
             </Link>
           ))}
@@ -328,10 +351,27 @@ export function ProductListingPage() {
   const { searchQuery } = useShop()
   const [activeCategory, setActiveCategory] = useState('All')
   const [sortBy, setSortBy] = useState('popular')
+  const [catalogProducts, setCatalogProducts] = useState(products)
 
-  const categoryList = ['All', 'Furniture', 'Appliances', 'Electronics', 'Bedding']
+  useEffect(() => {
+    let cancelled = false
 
-  let filtered = products
+    getProducts()
+      .then(data => {
+        if (!cancelled && Array.isArray(data) && data.length > 0) {
+          setCatalogProducts(data)
+        }
+      })
+      .catch(() => {})
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const categoryList = ['All', ...new Set(catalogProducts.map(p => p.category).filter(Boolean))]
+
+  let filtered = catalogProducts
   if (activeCategory !== 'All') filtered = filtered.filter(p => p.category === activeCategory)
   if (searchQuery) filtered = filtered.filter(p =>
     p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -417,11 +457,28 @@ export function ProductListingPage() {
 export function ProductDetailPage() {
   const { id } = useParams()
   const { addToCart } = useShop()
-  const product = products.find(p => p.id === id) || products[0]
+  const [catalogProducts, setCatalogProducts] = useState(products)
+  const product = catalogProducts.find(p => p.id === id) || catalogProducts[0]
   const [selectedVariant, setSelectedVariant] = useState(null)
   const [qty, setQty] = useState(1)
 
-  const relatedProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3)
+  useEffect(() => {
+    let cancelled = false
+
+    getProducts()
+      .then(data => {
+        if (!cancelled && Array.isArray(data) && data.length > 0) {
+          setCatalogProducts(data)
+        }
+      })
+      .catch(() => {})
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const relatedProducts = catalogProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3)
 
   return (
     <main className="page stack-lg" style={{ maxWidth: '1200px' }}>
