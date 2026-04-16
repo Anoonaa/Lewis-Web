@@ -89,7 +89,6 @@ export function TopNav({ links }) {
           <input
             type="text"
             className="search-input"
-            placeholder="Search products..."
             aria-label="Search products"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}

@@ -14,9 +14,12 @@ import {
   HomePage,
   OrderHistoryPage,
   OrderTrackingPage,
+  PaymentMethodsPage,
   ProductDetailPage,
   ProductListingPage,
   ProfilePage,
+  SettingsPage,
+  ShippingAddressesPage,
 } from './pages/Pages'
 import './App.css'
 
@@ -33,6 +36,9 @@ function App() {
             <Route path="/cart"               element={<CartPage />} />
             <Route path="/checkout"           element={<CheckoutPage />} />
             <Route path="/profile"            element={<ProfilePage />} />
+            <Route path="/profile/payment"    element={<PaymentMethodsPage />} />
+            <Route path="/profile/addresses"  element={<ShippingAddressesPage />} />
+            <Route path="/profile/settings"   element={<SettingsPage />} />
             <Route path="/orders"             element={<OrderHistoryPage />} />
             <Route path="/orders/tracking"    element={<OrderTrackingPage />} />
             <Route path="/credit"             element={<CreditInfoPage />} />
