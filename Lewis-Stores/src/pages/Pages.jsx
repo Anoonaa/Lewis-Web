@@ -65,6 +65,42 @@ export function HomePage() {
 
   const featured = products.filter(p => p.tag === 'Best Seller' || p.tag === 'On Sale').slice(0, 8)
 
+  const searchResults = searchQuery
+    ? products.filter(p => {
+        const q = searchQuery.toLowerCase()
+        return p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)
+      })
+    : []
+
+  if (searchQuery) {
+    return (
+      <main className="page stack-lg" style={{ maxWidth: '1200px', padding: '2rem 2rem 4rem 2rem' }}>
+        <div>
+          <h1 style={{ color: 'var(--primary)', marginBottom: '0.4rem' }}>
+            Search Results
+          </h1>
+          <p style={{ color: 'var(--on-surface-variant)' }}>
+            {searchResults.length > 0
+              ? <>Showing <strong>{searchResults.length}</strong> result{searchResults.length !== 1 ? 's' : ''} for &ldquo;<strong>{searchQuery}</strong>&rdquo;</>
+              : <>No products found for &ldquo;<strong>{searchQuery}</strong>&rdquo;</>}
+          </p>
+        </div>
+        {searchResults.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '4rem 2rem', color: 'var(--on-surface-variant)' }}>
+            <p style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>No products found.</p>
+            <p>Try a different search term.</p>
+          </div>
+        ) : (
+          <div className="product-grid">
+            {searchResults.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
+      </main>
+    )
+  }
+
   return (
     <main className="page stack-lg" style={{ maxWidth: '100%', padding: '0 0 4rem 0' }}>
 

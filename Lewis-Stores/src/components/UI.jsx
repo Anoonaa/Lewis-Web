@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { formatCurrency } from '../data/mockData'
 import { useShop } from '../context/ShopContext'
@@ -57,6 +58,27 @@ export function Badge({ children, tone = 'subtle' }) {
 
 export function TopNav({ links }) {
   const { cartCount, searchQuery, setSearchQuery } = useShop()
+  const [searchOpen, setSearchOpen] = useState(false)
+  const inputRef = useRef(null)
+
+  const openSearch = () => {
+    setSearchOpen(true)
+    requestAnimationFrame(() => inputRef.current?.focus())
+  }
+
+  const handleBlur = () => {
+    if (!searchQuery) {
+      setSearchOpen(false)
+    }
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      setSearchQuery('')
+      setSearchOpen(false)
+    }
+  }
+
   return (
     <header className="top-nav">
       {/* Lewis Logo */}
@@ -77,23 +99,42 @@ export function TopNav({ links }) {
       </nav>
 
       <div className="nav-actions">
-        <div className="search-box">
-          <svg
-            className="search-icon"
-            xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            aria-hidden="true" focusable="false"
-          >
-            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input
-            type="text"
-            className="search-input"
+        {searchOpen ? (
+          <div className="search-box">
+            <svg
+              className="search-icon"
+              xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              aria-hidden="true" focusable="false"
+            >
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input
+              ref={inputRef}
+              type="text"
+              className="search-input"
+              aria-label="Search products"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              onBlur={handleBlur}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+        ) : (
+          <button
+            className="icon-btn"
             aria-label="Search products"
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-          />
-        </div>
+            onClick={openSearch}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              aria-hidden="true" focusable="false"
+            >
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        )}
 
         <Link to="/cart" className="icon-btn" aria-label="Open cart" style={{ position: 'relative' }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
