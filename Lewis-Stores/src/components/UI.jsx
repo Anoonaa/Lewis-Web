@@ -57,7 +57,7 @@ export function Badge({ children, tone = 'subtle' }) {
 }
 
 export function TopNav({ links }) {
-  const { cartCount, searchQuery, setSearchQuery } = useShop()
+  const { cartCount, searchQuery, setSearchQuery, isAuthenticated, logoutUser } = useShop()
   const [searchOpen, setSearchOpen] = useState(false)
   const inputRef = useRef(null)
 
@@ -78,7 +78,6 @@ export function TopNav({ links }) {
       setSearchOpen(false)
     }
   }
-
   return (
     <header className="top-nav">
       {/* Lewis Logo */}
@@ -150,6 +149,16 @@ export function TopNav({ links }) {
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
         </Link>
+
+        {isAuthenticated ? (
+          <button type="button" className="btn btn-secondary" style={{ padding: '0.45rem 0.85rem', fontSize: '0.82rem' }} onClick={logoutUser}>
+            Log Out
+          </button>
+        ) : (
+          <Link to="/auth" className="btn btn-secondary" style={{ padding: '0.45rem 0.85rem', fontSize: '0.82rem', textDecoration: 'none' }}>
+            Log In
+          </Link>
+        )}
       </div>
     </header>
   )

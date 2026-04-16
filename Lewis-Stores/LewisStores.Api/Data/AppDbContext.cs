@@ -15,6 +15,7 @@ namespace LewisStores.Api.Data
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<CreditApplication> CreditApplications { get; set; } = null!;
+        public DbSet<PaymentMethod> PaymentMethods { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,7 @@ namespace LewisStores.Api.Data
 
             modelBuilder.Entity<CartItem>().HasKey(c => c.InternalId);
             modelBuilder.Entity<CreditApplication>().HasKey(c => c.Id);
+            modelBuilder.Entity<PaymentMethod>().HasKey(p => p.Id);
 
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = "cat-1", Name = "Furniture", Description = "Architectural sofas, dining, and lounge essentials", To = "/products", Tone = "category-furniture" },
@@ -43,15 +45,19 @@ namespace LewisStores.Api.Data
             );
 
             modelBuilder.Entity<Order>().HasData(
-                new Order { Id = "LWS-20419", Date = "08 Apr 2026", Status = "Delivered", Total = 11799 },
-                new Order { Id = "LWS-20388", Date = "01 Apr 2026", Status = "Shipped", Total = 24999 },
-                new Order { Id = "LWS-20293", Date = "22 Mar 2026", Status = "Processing", Total = 7699 },
-                new Order { Id = "LWS-20144", Date = "13 Mar 2026", Status = "Delivered", Total = 19999 }
+                new Order { Id = "LWS-20419", Date = "08 Apr 2026", Status = "Delivered", Total = 11799, UserId = "user-1", Items = "Samsung 65\" 4K Smart TV + LG Soundbar" },
+                new Order { Id = "LWS-20388", Date = "01 Apr 2026", Status = "Shipped", Total = 24999, UserId = "user-1", Items = "Luca Modular Sofa + Miren Coffee Table" },
+                new Order { Id = "LWS-20293", Date = "22 Mar 2026", Status = "Processing", Total = 7699, UserId = "user-1", Items = "Defy 8kg Front Loader Washing Machine" },
+                new Order { Id = "LWS-20144", Date = "13 Mar 2026", Status = "Delivered", Total = 19999, UserId = "user-1", Items = "Samsung 580L Double Door Fridge" }
             );
 
             modelBuilder.Entity<User>().HasData(
-                new User { Id = "user-1", Email = "test@student.com", Password = "password", Role = "Customer" },
-                new User { Id = "admin-1", Email = "admin@lewis.com", Password = "password", Role = "Admin" }
+                new User { Id = "user-1", Email = "test@student.com", Password = "password", Role = "Customer", FullName = "Test Customer", Phone = "+27 82 555 0123", Address = "12 Mandela Street, Sandton, Johannesburg, 2196" },
+                new User { Id = "admin-1", Email = "admin@lewis.com", Password = "password", Role = "Admin", FullName = "Lewis Admin", Phone = "+27 82 000 1111", Address = "Head Office" }
+            );
+
+            modelBuilder.Entity<PaymentMethod>().HasData(
+                new PaymentMethod { Id = 1, UserId = "user-1", CardholderName = "Test Customer", Last4 = "4242", Brand = "Visa", Expiry = "12/29", IsDefault = true }
             );
         }
     }

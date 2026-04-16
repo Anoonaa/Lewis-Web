@@ -146,3 +146,4 @@
 /mnt/c/Users/Anoona Sithole/Desktop/Lewis-Web/Lewis-Stores/LewisStores.Api/obj/Debug/net8.0/LewisStores.Api.pdb
 /mnt/c/Users/Anoona Sithole/Desktop/Lewis-Web/Lewis-Stores/LewisStores.Api/obj/Debug/net8.0/LewisStores.Api.genruntimeconfig.cache
 /mnt/c/Users/Anoona Sithole/Desktop/Lewis-Web/Lewis-Stores/LewisStores.Api/obj/Debug/net8.0/ref/LewisStores.Api.dll
+/mnt/c/Users/Anoona Sithole/Desktop/Lewis-Web/Lewis-Stores/LewisStores.Api/obj/Debug/net8.0/LewisStores.Api.sourcelink.json

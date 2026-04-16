@@ -135,6 +135,16 @@ namespace LewisStores.Api.Models
         /// Final order total amount.
         /// </summary>
         public decimal Total { get; set; }
+
+        /// <summary>
+        /// Associated user identifier.
+        /// </summary>
+        public string? UserId { get; set; }
+
+        /// <summary>
+        /// Human-readable order item summary.
+        /// </summary>
+        public string Items { get; set; } = string.Empty;
     }
 
     /// <summary>
@@ -161,6 +171,62 @@ namespace LewisStores.Api.Models
         /// User role used in authorization claims.
         /// </summary>
         public string Role { get; set; } = "Customer";
+
+        /// <summary>
+        /// User display name.
+        /// </summary>
+        public string FullName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// User contact phone.
+        /// </summary>
+        public string Phone { get; set; } = string.Empty;
+
+        /// <summary>
+        /// User primary address.
+        /// </summary>
+        public string Address { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// Stored payment method linked to a user account.
+    /// </summary>
+    public class PaymentMethod
+    {
+        /// <summary>
+        /// Numeric primary key.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Associated user identifier.
+        /// </summary>
+        public string UserId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Cardholder full name.
+        /// </summary>
+        public string CardholderName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Last four card digits.
+        /// </summary>
+        public string Last4 { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Payment brand label.
+        /// </summary>
+        public string Brand { get; set; } = "Card";
+
+        /// <summary>
+        /// Expiry month and year in MM/YY format.
+        /// </summary>
+        public string Expiry { get; set; } = string.Empty;
+
+        /// <summary>
+        /// True when this is the default payment method.
+        /// </summary>
+        public bool IsDefault { get; set; }
     }
 
     /// <summary>

@@ -24,6 +24,16 @@
             User password. In this mock API this is accepted for testing.
             </summary>
         </member>
+        <member name="T:LewisStores.Api.Controllers.AuthController.RegisterRequest">
+            <summary>
+            Request payload for registering a customer account.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.AuthController.UpdateProfileRequest">
+            <summary>
+            Request payload for updating the authenticated user's profile.
+            </summary>
+        </member>
         <member name="M:LewisStores.Api.Controllers.AuthController.Login(LewisStores.Api.Controllers.AuthController.LoginRequest)">
             <summary>
             Authenticates a user and returns a JWT token for authorized calls.
@@ -33,6 +43,21 @@
             </remarks>
             <param name="request">Login credentials.</param>
             <returns>JWT token and user profile details.</returns>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.AuthController.Register(LewisStores.Api.Controllers.AuthController.RegisterRequest)">
+            <summary>
+            Registers a new customer account.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.AuthController.Me">
+            <summary>
+            Returns the authenticated user's profile.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.AuthController.UpdateMe(LewisStores.Api.Controllers.AuthController.UpdateProfileRequest)">
+            <summary>
+            Updates the authenticated user's profile details.
+            </summary>
         </member>
         <member name="T:LewisStores.Api.Controllers.CartController">
             <summary>
@@ -92,11 +117,16 @@
             Returns all orders.
             </summary>
         </member>
-        <member name="M:LewisStores.Api.Controllers.OrdersController.CreateOrder(LewisStores.Api.Models.Order)">
+        <member name="M:LewisStores.Api.Controllers.OrdersController.CreateOrder(LewisStores.Api.Controllers.OrdersController.CreateOrderRequest)">
             <summary>
             Creates a new order and returns the created resource.
             </summary>
-            <param name="order">Order payload.</param>
+            <param name="request">Order payload.</param>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.PaymentMethodsController">
+            <summary>
+            Manages saved payment methods for authenticated users.
+            </summary>
         </member>
         <member name="T:LewisStores.Api.Controllers.ProductsController">
             <summary>
@@ -244,6 +274,16 @@
             Final order total amount.
             </summary>
         </member>
+        <member name="P:LewisStores.Api.Models.Order.UserId">
+            <summary>
+            Associated user identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Order.Items">
+            <summary>
+            Human-readable order item summary.
+            </summary>
+        </member>
         <member name="T:LewisStores.Api.Models.User">
             <summary>
             Application user model used for mock authentication.
@@ -267,6 +307,61 @@
         <member name="P:LewisStores.Api.Models.User.Role">
             <summary>
             User role used in authorization claims.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.User.FullName">
+            <summary>
+            User display name.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.User.Phone">
+            <summary>
+            User contact phone.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.User.Address">
+            <summary>
+            User primary address.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.PaymentMethod">
+            <summary>
+            Stored payment method linked to a user account.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.PaymentMethod.Id">
+            <summary>
+            Numeric primary key.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.PaymentMethod.UserId">
+            <summary>
+            Associated user identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.PaymentMethod.CardholderName">
+            <summary>
+            Cardholder full name.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.PaymentMethod.Last4">
+            <summary>
+            Last four card digits.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.PaymentMethod.Brand">
+            <summary>
+            Payment brand label.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.PaymentMethod.Expiry">
+            <summary>
+            Expiry month and year in MM/YY format.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.PaymentMethod.IsDefault">
+            <summary>
+            True when this is the default payment method.
             </summary>
         </member>
         <member name="T:LewisStores.Api.Models.CreditApplication">

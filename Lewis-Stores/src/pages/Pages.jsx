@@ -704,11 +704,41 @@ export function CartPage() {
    CHECKOUT PAGE
 ────────────────────────────────────────────── */
 export function CheckoutPage() {
-  const { cartSubtotal, cartTotal, tax, shipping, clearCart, showToast, cartItems } = useShop()
+  const {
+    cartSubtotal,
+    cartTotal,
+    tax,
+    shipping,
+    clearCart,
+    showToast,
+    cartItems,
+    isAuthenticated,
+    currentUser,
+    loginUser,
+    registerUser,
+    placeOrder,
+    paymentMethods,
+    loadPaymentMethods,
+    savePaymentMethod,
+  } = useShop()
   const navigate = useNavigate()
   const [form, setForm] = useState({ fullName: '', phone: '', address: '', city: '', postal: '', cardNumber: '', expiry: '', cvv: '' })
   const [errors, setErrors] = useState({})
   const [step, setStep] = useState(0)
+  const [authMode, setAuthMode] = useState('login')
+  const [authForm, setAuthForm] = useState({ fullName: '', email: '', password: '' })
+
+  useEffect(() => {
+    if (isAuthenticated && currentUser) {
+      setForm(prev => ({
+        ...prev,
+        fullName: currentUser.fullName || prev.fullName,
+        phone: currentUser.phone || prev.phone,
+        address: currentUser.address || prev.address,
+      }))
+      loadPaymentMethods().catch(() => {})
+    }
+  }, [isAuthenticated, currentUser])
 
   const validate = () => {
     const e = {}
@@ -720,16 +750,50 @@ export function CheckoutPage() {
     return e
   }
 
-  const handleNext = (e) => {
+  const handleNext = async (e) => {
     e.preventDefault()
     if (step === 0) {
       const e = validate()
       setErrors(e)
       if (Object.keys(e).length === 0) setStep(1)
     } else {
+      if (isAuthenticated) {
+        const items = cartItems.map(i => `${i.title} x${i.quantity}`).join(' + ')
+        await placeOrder({ total: cartTotal, items })
+      }
+
+      if (isAuthenticated && form.cardNumber.trim().length >= 12) {
+        await savePaymentMethod({
+          cardholderName: form.fullName,
+          cardNumber: form.cardNumber,
+          brand: 'Card',
+          expiry: form.expiry,
+          isDefault: paymentMethods.length === 0,
+        })
+      }
+
       clearCart()
       showToast('Order placed successfully! Check your email for confirmation.')
       navigate('/orders')
+    }
+  }
+
+  const handleAuth = async (e) => {
+    e.preventDefault()
+    try {
+      if (authMode === 'login') {
+        await loginUser(authForm.email, authForm.password)
+      } else {
+        await registerUser({
+          fullName: authForm.fullName,
+          email: authForm.email,
+          password: authForm.password,
+          phone: form.phone,
+          address: form.address,
+        })
+      }
+    } catch (err) {
+      showToast('Authentication failed. Please check your details.')
     }
   }
 
@@ -752,6 +816,41 @@ export function CheckoutPage() {
       <Stepper steps={checkoutSteps} current={step} />
       <div className="split-layout" style={{ gridTemplateColumns: '1fr 340px' }}>
         <section className="stack-md">
+          {!isAuthenticated && (
+            <Card>
+              <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Log In or Create Account</h3>
+              <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1rem', fontSize: '0.9rem' }}>
+                Continue as guest or sign in to store orders, payment methods, and profile details.
+              </p>
+              <form className="form-grid" onSubmit={handleAuth}>
+                {authMode === 'register' && (
+                  <div className="form-group full-width">
+                    <label className="form-label">Full Name</label>
+                    <input type="text" value={authForm.fullName} onChange={e => setAuthForm(f => ({ ...f, fullName: e.target.value }))} required />
+                  </div>
+                )}
+                <div className="form-group">
+                  <label className="form-label">Email</label>
+                  <input type="email" value={authForm.email} onChange={e => setAuthForm(f => ({ ...f, email: e.target.value }))} required />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Password</label>
+                  <input type="password" value={authForm.password} onChange={e => setAuthForm(f => ({ ...f, password: e.target.value }))} required />
+                </div>
+                <div className="full-width" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <button
+                    type="button"
+                    onClick={() => setAuthMode(m => (m === 'login' ? 'register' : 'login'))}
+                    style={{ border: 'none', background: 'none', color: 'var(--primary)', cursor: 'pointer', padding: 0, fontWeight: 600 }}
+                  >
+                    {authMode === 'login' ? 'Need an account? Create one' : 'Already have an account? Log in'}
+                  </button>
+                  <Button type="submit" variant="secondary">{authMode === 'login' ? 'Log In' : 'Create Account'}</Button>
+                </div>
+              </form>
+            </Card>
+          )}
+
           {step === 0 && (
             <Card>
               <h2 style={{ fontSize: '1.4rem', color: 'var(--primary)', marginBottom: '1.5rem' }}>Delivery Information</h2>
@@ -778,6 +877,20 @@ export function CheckoutPage() {
             <Card>
               <h2 style={{ fontSize: '1.4rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>Payment Details</h2>
               <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Your card details are encrypted and secure.</p>
+
+              {isAuthenticated && paymentMethods.length > 0 && (
+                <div style={{ marginBottom: '1rem', padding: '0.8rem 1rem', background: 'var(--surface-low)', borderRadius: '4px' }}>
+                  <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--on-surface-variant)', marginBottom: '0.5rem', fontWeight: 700 }}>
+                    Saved payment methods
+                  </p>
+                  {paymentMethods.map(method => (
+                    <div key={method.id} style={{ fontSize: '0.9rem', color: 'var(--on-surface)' }}>
+                      {method.brand} ending in {method.last4} ({method.expiry})
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <div className="form-grid">
                 <div className="form-group full-width">
                   <label className="form-label">Card Number</label>
@@ -846,12 +959,65 @@ const profileNavItems = [
    PROFILE PAGE
 ────────────────────────────────────────────── */
 export function ProfilePage() {
-  const { showToast } = useShop()
-  const [form, setForm] = useState({ fullName: 'Thabo Nkosi', phone: '+27 82 555 0123', email: 'thabo.nkosi@email.com', address: '12 Mandela Street\nSandton, Johannesburg\n2196' })
+  const {
+    showToast,
+    currentUser,
+    isAuthenticated,
+    updateProfile,
+    logoutUser,
+    paymentMethods,
+    loadPaymentMethods,
+    savePaymentMethod,
+    deletePaymentMethod,
+  } = useShop()
+  const [form, setForm] = useState({ fullName: '', phone: '', email: '', address: '' })
+  const [paymentForm, setPaymentForm] = useState({ cardholderName: '', cardNumber: '', expiry: '' })
 
-  const handleSave = (e) => {
+  useEffect(() => {
+    if (isAuthenticated && currentUser) {
+      setForm({
+        fullName: currentUser.fullName || '',
+        phone: currentUser.phone || '',
+        email: currentUser.email || '',
+        address: currentUser.address || '',
+      })
+      loadPaymentMethods().catch(() => {})
+    }
+  }, [isAuthenticated, currentUser])
+
+  const handleSave = async (e) => {
     e.preventDefault()
-    showToast('Profile updated successfully.')
+    await updateProfile({
+      fullName: form.fullName,
+      phone: form.phone,
+      address: form.address,
+    })
+  }
+
+  const handleAddPayment = async (e) => {
+    e.preventDefault()
+    await savePaymentMethod({
+      cardholderName: paymentForm.cardholderName,
+      cardNumber: paymentForm.cardNumber,
+      expiry: paymentForm.expiry,
+      brand: 'Card',
+      isDefault: paymentMethods.length === 0,
+    })
+    setPaymentForm({ cardholderName: '', cardNumber: '', expiry: '' })
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <main className="page" style={{ maxWidth: '780px' }}>
+        <Card style={{ textAlign: 'center', padding: '2.5rem' }}>
+          <h1 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Sign in to your account</h1>
+          <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1.5rem' }}>
+            Login or create an account to manage profile details, payment methods, and orders.
+          </p>
+          <Button to="/auth" variant="primary" style={{ padding: '0.9rem 2rem' }}>Go to Login / Register</Button>
+        </Card>
+      </main>
+    )
   }
 
   return (
@@ -871,13 +1037,15 @@ export function ProfilePage() {
               </svg>
             </div>
             <h3 style={{ fontSize: '1.15rem', marginBottom: '0.25rem', color: 'var(--primary)' }}>{form.fullName}</h3>
-            <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.85rem' }}>Lewis Customer</p>
+            <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.85rem' }}>{currentUser?.role || 'Customer'}</p>
             <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'var(--surface-low)', borderRadius: '4px' }}>
               <p style={{ fontSize: '0.78rem', color: 'var(--on-surface-variant)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '0.25rem' }}>Member Since</p>
               <p style={{ color: 'var(--primary)', fontWeight: 600 }}>January 2024</p>
             </div>
+            <Button variant="secondary" style={{ marginTop: '1rem' }} onClick={logoutUser}>Log Out</Button>
           </Card>
 
+          <div className="stack-md">
           <Card>
             <h3 style={{ color: 'var(--primary)', marginBottom: '1.5rem' }}>Personal Information</h3>
             <form className="form-grid" onSubmit={handleSave}>
@@ -904,6 +1072,41 @@ export function ProfilePage() {
               </div>
             </form>
           </Card>
+
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '1rem' }}>Saved Payment Methods</h3>
+            {paymentMethods.length === 0 && (
+              <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1rem' }}>No saved payment methods yet.</p>
+            )}
+            {paymentMethods.map(pm => (
+              <div key={pm.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.65rem 0', borderBottom: '1px solid var(--border-color)' }}>
+                <div>
+                  <strong style={{ color: 'var(--on-surface)' }}>{pm.brand} ending in {pm.last4}</strong>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--on-surface-variant)' }}>{pm.cardholderName} • Expires {pm.expiry}</p>
+                </div>
+                <Button variant="text" onClick={() => deletePaymentMethod(pm.id)} style={{ color: 'var(--secondary)' }}>Remove</Button>
+              </div>
+            ))}
+
+            <form className="form-grid" style={{ marginTop: '1rem' }} onSubmit={handleAddPayment}>
+              <div className="form-group">
+                <label className="form-label">Cardholder Name</label>
+                <input type="text" value={paymentForm.cardholderName} onChange={e => setPaymentForm(f => ({ ...f, cardholderName: e.target.value }))} required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Card Number</label>
+                <input type="text" value={paymentForm.cardNumber} onChange={e => setPaymentForm(f => ({ ...f, cardNumber: e.target.value }))} required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Expiry</label>
+                <input type="text" placeholder="MM/YY" value={paymentForm.expiry} onChange={e => setPaymentForm(f => ({ ...f, expiry: e.target.value }))} required />
+              </div>
+              <div className="full-width" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button type="submit" variant="secondary">Add Payment Method</Button>
+              </div>
+            </form>
+          </Card>
+          </div>
         </div>
       </section>
     </main>
@@ -914,7 +1117,32 @@ export function ProfilePage() {
    ORDER HISTORY PAGE
 ────────────────────────────────────────────── */
 export function OrderHistoryPage() {
-  const { showToast } = useShop()
+  const { showToast, isAuthenticated, orders, loadOrders } = useShop()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadOrders().catch(() => {})
+    }
+  }, [isAuthenticated])
+
+  if (!isAuthenticated) {
+    return (
+      <main className="page" style={{ maxWidth: '780px' }}>
+        <Card style={{ textAlign: 'center', padding: '2.5rem' }}>
+          <h1 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Sign in to view your orders</h1>
+          <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1.5rem' }}>
+            Your order history is tied to your account.
+          </p>
+          <Button to="/auth" variant="primary" style={{ padding: '0.9rem 2rem' }}>Go to Login / Register</Button>
+        </Card>
+      </main>
+    )
+  }
+
+  const deliveredCount = orders.filter(o => o.status === 'Delivered').length
+  const activeCount = orders.filter(o => o.status !== 'Delivered').length
+  const latestOrder = orders[0]
+
   return (
     <main className="page sidebar-layout">
       <SidePanel active={1} items={profileNavItems} />
@@ -927,17 +1155,17 @@ export function OrderHistoryPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' }}>
           <Card>
             <p className="form-label" style={{ marginBottom: '0.75rem' }}>Total Orders</p>
-            <span style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--primary)' }}>24</span>
-            <p style={{ color: 'var(--secondary)', fontSize: '0.82rem', fontWeight: 600, marginTop: '0.25rem' }}>+2 this month</p>
+            <span style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--primary)' }}>{orders.length}</span>
+            <p style={{ color: 'var(--secondary)', fontSize: '0.82rem', fontWeight: 600, marginTop: '0.25rem' }}>{deliveredCount} delivered</p>
           </Card>
           <Card>
             <p className="form-label" style={{ marginBottom: '0.75rem' }}>Active Deliveries</p>
-            <span style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--primary)' }}>03</span>
+            <span style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--primary)' }}>{activeCount}</span>
           </Card>
           <Card>
             <p className="form-label" style={{ marginBottom: '0.75rem' }}>Latest Order</p>
-            <p style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--primary)', marginBottom: '0.25rem' }}>Samsung 65" 4K TV</p>
-            <p style={{ fontSize: '0.82rem', color: 'var(--on-surface-variant)' }}>Arrived 08 Apr 2026</p>
+            <p style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--primary)', marginBottom: '0.25rem' }}>{latestOrder?.items || 'No orders yet'}</p>
+            <p style={{ fontSize: '0.82rem', color: 'var(--on-surface-variant)' }}>{latestOrder?.date || ''}</p>
           </Card>
         </div>
 
@@ -951,7 +1179,7 @@ export function OrderHistoryPage() {
               </tr>
             </thead>
             <tbody>
-              {orderHistory.map((order, i) => (
+              {orders.map((order, i) => (
                 <tr key={order.id} style={{ borderTop: i > 0 ? '1px solid var(--border-color)' : 'none' }}>
                   <td style={{ padding: '1.1rem 1.25rem', fontWeight: 700, color: 'var(--primary)' }}>#{order.id}</td>
                   <td style={{ padding: '1.1rem 1.25rem', color: 'var(--on-surface-variant)', fontSize: '0.9rem' }}>{order.date}</td>
@@ -982,6 +1210,83 @@ export function OrderHistoryPage() {
 
 export function OrderTrackingPage() {
   return <OrderHistoryPage />
+}
+
+export function AuthPage() {
+  const { isAuthenticated, loginUser, registerUser, showToast } = useShop()
+  const navigate = useNavigate()
+  const [mode, setMode] = useState('login')
+  const [form, setForm] = useState({ fullName: '', email: '', password: '', phone: '', address: '' })
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/profile')
+    }
+  }, [isAuthenticated])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      if (mode === 'login') {
+        await loginUser(form.email, form.password)
+      } else {
+        await registerUser(form)
+      }
+      navigate('/profile')
+    } catch {
+      showToast('Unable to authenticate. Please check your details.')
+    }
+  }
+
+  return (
+    <main className="page" style={{ maxWidth: '760px' }}>
+      <Card>
+        <h1 style={{ color: 'var(--primary)', marginBottom: '0.5rem' }}>{mode === 'login' ? 'Sign In' : 'Create Account'}</h1>
+        <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1.5rem' }}>
+          {mode === 'login' ? 'Access your saved profile, orders, and payment methods.' : 'Create your account to save orders and checkout details.'}
+        </p>
+
+        <form className="form-grid" onSubmit={handleSubmit}>
+          {mode === 'register' && (
+            <>
+              <div className="form-group">
+                <label className="form-label">Full Name</label>
+                <input type="text" value={form.fullName} onChange={e => setForm(f => ({ ...f, fullName: e.target.value }))} required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Phone</label>
+                <input type="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} required />
+              </div>
+            </>
+          )}
+          <div className="form-group">
+            <label className="form-label">Email</label>
+            <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input type="password" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} required />
+          </div>
+          {mode === 'register' && (
+            <div className="form-group full-width">
+              <label className="form-label">Address</label>
+              <input type="text" value={form.address} onChange={e => setForm(f => ({ ...f, address: e.target.value }))} required />
+            </div>
+          )}
+          <div className="full-width" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <button
+              type="button"
+              onClick={() => setMode(mode === 'login' ? 'register' : 'login')}
+              style={{ border: 'none', background: 'none', color: 'var(--primary)', fontWeight: 600, cursor: 'pointer', padding: 0 }}
+            >
+              {mode === 'login' ? 'Need an account? Create one' : 'Already have an account? Sign in'}
+            </button>
+            <Button type="submit" variant="primary">{mode === 'login' ? 'Log In' : 'Create Account'}</Button>
+          </div>
+        </form>
+      </Card>
+    </main>
+  )
 }
 
 /* ─────────────────────────────────────────────

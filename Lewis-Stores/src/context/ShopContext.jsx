@@ -1,4 +1,15 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import {
+  addPaymentMethod,
+  createOrder,
+  getCurrentUser,
+  getOrders,
+  getPaymentMethods,
+  login,
+  register,
+  removePaymentMethod,
+  updateCurrentUser,
+} from '../lib/api';
 
 const ShopContext = createContext();
 
@@ -28,10 +39,20 @@ const INITIAL_CREDIT_FORM = {
 };
 
 export function ShopProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const stored = localStorage.getItem('ls_cart');
+    return stored ? JSON.parse(stored) : [];
+  });
   const [toastMessage, setToastMessage] = useState(null);
   const [creditForm, setCreditForm] = useState(INITIAL_CREDIT_FORM);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentUser, setCurrentUser] = useState(() => {
+    const stored = localStorage.getItem('ls_user');
+    return stored ? JSON.parse(stored) : null;
+  });
+  const [authToken, setAuthToken] = useState(localStorage.getItem('ls_token') || '');
+  const [orders, setOrders] = useState([]);
+  const [paymentMethods, setPaymentMethods] = useState([]);
 
   const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
   const cartSubtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -80,6 +101,105 @@ export function ShopProvider({ children }) {
     setCartItems([]);
   };
 
+  useEffect(() => {
+    localStorage.setItem('ls_cart', JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  const saveAuth = (token, user) => {
+    setAuthToken(token);
+    setCurrentUser(user);
+    localStorage.setItem('ls_token', token);
+    localStorage.setItem('ls_user', JSON.stringify(user));
+  };
+
+  const loginUser = async (email, password) => {
+    const result = await login(email, password);
+    saveAuth(result.token || result.Token, result.user || result.User);
+    showToast(`Welcome back, ${(result.user || result.User).fullName || (result.user || result.User).email}`);
+    return result.user || result.User;
+  };
+
+  const registerUser = async ({ fullName, email, password, phone, address }) => {
+    const result = await register({ fullName, email, password, phone, address });
+    saveAuth(result.token || result.Token, result.user || result.User);
+    showToast('Account created successfully.');
+    return result.user || result.User;
+  };
+
+  const logoutUser = () => {
+    setAuthToken('');
+    setCurrentUser(null);
+    setOrders([]);
+    setPaymentMethods([]);
+    localStorage.removeItem('ls_token');
+    localStorage.removeItem('ls_user');
+    showToast('You have been logged out.');
+  };
+
+  const refreshProfile = async () => {
+    if (!localStorage.getItem('ls_token')) return null;
+    const profile = await getCurrentUser();
+    setCurrentUser(profile);
+    localStorage.setItem('ls_user', JSON.stringify(profile));
+    return profile;
+  };
+
+  const updateProfile = async (payload) => {
+    const updated = await updateCurrentUser(payload);
+    setCurrentUser(updated);
+    localStorage.setItem('ls_user', JSON.stringify(updated));
+    showToast('Profile updated successfully.');
+    return updated;
+  };
+
+  const loadOrders = async () => {
+    if (!localStorage.getItem('ls_token')) {
+      setOrders([]);
+      return [];
+    }
+    const data = await getOrders();
+    setOrders(data || []);
+    return data || [];
+  };
+
+  const placeOrder = async ({ total, items }) => {
+    const created = await createOrder({ total, items });
+    setOrders(prev => [created, ...prev]);
+    return created;
+  };
+
+  const loadPaymentMethods = async () => {
+    if (!localStorage.getItem('ls_token')) {
+      setPaymentMethods([]);
+      return [];
+    }
+    const data = await getPaymentMethods();
+    setPaymentMethods(data || []);
+    return data || [];
+  };
+
+  const savePaymentMethod = async (payload) => {
+    const created = await addPaymentMethod(payload);
+    await loadPaymentMethods();
+    showToast('Payment method saved.');
+    return created;
+  };
+
+  const deletePaymentMethod = async (id) => {
+    await removePaymentMethod(id);
+    await loadPaymentMethods();
+    showToast('Payment method removed.');
+  };
+
+  useEffect(() => {
+    if (!authToken) return;
+    refreshProfile().catch(() => {
+      logoutUser();
+    });
+    loadOrders().catch(() => {});
+    loadPaymentMethods().catch(() => {});
+  }, [authToken]);
+
   // Credit form handlers
   const updateCreditForm = (fields) => {
     setCreditForm(prev => ({ ...prev, ...fields }));
@@ -125,6 +245,21 @@ export function ShopProvider({ children }) {
       resetCreditForm,
       searchQuery,
       setSearchQuery,
+      currentUser,
+      authToken,
+      isAuthenticated: !!authToken,
+      loginUser,
+      registerUser,
+      logoutUser,
+      refreshProfile,
+      updateProfile,
+      orders,
+      loadOrders,
+      placeOrder,
+      paymentMethods,
+      loadPaymentMethods,
+      savePaymentMethod,
+      deletePaymentMethod,
     }}>
       {children}
       {toastMessage && (

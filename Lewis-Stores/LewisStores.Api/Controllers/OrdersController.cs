@@ -12,10 +12,16 @@ namespace LewisStores.Api.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize] - Commented out to allow testing without auth first, can enable if strict auth needed
+    [Authorize]
     public class OrdersController : ControllerBase
     {
         private readonly AppDbContext _context;
+
+        public class CreateOrderRequest
+        {
+            public decimal Total { get; set; }
+            public string Items { get; set; } = string.Empty;
+        }
 
         public OrdersController(AppDbContext context)
         {
@@ -29,22 +35,49 @@ namespace LewisStores.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<Order>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.ToListAsync();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Unauthorized();
+            }
+
+            var orders = await _context.Orders
+                .Where(o => o.UserId == userId)
+                .OrderByDescending(o => o.Date)
+                .ToListAsync();
+
+            return orders;
         }
 
         /// <summary>
         /// Creates a new order and returns the created resource.
         /// </summary>
-        /// <param name="order">Order payload.</param>
+        /// <param name="request">Order payload.</param>
         [HttpPost]
         [ProducesResponseType(typeof(Order), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Order>> CreateOrder([FromBody] Order order)
+        public async Task<ActionResult<Order>> CreateOrder([FromBody] CreateOrderRequest request)
         {
-            // Simple mock order creation
-            order.Id = "LWS-" + new Random().Next(10000, 99999);
-            order.Date = DateTime.UtcNow.ToString("dd MMM yyyy");
-            order.Status = "Processing";
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Unauthorized();
+            }
+
+            if (request.Total <= 0)
+            {
+                return BadRequest(new { Message = "Order total must be greater than zero." });
+            }
+
+            var order = new Order
+            {
+                Id = "LWS-" + Random.Shared.Next(10000, 99999),
+                Date = DateTime.UtcNow.ToString("dd MMM yyyy"),
+                Status = "Processing",
+                Total = request.Total,
+                UserId = userId,
+                Items = request.Items
+            };
 
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();

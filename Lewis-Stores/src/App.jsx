@@ -12,6 +12,7 @@ import {
   CreditReviewPage,
   CreditStatusPage,
   HomePage,
+  AuthPage,
   OrderHistoryPage,
   OrderTrackingPage,
   PaymentMethodsPage,
@@ -35,6 +36,7 @@ function App() {
             <Route path="/products/:id"       element={<ProductDetailPage />} />
             <Route path="/cart"               element={<CartPage />} />
             <Route path="/checkout"           element={<CheckoutPage />} />
+            <Route path="/auth"               element={<AuthPage />} />
             <Route path="/profile"            element={<ProfilePage />} />
             <Route path="/profile/payment"    element={<PaymentMethodsPage />} />
             <Route path="/profile/addresses"  element={<ShippingAddressesPage />} />
