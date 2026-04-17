@@ -117,6 +117,61 @@ export function applyQaScenarioPack(key) {
   })
 }
 
+export function getQaTrainingMissions() {
+  return request('/api/Qa/missions')
+}
+
+export function getQaTrainingPersonas() {
+  return request('/api/Qa/personas')
+}
+
+export function resetTrainingSession(payload) {
+  return request('/api/Training/session/reset', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export function getMissionProgress() {
+  return request('/api/Training/missions/progress')
+}
+
+export function startMission(payload) {
+  return request('/api/Training/missions/start', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export function completeMission(payload) {
+  return request('/api/Training/missions/complete', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export function getMissionLeaderboard() {
+  return request('/api/Training/missions/leaderboard')
+}
+
+export function getDefectReports() {
+  return request('/api/Training/defect-reports')
+}
+
+export function createDefectReport(payload) {
+  return request('/api/Training/defect-reports', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export function reviewDefectReport(id, payload) {
+  return request(`/api/Training/defect-reports/${id}/review`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  })
+}
+
 export function getReturns() {
   return request('/api/Returns')
 }

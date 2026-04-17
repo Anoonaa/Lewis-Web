@@ -106,6 +106,111 @@ namespace LewisStores.Api.Controllers
         }
 
         /// <summary>
+        /// Returns guided student mission packs for quality-engineering practice.
+        /// </summary>
+        [HttpGet("missions")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetTrainingMissions()
+        {
+            var missions = new[]
+            {
+                new
+                {
+                    Key = "catalog_integrity",
+                    Title = "Catalog Integrity Sweep",
+                    Summary = "Validate product catalog behavior, duplicate handling, inactive items, and search consistency.",
+                    Persona = "Customer",
+                    FocusAreas = new[] { "search", "filtering", "product detail", "data accuracy" },
+                    Steps = new[]
+                    {
+                        "Open the product listing page and search for at least two products.",
+                        "Verify active and inactive catalog items behave consistently.",
+                        "Inspect a product detail page, then re-run a search to confirm results still render.",
+                        "Document any duplicate, missing, or misleading catalog behavior."
+                    }
+                },
+                new
+                {
+                    Key = "checkout_journey",
+                    Title = "Checkout Journey Verification",
+                    Summary = "Exercise cart, authentication, saved payment methods, and order creation flows.",
+                    Persona = "Customer",
+                    FocusAreas = new[] { "cart", "auth", "checkout", "payment methods" },
+                    Steps = new[]
+                    {
+                        "Add two items to the cart and complete a checkout flow.",
+                        "Sign in midway and confirm the flow keeps customer data intact.",
+                        "Confirm the order appears in order history after submission.",
+                        "Check for mismatch between cart totals, order totals, and confirmation state."
+                    }
+                },
+                new
+                {
+                    Key = "support_workflow",
+                    Title = "Support Workflow Drill",
+                    Summary = "Investigate returns, support tickets, assignments, and status transitions as a support agent.",
+                    Persona = "Support",
+                    FocusAreas = new[] { "support cases", "returns", "assignment", "status changes" },
+                    Steps = new[]
+                    {
+                        "Open QA Lab and review seeded return requests and support cases.",
+                        "Assign a case and inspect the resulting audit trail.",
+                        "Update a return request or case status.",
+                        "Identify whether role-based access is enforced correctly."
+                    }
+                }
+            };
+
+            return Ok(missions);
+        }
+
+        /// <summary>
+        /// Returns personas students can simulate during training.
+        /// </summary>
+        [HttpGet("personas")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetTrainingPersonas()
+        {
+            var personas = new[]
+            {
+                new
+                {
+                    Key = "customer",
+                    Label = "Customer",
+                    Role = "Customer",
+                    Description = "Browse, search, add to cart, checkout, and manage personal account information.",
+                    CapabilityNotes = new[] { "Read catalog", "Manage cart", "Place orders", "View own orders" }
+                },
+                new
+                {
+                    Key = "support",
+                    Label = "Support Agent",
+                    Role = "Support",
+                    Description = "Handle customer issues, returns, and service cases with controlled workflow access.",
+                    CapabilityNotes = new[] { "View support cases", "Assign cases", "Update statuses", "Review returns" }
+                },
+                new
+                {
+                    Key = "manager",
+                    Label = "Manager",
+                    Role = "Manager",
+                    Description = "Monitor operational health, scenario packs, and audit telemetry across the training environment.",
+                    CapabilityNotes = new[] { "Apply QA packs", "View audit logs", "Oversee support", "Review returns" }
+                },
+                new
+                {
+                    Key = "qa_tester",
+                    Label = "QA Tester",
+                    Role = "QaTester",
+                    Description = "Use defect scenarios, audit logs, and mission packs to validate product and workflow quality.",
+                    CapabilityNotes = new[] { "Toggle QA flags", "Run missions", "Inspect audits", "Exercise edge cases" }
+                }
+            };
+
+            return Ok(personas);
+        }
+
+        /// <summary>
         /// Returns pre-defined scenario packs for instructor-led training.
         /// </summary>
         [HttpGet("scenario-packs")]

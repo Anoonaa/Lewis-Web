@@ -413,6 +413,128 @@ namespace LewisStores.Api.Models
     }
 
     /// <summary>
+    /// Student-submitted defect report captured during training missions.
+    /// </summary>
+    public class DefectReport
+    {
+        /// <summary>
+        /// Numeric primary key.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Mission identifier associated with this defect report.
+        /// </summary>
+        public string MissionKey { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Short defect summary.
+        /// </summary>
+        public string Title { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Severity classification provided by the student.
+        /// </summary>
+        public string Severity { get; set; } = "Medium";
+
+        /// <summary>
+        /// Reproduction instructions.
+        /// </summary>
+        public string StepsToReproduce { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Expected behavior summary.
+        /// </summary>
+        public string ExpectedResult { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Actual observed behavior.
+        /// </summary>
+        public string ActualResult { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Optional contextual notes such as browser, role, and scenario pack.
+        /// </summary>
+        public string EnvironmentNotes { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Review workflow state.
+        /// </summary>
+        public string Status { get; set; } = "Submitted";
+
+        /// <summary>
+        /// Student user identifier.
+        /// </summary>
+        public string SubmittedByUserId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// UTC timestamp when report was submitted.
+        /// </summary>
+        public DateTime SubmittedAtUtc { get; set; } = DateTime.UtcNow;
+
+        /// <summary>
+        /// Instructor feedback captured during review.
+        /// </summary>
+        public string InstructorFeedback { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Optional instructor-assigned score.
+        /// </summary>
+        public int? Score { get; set; }
+    }
+
+    /// <summary>
+    /// Mission progress and completion record for training analytics.
+    /// </summary>
+    public class MissionProgress
+    {
+        /// <summary>
+        /// Numeric primary key.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Mission key.
+        /// </summary>
+        public string MissionKey { get; set; } = string.Empty;
+
+        /// <summary>
+        /// User identifier for the trainee.
+        /// </summary>
+        public string UserId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Persona used by the trainee for this mission.
+        /// </summary>
+        public string PersonaKey { get; set; } = "customer";
+
+        /// <summary>
+        /// Mission status value.
+        /// </summary>
+        public string Status { get; set; } = "NotStarted";
+
+        /// <summary>
+        /// Numeric mission score out of 100.
+        /// </summary>
+        public int Score { get; set; }
+
+        /// <summary>
+        /// Badge tier awarded for this mission.
+        /// </summary>
+        public string Badge { get; set; } = "None";
+
+        /// <summary>
+        /// UTC timestamp for mission start.
+        /// </summary>
+        public DateTime StartedAtUtc { get; set; } = DateTime.UtcNow;
+
+        /// <summary>
+        /// UTC timestamp for mission completion.
+        /// </summary>
+        public DateTime? CompletedAtUtc { get; set; }
+    }
+
+    /// <summary>
     /// Feature flag used to enable controlled training scenarios.
     /// </summary>
     public class QaFeatureFlag

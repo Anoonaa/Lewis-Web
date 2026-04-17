@@ -168,6 +168,16 @@
             <param name="take">Maximum number of events (default 100).</param>
             <param name="eventType">Optional event type filter.</param>
         </member>
+        <member name="M:LewisStores.Api.Controllers.QaController.GetTrainingMissions">
+            <summary>
+            Returns guided student mission packs for quality-engineering practice.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.QaController.GetTrainingPersonas">
+            <summary>
+            Returns personas students can simulate during training.
+            </summary>
+        </member>
         <member name="M:LewisStores.Api.Controllers.QaController.GetScenarioPacks">
             <summary>
             Returns pre-defined scenario packs for instructor-led training.
@@ -221,6 +231,11 @@
         <member name="M:LewisStores.Api.Controllers.SupportCasesController.UpdateSupportCaseStatus(System.Int32,LewisStores.Api.Controllers.SupportCasesController.UpdateSupportCaseStatusRequest)">
             <summary>
             Updates support case status.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.TrainingController">
+            <summary>
+            Provides instructor and student training operations for mission tracking and defect reporting.
             </summary>
         </member>
         <member name="T:LewisStores.Api.Models.Product">
@@ -621,6 +636,126 @@
         <member name="P:LewisStores.Api.Models.SupportCase.UpdatedAtUtc">
             <summary>
             UTC timestamp when the case was last updated.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.DefectReport">
+            <summary>
+            Student-submitted defect report captured during training missions.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.Id">
+            <summary>
+            Numeric primary key.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.MissionKey">
+            <summary>
+            Mission identifier associated with this defect report.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.Title">
+            <summary>
+            Short defect summary.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.Severity">
+            <summary>
+            Severity classification provided by the student.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.StepsToReproduce">
+            <summary>
+            Reproduction instructions.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.ExpectedResult">
+            <summary>
+            Expected behavior summary.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.ActualResult">
+            <summary>
+            Actual observed behavior.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.EnvironmentNotes">
+            <summary>
+            Optional contextual notes such as browser, role, and scenario pack.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.Status">
+            <summary>
+            Review workflow state.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.SubmittedByUserId">
+            <summary>
+            Student user identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.SubmittedAtUtc">
+            <summary>
+            UTC timestamp when report was submitted.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.InstructorFeedback">
+            <summary>
+            Instructor feedback captured during review.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.DefectReport.Score">
+            <summary>
+            Optional instructor-assigned score.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.MissionProgress">
+            <summary>
+            Mission progress and completion record for training analytics.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.MissionProgress.Id">
+            <summary>
+            Numeric primary key.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.MissionProgress.MissionKey">
+            <summary>
+            Mission key.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.MissionProgress.UserId">
+            <summary>
+            User identifier for the trainee.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.MissionProgress.PersonaKey">
+            <summary>
+            Persona used by the trainee for this mission.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.MissionProgress.Status">
+            <summary>
+            Mission status value.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.MissionProgress.Score">
+            <summary>
+            Numeric mission score out of 100.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.MissionProgress.Badge">
+            <summary>
+            Badge tier awarded for this mission.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.MissionProgress.StartedAtUtc">
+            <summary>
+            UTC timestamp for mission start.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.MissionProgress.CompletedAtUtc">
+            <summary>
+            UTC timestamp for mission completion.
             </summary>
         </member>
         <member name="T:LewisStores.Api.Models.QaFeatureFlag">

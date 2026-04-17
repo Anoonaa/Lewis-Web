@@ -20,6 +20,7 @@ import {
   ProductListingPage,
   ProfilePage,
   QaLabPage,
+  TrainingMissionsPage,
   SettingsPage,
   ShippingAddressesPage,
 } from './pages/Pages'
@@ -45,6 +46,7 @@ function App() {
             <Route path="/orders"             element={<OrderHistoryPage />} />
             <Route path="/orders/tracking"    element={<OrderTrackingPage />} />
             <Route path="/qa-lab"             element={<QaLabPage />} />
+            <Route path="/training-missions"  element={<TrainingMissionsPage />} />
             <Route path="/credit"             element={<CreditInfoPage />} />
             <Route path="/credit/form-1"      element={<CreditFormOnePage />} />
             <Route path="/credit/form-2"      element={<CreditFormTwoPage />} />

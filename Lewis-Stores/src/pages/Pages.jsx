@@ -954,6 +954,7 @@ const profileNavItems = [
   { label: 'Shipping Addresses', to: '/profile/addresses' },
   { label: 'Settings', to: '/profile/settings' },
   { label: 'QA Lab', to: '/qa-lab' },
+  { label: 'Training Missions', to: '/training-missions' },
 ]
 
 /* ─────────────────────────────────────────────
@@ -1522,6 +1523,375 @@ export function QaLabPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          )}
+        </Card>
+      </section>
+    </main>
+  )
+}
+
+export function TrainingMissionsPage() {
+  const {
+    isAuthenticated,
+    currentUser,
+    trainingMissions,
+    trainingPersonas,
+    activeTrainingPersona,
+    setTrainingPersona,
+    loadTrainingMissions,
+    loadTrainingPersonas,
+    missionProgress,
+    loadMissionProgress,
+    beginMission,
+    finishMission,
+    missionLeaderboard,
+    loadMissionLeaderboard,
+    defectReports,
+    loadDefectReports,
+    submitDefectReport,
+    reviewStudentDefectReport,
+    resetClassSession,
+    showToast,
+  } = useShop()
+  const [loading, setLoading] = useState(false)
+  const [defectForm, setDefectForm] = useState({
+    missionKey: '',
+    title: '',
+    severity: 'Medium',
+    stepsToReproduce: '',
+    expectedResult: '',
+    actualResult: '',
+    environmentNotes: '',
+  })
+  const [resetForm, setResetForm] = useState({ scenarioPackKey: 'happy_path_baseline', clearStudentData: true, clearAudit: false })
+  const isInstructor = ['Admin', 'Manager', 'QaTester'].includes(currentUser?.role || '')
+
+  useEffect(() => {
+    if (!isAuthenticated) return
+    setLoading(true)
+    Promise.all([
+      loadTrainingMissions(),
+      loadTrainingPersonas(),
+      loadMissionProgress(),
+      loadMissionLeaderboard(),
+      loadDefectReports(),
+    ]).finally(() => setLoading(false))
+  }, [isAuthenticated])
+
+  if (!isAuthenticated) {
+    return (
+      <main className="page" style={{ maxWidth: '780px' }}>
+        <Card style={{ textAlign: 'center', padding: '2.5rem' }}>
+          <h1 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Sign in to open Training Missions</h1>
+          <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1.5rem' }}>
+            Guided missions are available to authenticated training accounts only.
+          </p>
+          <Button to="/auth" variant="primary" style={{ padding: '0.9rem 2rem' }}>Go to Login / Register</Button>
+        </Card>
+      </main>
+    )
+  }
+
+  const activePersona = trainingPersonas.find(p => p.key === activeTrainingPersona) || trainingPersonas[0]
+
+  const handleStartMission = async (missionKey) => {
+    try {
+      await beginMission({ missionKey, personaKey: activeTrainingPersona })
+    } catch {
+      showToast('Unable to start mission.')
+    }
+  }
+
+  const handleCompleteMission = async (missionKey) => {
+    try {
+      const reportCount = defectReports.filter(r => r.missionKey === missionKey).length
+      await finishMission({ missionKey, personaKey: activeTrainingPersona, findingsCount: reportCount })
+    } catch {
+      showToast('Unable to complete mission.')
+    }
+  }
+
+  const handleSubmitDefect = async (e) => {
+    e.preventDefault()
+    try {
+      await submitDefectReport(defectForm)
+      setDefectForm({
+        missionKey: '',
+        title: '',
+        severity: 'Medium',
+        stepsToReproduce: '',
+        expectedResult: '',
+        actualResult: '',
+        environmentNotes: '',
+      })
+    } catch {
+      showToast('Unable to submit defect report.')
+    }
+  }
+
+  const handleReviewReport = async (id, status) => {
+    try {
+      await reviewStudentDefectReport(id, {
+        status,
+        instructorFeedback: status === 'Accepted' ? 'Well documented. Reproducible.' : 'Needs stronger reproduction detail.',
+        score: status === 'Accepted' ? 90 : 60,
+      })
+    } catch {
+      showToast('Unable to review defect report.')
+    }
+  }
+
+  const handleResetSession = async (e) => {
+    e.preventDefault()
+    try {
+      await resetClassSession(resetForm)
+    } catch {
+      showToast('Unable to reset class session.')
+    }
+  }
+
+  const progressMap = missionProgress.reduce((acc, item) => {
+    acc[item.missionKey] = item
+    return acc
+  }, {})
+
+  return (
+    <main className="page sidebar-layout">
+      <SidePanel active={6} items={profileNavItems} />
+      <section className="stack-md">
+        <div>
+          <h1 style={{ color: 'var(--primary)', marginBottom: '0.4rem' }}>Training Missions</h1>
+          <p style={{ color: 'var(--on-surface-variant)' }}>
+            Guided practice paths for students learning Lewis workflows, data checks, and defect discovery.
+          </p>
+        </div>
+
+        <Card>
+          <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Role Simulation Helper</h3>
+          <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1rem' }}>
+            Switch between training personas to practice the same system from different operational perspectives.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '1rem' }}>
+            {trainingPersonas.map(persona => (
+              <button
+                key={persona.key}
+                onClick={() => setTrainingPersona(persona.key)}
+                style={{
+                  textAlign: 'left',
+                  padding: '1rem',
+                  borderRadius: '8px',
+                  border: persona.key === activeTrainingPersona ? '2px solid var(--primary)' : '1px solid var(--border-color)',
+                  background: persona.key === activeTrainingPersona ? 'rgba(0,31,92,0.04)' : '#fff',
+                  cursor: 'pointer',
+                }}
+              >
+                <p style={{ color: 'var(--primary)', fontWeight: 700, marginBottom: '0.25rem' }}>{persona.label}</p>
+                <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.88rem', marginBottom: '0.5rem' }}>{persona.description}</p>
+                <p style={{ color: 'var(--on-surface)', fontSize: '0.8rem', fontWeight: 600 }}>Role: {persona.role}</p>
+              </button>
+            ))}
+          </div>
+        </Card>
+
+        {activePersona && (
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '0.6rem' }}>{activePersona.label} View</h3>
+            <p style={{ color: 'var(--on-surface-variant)', marginBottom: '0.8rem' }}>{activePersona.description}</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              {activePersona.capabilityNotes?.map(note => (
+                <Badge key={note} tone="subtle">{note}</Badge>
+              ))}
+            </div>
+          </Card>
+        )}
+
+        {isInstructor && (
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '0.6rem' }}>Instructor Session Setup</h3>
+            <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1rem' }}>
+              Reset class state, apply a scenario pack, and optionally clear student submissions.
+            </p>
+            <form className="form-grid" onSubmit={handleResetSession}>
+              <div className="form-group">
+                <label className="form-label">Scenario Pack</label>
+                <select value={resetForm.scenarioPackKey} onChange={e => setResetForm(f => ({ ...f, scenarioPackKey: e.target.value }))}>
+                  <option value="happy_path_baseline">happy_path_baseline</option>
+                  <option value="data_integrity_hunt">data_integrity_hunt</option>
+                  <option value="support_ops_breakdown">support_ops_breakdown</option>
+                </select>
+              </div>
+              <div className="form-group" style={{ display: 'flex', alignItems: 'end', gap: '1rem' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <input type="checkbox" checked={resetForm.clearStudentData} onChange={e => setResetForm(f => ({ ...f, clearStudentData: e.target.checked }))} />
+                  Clear student data
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <input type="checkbox" checked={resetForm.clearAudit} onChange={e => setResetForm(f => ({ ...f, clearAudit: e.target.checked }))} />
+                  Clear audit logs
+                </label>
+              </div>
+              <div className="full-width" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button type="submit" variant="secondary">Reset Class Session</Button>
+              </div>
+            </form>
+          </Card>
+        )}
+
+        <Card>
+          <div className="space-between" style={{ alignItems: 'center', marginBottom: '0.75rem' }}>
+            <div>
+              <h3 style={{ color: 'var(--primary)' }}>Mission Packs</h3>
+              <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.9rem' }}>Complete one mission at a time and record your findings.</p>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              {loading && <span style={{ color: 'var(--on-surface-variant)', fontSize: '0.85rem' }}>Loading...</span>}
+              <Button to="/qa-lab" variant="text" style={{ color: 'var(--primary)', padding: 0 }}>Open QA Lab</Button>
+            </div>
+          </div>
+          <div className="stack-md">
+            {trainingMissions.map(mission => (
+              <article key={mission.key} style={{ border: '1px solid var(--border-color)', borderRadius: '10px', padding: '1rem' }}>
+                <div className="space-between" style={{ alignItems: 'start' }}>
+                  <div>
+                    <p style={{ color: 'var(--primary)', fontSize: '1.05rem', fontWeight: 700 }}>{mission.title}</p>
+                    <p style={{ color: 'var(--on-surface-variant)', marginTop: '0.25rem' }}>{mission.summary}</p>
+                  </div>
+                  <Badge tone="info">{mission.persona}</Badge>
+                </div>
+
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', margin: '0.9rem 0' }}>
+                  {mission.focusAreas.map(area => <Badge key={area} tone="subtle">{area}</Badge>)}
+                </div>
+
+                <ol style={{ margin: 0, paddingLeft: '1.25rem', color: 'var(--on-surface)', lineHeight: 1.7 }}>
+                  {mission.steps.map(step => <li key={step}>{step}</li>)}
+                </ol>
+
+                <div style={{ marginTop: '0.9rem', display: 'flex', justifyContent: 'flex-end' }}>
+                  <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
+                    {progressMap[mission.key] && (
+                      <Badge tone={progressMap[mission.key].status === 'Completed' ? 'success' : 'info'}>
+                        {progressMap[mission.key].status} {progressMap[mission.key].badge ? `• ${progressMap[mission.key].badge}` : ''}
+                      </Badge>
+                    )}
+                    <Button variant="text" style={{ color: 'var(--primary)', padding: 0 }} onClick={() => handleStartMission(mission.key)}>
+                      Start
+                    </Button>
+                    <Button variant="secondary" onClick={() => handleCompleteMission(mission.key)}>
+                      Complete
+                    </Button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Card>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '1.25rem' }}>
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Submit Defect Report</h3>
+            <form className="form-grid" onSubmit={handleSubmitDefect}>
+              <div className="form-group">
+                <label className="form-label">Mission</label>
+                <select value={defectForm.missionKey} onChange={e => setDefectForm(f => ({ ...f, missionKey: e.target.value }))} required>
+                  <option value="">Select mission</option>
+                  {trainingMissions.map(m => <option key={m.key} value={m.key}>{m.title}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label className="form-label">Severity</label>
+                <select value={defectForm.severity} onChange={e => setDefectForm(f => ({ ...f, severity: e.target.value }))}>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                  <option value="Critical">Critical</option>
+                </select>
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Title</label>
+                <input type="text" value={defectForm.title} onChange={e => setDefectForm(f => ({ ...f, title: e.target.value }))} required />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Steps to Reproduce</label>
+                <textarea rows="3" value={defectForm.stepsToReproduce} onChange={e => setDefectForm(f => ({ ...f, stepsToReproduce: e.target.value }))} required style={{ width: '100%', padding: '0.7rem 0.9rem' }} />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Expected Result</label>
+                <input type="text" value={defectForm.expectedResult} onChange={e => setDefectForm(f => ({ ...f, expectedResult: e.target.value }))} />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Actual Result</label>
+                <input type="text" value={defectForm.actualResult} onChange={e => setDefectForm(f => ({ ...f, actualResult: e.target.value }))} />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Environment Notes</label>
+                <input type="text" placeholder="role, scenario pack, browser" value={defectForm.environmentNotes} onChange={e => setDefectForm(f => ({ ...f, environmentNotes: e.target.value }))} />
+              </div>
+              <div className="full-width" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button type="submit" variant="secondary">Submit Report</Button>
+              </div>
+            </form>
+          </Card>
+
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Mission Leaderboard</h3>
+            {missionLeaderboard.length === 0 ? (
+              <p style={{ color: 'var(--on-surface-variant)' }}>No mission scores yet.</p>
+            ) : (
+              <div style={{ maxHeight: '350px', overflowY: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.86rem' }}>
+                  <thead style={{ background: 'var(--surface-low)' }}>
+                    <tr>
+                      <th style={{ textAlign: 'left', padding: '0.5rem' }}>Student</th>
+                      <th style={{ textAlign: 'left', padding: '0.5rem' }}>Role</th>
+                      <th style={{ textAlign: 'left', padding: '0.5rem' }}>Missions</th>
+                      <th style={{ textAlign: 'left', padding: '0.5rem' }}>Avg</th>
+                      <th style={{ textAlign: 'left', padding: '0.5rem' }}>Badge</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {missionLeaderboard.map((entry, idx) => (
+                      <tr key={`${entry.userId}-${idx}`} style={{ borderTop: '1px solid var(--border-color)' }}>
+                        <td style={{ padding: '0.5rem' }}>{entry.fullName}</td>
+                        <td style={{ padding: '0.5rem' }}>{entry.role}</td>
+                        <td style={{ padding: '0.5rem' }}>{entry.missionsCompleted}</td>
+                        <td style={{ padding: '0.5rem', fontWeight: 700 }}>{entry.averageScore}</td>
+                        <td style={{ padding: '0.5rem' }}><Badge tone="accent">{entry.bestBadge}</Badge></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </Card>
+        </div>
+
+        <Card>
+          <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Defect Review Board</h3>
+          {defectReports.length === 0 ? (
+            <p style={{ color: 'var(--on-surface-variant)' }}>No defect reports submitted yet.</p>
+          ) : (
+            <div className="stack-sm">
+              {defectReports.map(report => (
+                <div key={report.id} style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.7rem' }}>
+                  <div className="space-between" style={{ alignItems: 'start' }}>
+                    <div>
+                      <p style={{ color: 'var(--primary)', fontWeight: 700 }}>#{report.id} {report.title}</p>
+                      <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.82rem' }}>
+                        Mission: {report.missionKey} • Severity: {report.severity} • By: {report.submittedByUserId}
+                      </p>
+                      <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.82rem' }}>Status: {report.status} {report.score ? `• Score ${report.score}` : ''}</p>
+                    </div>
+                    {isInstructor && (
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <Button variant="text" style={{ color: 'var(--primary)', padding: 0 }} onClick={() => handleReviewReport(report.id, 'Accepted')}>Accept</Button>
+                        <Button variant="text" style={{ color: 'var(--secondary)', padding: 0 }} onClick={() => handleReviewReport(report.id, 'NeedsWork')}>Needs Work</Button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </Card>

@@ -19,6 +19,8 @@ namespace LewisStores.Api.Data
         public DbSet<PaymentMethod> PaymentMethods { get; set; } = null!;
         public DbSet<ReturnRequest> ReturnRequests { get; set; } = null!;
         public DbSet<SupportCase> SupportCases { get; set; } = null!;
+        public DbSet<DefectReport> DefectReports { get; set; } = null!;
+        public DbSet<MissionProgress> MissionProgresses { get; set; } = null!;
         public DbSet<QaFeatureFlag> QaFeatureFlags { get; set; } = null!;
         public DbSet<AuditLog> AuditLogs { get; set; } = null!;
 
@@ -31,6 +33,8 @@ namespace LewisStores.Api.Data
             modelBuilder.Entity<PaymentMethod>().HasKey(p => p.Id);
             modelBuilder.Entity<ReturnRequest>().HasKey(r => r.Id);
             modelBuilder.Entity<SupportCase>().HasKey(s => s.Id);
+            modelBuilder.Entity<DefectReport>().HasKey(d => d.Id);
+            modelBuilder.Entity<MissionProgress>().HasKey(m => m.Id);
             modelBuilder.Entity<QaFeatureFlag>().HasKey(f => f.Key);
             modelBuilder.Entity<AuditLog>().HasKey(a => a.Id);
 

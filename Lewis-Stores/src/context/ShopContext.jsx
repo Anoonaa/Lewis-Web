@@ -3,20 +3,30 @@ import {
   applyQaScenarioPack,
   assignSupportCase,
   addPaymentMethod,
+  completeMission,
+  createDefectReport,
   createReturn,
   createOrder,
   createSupportCase,
+  getDefectReports,
   getCurrentUser,
+  getMissionLeaderboard,
+  getMissionProgress,
   getOrders,
   getPaymentMethods,
   getQaAudit,
   getQaFlags,
   getQaScenarioPacks,
+  getQaTrainingMissions,
+  getQaTrainingPersonas,
   getReturns,
   getSupportCases,
   login,
   register,
   removePaymentMethod,
+  resetTrainingSession,
+  reviewDefectReport,
+  startMission,
   updateQaFlag,
   updateReturnStatus,
   updateSupportCaseStatus,
@@ -70,6 +80,12 @@ export function ShopProvider({ children }) {
   const [qaFlags, setQaFlags] = useState([]);
   const [qaAuditLogs, setQaAuditLogs] = useState([]);
   const [qaScenarioPacks, setQaScenarioPacks] = useState([]);
+  const [trainingMissions, setTrainingMissions] = useState([]);
+  const [trainingPersonas, setTrainingPersonas] = useState([]);
+  const [activeTrainingPersona, setActiveTrainingPersona] = useState(() => localStorage.getItem('ls_training_persona') || 'customer');
+  const [missionProgress, setMissionProgress] = useState([]);
+  const [missionLeaderboard, setMissionLeaderboard] = useState([]);
+  const [defectReports, setDefectReports] = useState([]);
 
   const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
   const cartSubtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -302,6 +318,103 @@ export function ShopProvider({ children }) {
     return data || [];
   };
 
+  const loadTrainingMissions = async () => {
+    if (!localStorage.getItem('ls_token')) {
+      setTrainingMissions([]);
+      return [];
+    }
+    const data = await getQaTrainingMissions();
+    setTrainingMissions(data || []);
+    return data || [];
+  };
+
+  const loadTrainingPersonas = async () => {
+    if (!localStorage.getItem('ls_token')) {
+      setTrainingPersonas([]);
+      return [];
+    }
+    const data = await getQaTrainingPersonas();
+    setTrainingPersonas(data || []);
+    return data || [];
+  };
+
+  const setTrainingPersona = (personaKey) => {
+    setActiveTrainingPersona(personaKey);
+    localStorage.setItem('ls_training_persona', personaKey);
+    showToast(`Training persona set to ${personaKey}`);
+  };
+
+  const loadMissionProgress = async () => {
+    if (!localStorage.getItem('ls_token')) {
+      setMissionProgress([]);
+      return [];
+    }
+    const data = await getMissionProgress();
+    setMissionProgress(data || []);
+    return data || [];
+  };
+
+  const loadMissionLeaderboard = async () => {
+    if (!localStorage.getItem('ls_token')) {
+      setMissionLeaderboard([]);
+      return [];
+    }
+    const data = await getMissionLeaderboard();
+    setMissionLeaderboard(data || []);
+    return data || [];
+  };
+
+  const beginMission = async ({ missionKey, personaKey }) => {
+    const result = await startMission({ missionKey, personaKey });
+    await loadMissionProgress();
+    showToast(`Mission started: ${missionKey}`);
+    return result;
+  };
+
+  const finishMission = async ({ missionKey, personaKey, findingsCount = 0, score = null }) => {
+    const result = await completeMission({ missionKey, personaKey, findingsCount, score });
+    await Promise.all([loadMissionProgress(), loadMissionLeaderboard()]);
+    showToast(`Mission completed: ${missionKey}`);
+    return result;
+  };
+
+  const loadDefectReports = async () => {
+    if (!localStorage.getItem('ls_token')) {
+      setDefectReports([]);
+      return [];
+    }
+    const data = await getDefectReports();
+    setDefectReports(data || []);
+    return data || [];
+  };
+
+  const submitDefectReport = async (payload) => {
+    const created = await createDefectReport(payload);
+    await loadDefectReports();
+    showToast('Defect report submitted.');
+    return created;
+  };
+
+  const reviewStudentDefectReport = async (id, payload) => {
+    const updated = await reviewDefectReport(id, payload);
+    await loadDefectReports();
+    showToast('Defect report reviewed.');
+    return updated;
+  };
+
+  const resetClassSession = async (payload) => {
+    const result = await resetTrainingSession(payload);
+    await Promise.all([
+      loadQaFlags(),
+      loadQaAuditLogs({ take: 80 }),
+      loadDefectReports(),
+      loadMissionProgress(),
+      loadMissionLeaderboard(),
+    ]);
+    showToast('Class session reset completed.');
+    return result;
+  };
+
   const applyScenarioPack = async (key) => {
     const result = await applyQaScenarioPack(key);
     await Promise.all([loadQaFlags(), loadQaAuditLogs({ take: 50 })]);
@@ -321,6 +434,11 @@ export function ShopProvider({ children }) {
     loadQaFlags().catch(() => {});
     loadQaAuditLogs({ take: 50 }).catch(() => {});
     loadQaScenarioPacks().catch(() => {});
+    loadTrainingMissions().catch(() => {});
+    loadTrainingPersonas().catch(() => {});
+    loadMissionProgress().catch(() => {});
+    loadMissionLeaderboard().catch(() => {});
+    loadDefectReports().catch(() => {});
   }, [authToken]);
 
   // Credit form handlers
@@ -400,6 +518,23 @@ export function ShopProvider({ children }) {
       qaScenarioPacks,
       loadQaScenarioPacks,
       applyScenarioPack,
+      trainingMissions,
+      loadTrainingMissions,
+      trainingPersonas,
+      loadTrainingPersonas,
+      activeTrainingPersona,
+      setTrainingPersona,
+      missionProgress,
+      loadMissionProgress,
+      beginMission,
+      finishMission,
+      missionLeaderboard,
+      loadMissionLeaderboard,
+      defectReports,
+      loadDefectReports,
+      submitDefectReport,
+      reviewStudentDefectReport,
+      resetClassSession,
     }}>
       {children}
       {toastMessage && (
