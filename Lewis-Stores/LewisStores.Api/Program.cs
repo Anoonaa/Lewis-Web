@@ -61,7 +61,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = """
             Enterprise API reference for the Lewis Stores digital commerce platform.
 
-            This specification provides production-style documentation for catalog operations, customer identity, checkout, orders, returns, support workflows, and QA training controls.
+            This specification provides documentation for catalog operations, customer identity, checkout, orders, returns, support workflows, and QA training controls.
 
             ### Platform Capabilities
             - Product and category discovery for merchandising and storefront experiences
