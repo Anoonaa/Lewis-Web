@@ -10,14 +10,15 @@ window.addEventListener("load", () => {
   }
 
   const notice = document.createElement("div");
-  notice.style.marginTop = "12px";
-  notice.style.padding = "12px";
-  notice.style.border = "1px solid #c9dcdf";
-  notice.style.borderRadius = "8px";
-  notice.style.background = "#f0faf8";
-  notice.style.color = "#11424c";
+  notice.style.marginTop = "14px";
+  notice.style.padding = "14px 16px";
+  notice.style.border = "1px solid #c6dde2";
+  notice.style.borderRadius = "10px";
+  notice.style.background = "linear-gradient(135deg, #f4fbfb 0%, #eef8ff 100%)";
+  notice.style.color = "#123f4b";
   notice.style.fontSize = "13px";
-  notice.innerHTML = "<strong>Quick Start:</strong> Use <em>POST /api/Auth/login</em> to get a token, then click <em>Authorize</em> and paste the token value.";
+  notice.style.lineHeight = "1.55";
+  notice.innerHTML = "<strong>Integration Quick Start</strong><br/>1) Authenticate using <em>POST /api/Auth/login</em>.<br/>2) Select <em>Authorize</em> and provide the JWT token value only.<br/>3) Validate role-based behaviors against commerce, returns, support, and QA scenario endpoints.";
 
   infoSection.appendChild(notice);
 });

@@ -56,17 +56,37 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Lewis Stores API",
-        Version = "v1",
-        Description = "Comprehensive API documentation for Lewis Stores ecommerce services.\n\nIncludes catalog, cart, orders, credit applications, and authentication endpoints.",
+        Title = "Lewis Stores Commerce Platform API",
+        Version = "v1.0",
+        Description = """
+            Enterprise API reference for the Lewis Stores digital commerce platform.
+
+            This specification provides production-style documentation for catalog operations, customer identity, checkout, orders, returns, support workflows, and QA training controls.
+
+            ### Platform Capabilities
+            - Product and category discovery for merchandising and storefront experiences
+            - Authentication, profile management, and role-based access controls
+            - Order lifecycle management, payment methods, and checkout orchestration
+            - Returns/refunds and customer support case operations
+            - QA scenario packs, feature flags, and audit telemetry for quality engineering exercises
+
+            ### Security and Access
+            Most customer and operational endpoints require JWT bearer authentication. Obtain an access token through `POST /api/Auth/login`, then authorize requests via the `Authorization: Bearer <token>` header.
+
+            ### Governance Notes
+            This API is intended for internal engineering, training, and controlled testing environments. Behaviour may intentionally include configurable defect scenarios for quality-engineering labs.
+            """,
+        TermsOfService = new Uri("https://lewisstores.local/terms/api"),
         Contact = new OpenApiContact
         {
-            Name = "Lewis Stores Engineering",
-            Email = "api-support@lewisstores.local"
+            Name = "Lewis Stores Platform Engineering",
+            Email = "platform.api@lewisstores.local",
+            Url = new Uri("https://lewisstores.local/engineering")
         },
         License = new OpenApiLicense
         {
-            Name = "Internal Use"
+            Name = "Lewis Stores Internal Platform License",
+            Url = new Uri("https://lewisstores.local/legal/internal-platform-license")
         }
     });
 
@@ -133,9 +153,9 @@ if (app.Environment.IsDevelopment() || true) // Always show swagger for this moc
 
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/docs/v1/openapi.json", "Lewis Stores API v1");
+        c.SwaggerEndpoint("/docs/v1/openapi.json", "Lewis Stores Commerce Platform API v1.0");
         c.RoutePrefix = "docs";
-        c.DocumentTitle = "Lewis Stores API Documentation";
+        c.DocumentTitle = "Lewis Stores Commerce Platform | API Reference";
         c.DocExpansion(DocExpansion.List);
         c.DefaultModelsExpandDepth(-1);
         c.EnableDeepLinking();
