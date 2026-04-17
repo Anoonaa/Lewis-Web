@@ -89,7 +89,7 @@ export function HomePage() {
   const featured = catalogProducts.filter(p => p.tag === 'Best Seller' || p.tag === 'On Sale').slice(0, 8)
 
   const searchResults = searchQuery
-    ? products.filter(p => {
+    ? catalogProducts.filter(p => {
         const q = searchQuery.toLowerCase()
         return p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)
       })
@@ -953,6 +953,7 @@ const profileNavItems = [
   { label: 'Payment Methods', to: '/profile/payment' },
   { label: 'Shipping Addresses', to: '/profile/addresses' },
   { label: 'Settings', to: '/profile/settings' },
+  { label: 'QA Lab', to: '/qa-lab' },
 ]
 
 /* ─────────────────────────────────────────────
@@ -1210,6 +1211,323 @@ export function OrderHistoryPage() {
 
 export function OrderTrackingPage() {
   return <OrderHistoryPage />
+}
+
+export function QaLabPage() {
+  const {
+    isAuthenticated,
+    currentUser,
+    qaFlags,
+    qaAuditLogs,
+    qaScenarioPacks,
+    returnRequests,
+    supportCases,
+    loadQaFlags,
+    loadQaAuditLogs,
+    loadQaScenarioPacks,
+    toggleQaFlag,
+    applyScenarioPack,
+    loadReturnRequests,
+    submitReturnRequest,
+    changeReturnStatus,
+    loadSupportCases,
+    submitSupportCase,
+    assignCase,
+    changeSupportCaseStatus,
+    orders,
+    loadOrders,
+    showToast,
+  } = useShop()
+
+  const [returnForm, setReturnForm] = useState({ orderId: '', reason: '', requestedAmount: '' })
+  const [supportForm, setSupportForm] = useState({ orderId: '', subject: '', description: '', priority: 'Normal' })
+  const [auditFilter, setAuditFilter] = useState('')
+  const [loading, setLoading] = useState(false)
+  const isStaff = ['Admin', 'Manager', 'Support', 'QaTester'].includes(currentUser?.role || '')
+  const canManageQa = ['Admin', 'Manager', 'QaTester'].includes(currentUser?.role || '')
+
+  useEffect(() => {
+    if (!isAuthenticated) return
+    setLoading(true)
+    Promise.all([
+      loadQaFlags(),
+      loadQaScenarioPacks(),
+      loadQaAuditLogs({ take: 80 }),
+      loadReturnRequests(),
+      loadSupportCases(),
+      loadOrders(),
+    ]).finally(() => setLoading(false))
+  }, [isAuthenticated])
+
+  const handleApplyPack = async (key) => {
+    try {
+      await applyScenarioPack(key)
+    } catch {
+      showToast('Could not apply scenario pack.')
+    }
+  }
+
+  const handleToggleFlag = async (key, isEnabled) => {
+    try {
+      await toggleQaFlag(key, isEnabled)
+    } catch {
+      showToast('Could not update feature flag.')
+    }
+  }
+
+  const handleSubmitReturn = async (e) => {
+    e.preventDefault()
+    try {
+      await submitReturnRequest({
+        orderId: returnForm.orderId,
+        reason: returnForm.reason,
+        requestedAmount: Number(returnForm.requestedAmount),
+      })
+      setReturnForm({ orderId: '', reason: '', requestedAmount: '' })
+    } catch {
+      showToast('Could not submit return request.')
+    }
+  }
+
+  const handleSubmitSupport = async (e) => {
+    e.preventDefault()
+    try {
+      await submitSupportCase(supportForm)
+      setSupportForm({ orderId: '', subject: '', description: '', priority: 'Normal' })
+    } catch {
+      showToast('Could not submit support case.')
+    }
+  }
+
+  const refreshAudit = async () => {
+    try {
+      await loadQaAuditLogs({ take: 80, eventType: auditFilter || undefined })
+    } catch {
+      showToast('Could not refresh audit logs.')
+    }
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <main className="page" style={{ maxWidth: '780px' }}>
+        <Card style={{ textAlign: 'center', padding: '2.5rem' }}>
+          <h1 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Sign in to open QA Lab</h1>
+          <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1.5rem' }}>
+            QA Lab requires an authenticated training account.
+          </p>
+          <Button to="/auth" variant="primary" style={{ padding: '0.9rem 2rem' }}>Go to Login / Register</Button>
+        </Card>
+      </main>
+    )
+  }
+
+  return (
+    <main className="page sidebar-layout">
+      <SidePanel active={5} items={profileNavItems} />
+      <section className="stack-md">
+        <div>
+          <h1 style={{ color: 'var(--primary)', marginBottom: '0.4rem' }}>QA Lab</h1>
+          <p style={{ color: 'var(--on-surface-variant)' }}>
+            Training control center for scenario packs, defect flags, returns/refunds, and support workflows.
+          </p>
+        </div>
+
+        <Card>
+          <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Scenario Packs</h3>
+          <p style={{ color: 'var(--on-surface-variant)', marginBottom: '1rem' }}>Apply grouped training setups for classes and test missions.</p>
+          <div className="stack-sm">
+            {qaScenarioPacks.map(pack => (
+              <div key={pack.key} style={{ border: '1px solid var(--border-color)', borderRadius: '4px', padding: '0.9rem 1rem' }}>
+                <div className="space-between" style={{ alignItems: 'start' }}>
+                  <div>
+                    <p style={{ color: 'var(--primary)', fontWeight: 700 }}>{pack.title}</p>
+                    <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.88rem' }}>{pack.description}</p>
+                  </div>
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleApplyPack(pack.key)}
+                    disabled={!canManageQa}
+                    style={{ padding: '0.45rem 0.8rem', fontSize: '0.82rem' }}
+                  >
+                    Apply
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card>
+          <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Feature Flags</h3>
+          <div className="stack-sm">
+            {qaFlags.map(flag => (
+              <div key={flag.key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.6rem' }}>
+                <div>
+                  <p style={{ color: 'var(--on-surface)', fontWeight: 600 }}>{flag.key}</p>
+                  <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.82rem' }}>{flag.description}</p>
+                </div>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.82rem' }}>
+                  <input
+                    type="checkbox"
+                    checked={!!flag.isEnabled}
+                    disabled={!canManageQa}
+                    onChange={(e) => handleToggleFlag(flag.key, e.target.checked)}
+                  />
+                  {flag.isEnabled ? 'Enabled' : 'Disabled'}
+                </label>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '1.25rem' }}>
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Create Return Request</h3>
+            <form className="form-grid" onSubmit={handleSubmitReturn}>
+              <div className="form-group">
+                <label className="form-label">Order</label>
+                <select value={returnForm.orderId} onChange={e => setReturnForm(f => ({ ...f, orderId: e.target.value }))} required>
+                  <option value="">Select order</option>
+                  {orders.map(o => <option key={o.id} value={o.id}>{o.id} - {o.status}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label className="form-label">Requested Amount</label>
+                <input type="number" min="1" step="0.01" value={returnForm.requestedAmount} onChange={e => setReturnForm(f => ({ ...f, requestedAmount: e.target.value }))} required />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Reason</label>
+                <textarea rows="3" value={returnForm.reason} onChange={e => setReturnForm(f => ({ ...f, reason: e.target.value }))} required style={{ width: '100%', padding: '0.7rem 0.9rem' }} />
+              </div>
+              <div className="full-width" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button type="submit" variant="secondary">Submit Return</Button>
+              </div>
+            </form>
+          </Card>
+
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Open Support Case</h3>
+            <form className="form-grid" onSubmit={handleSubmitSupport}>
+              <div className="form-group">
+                <label className="form-label">Related Order (optional)</label>
+                <input type="text" value={supportForm.orderId} onChange={e => setSupportForm(f => ({ ...f, orderId: e.target.value }))} placeholder="LWS-xxxxx" />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Priority</label>
+                <select value={supportForm.priority} onChange={e => setSupportForm(f => ({ ...f, priority: e.target.value }))}>
+                  <option value="Low">Low</option>
+                  <option value="Normal">Normal</option>
+                  <option value="High">High</option>
+                  <option value="Critical">Critical</option>
+                </select>
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Subject</label>
+                <input type="text" value={supportForm.subject} onChange={e => setSupportForm(f => ({ ...f, subject: e.target.value }))} required />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">Description</label>
+                <textarea rows="3" value={supportForm.description} onChange={e => setSupportForm(f => ({ ...f, description: e.target.value }))} required style={{ width: '100%', padding: '0.7rem 0.9rem' }} />
+              </div>
+              <div className="full-width" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button type="submit" variant="secondary">Create Case</Button>
+              </div>
+            </form>
+          </Card>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '1.25rem' }}>
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Return Requests</h3>
+            <div className="stack-sm">
+              {returnRequests.map(item => (
+                <div key={item.id} style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.65rem' }}>
+                  <p style={{ fontWeight: 700, color: 'var(--primary)' }}>#{item.id} • {item.orderId}</p>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--on-surface-variant)' }}>{item.reason}</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.4rem' }}>
+                    <Badge tone={item.status === 'Approved' || item.status === 'ApprovedPendingPayout' ? 'success' : item.status === 'Rejected' ? 'warning' : 'info'}>{item.status}</Badge>
+                    {isStaff && (
+                      <select value={item.status} onChange={e => changeReturnStatus(item.id, { status: e.target.value, approvedAmount: item.approvedAmount, resolutionNotes: item.resolutionNotes })} style={{ width: 'auto', fontSize: '0.82rem' }}>
+                        <option value="PendingReview">PendingReview</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Closed">Closed</option>
+                      </select>
+                    )}
+                  </div>
+                </div>
+              ))}
+              {returnRequests.length === 0 && <p style={{ color: 'var(--on-surface-variant)' }}>No return requests found.</p>}
+            </div>
+          </Card>
+
+          <Card>
+            <h3 style={{ color: 'var(--primary)', marginBottom: '0.75rem' }}>Support Cases</h3>
+            <div className="stack-sm">
+              {supportCases.map(item => (
+                <div key={item.id} style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.65rem' }}>
+                  <p style={{ fontWeight: 700, color: 'var(--primary)' }}>Case #{item.id} • {item.subject}</p>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--on-surface-variant)' }}>{item.description}</p>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--on-surface-variant)' }}>Priority: {item.priority} • Assignee: {item.assignedToUserId || 'Unassigned'}</p>
+                  {isStaff && (
+                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.45rem' }}>
+                      <Button variant="text" style={{ color: 'var(--primary)', padding: 0 }} onClick={() => assignCase(item.id, currentUser?.id || 'admin-1')}>Assign to me</Button>
+                      <Button variant="text" style={{ color: 'var(--secondary)', padding: 0 }} onClick={() => changeSupportCaseStatus(item.id, item.status === 'Resolved' ? 'InProgress' : 'Resolved')}>
+                        Mark {item.status === 'Resolved' ? 'InProgress' : 'Resolved'}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              ))}
+              {supportCases.length === 0 && <p style={{ color: 'var(--on-surface-variant)' }}>No support cases found.</p>}
+            </div>
+          </Card>
+        </div>
+
+        <Card>
+          <div className="space-between" style={{ alignItems: 'center', marginBottom: '0.8rem' }}>
+            <h3 style={{ color: 'var(--primary)' }}>Audit Timeline</h3>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <input
+                type="text"
+                value={auditFilter}
+                placeholder="Filter by event type"
+                onChange={e => setAuditFilter(e.target.value)}
+                style={{ width: '220px' }}
+              />
+              <Button variant="secondary" onClick={refreshAudit}>Refresh</Button>
+            </div>
+          </div>
+          {loading ? (
+            <p style={{ color: 'var(--on-surface-variant)' }}>Loading QA telemetry...</p>
+          ) : (
+            <div style={{ maxHeight: '320px', overflowY: 'auto', border: '1px solid var(--border-color)', borderRadius: '4px' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.84rem' }}>
+                <thead style={{ background: 'var(--surface-low)', position: 'sticky', top: 0 }}>
+                  <tr>
+                    <th style={{ textAlign: 'left', padding: '0.65rem 0.75rem' }}>Time (UTC)</th>
+                    <th style={{ textAlign: 'left', padding: '0.65rem 0.75rem' }}>Event</th>
+                    <th style={{ textAlign: 'left', padding: '0.65rem 0.75rem' }}>User</th>
+                    <th style={{ textAlign: 'left', padding: '0.65rem 0.75rem' }}>Severity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {qaAuditLogs.map(row => (
+                    <tr key={row.id} style={{ borderTop: '1px solid var(--border-color)' }}>
+                      <td style={{ padding: '0.6rem 0.75rem', color: 'var(--on-surface-variant)' }}>{new Date(row.timestampUtc).toLocaleString()}</td>
+                      <td style={{ padding: '0.6rem 0.75rem', color: 'var(--on-surface)' }}>{row.eventType}</td>
+                      <td style={{ padding: '0.6rem 0.75rem', color: 'var(--on-surface-variant)' }}>{row.userId || 'system'}</td>
+                      <td style={{ padding: '0.6rem 0.75rem' }}><Badge tone={row.severity === 'Warning' ? 'warning' : 'info'}>{row.severity}</Badge></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </Card>
+      </section>
+    </main>
+  )
 }
 
 export function AuthPage() {

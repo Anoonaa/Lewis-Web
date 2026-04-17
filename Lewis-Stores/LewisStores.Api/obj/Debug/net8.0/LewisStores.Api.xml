@@ -144,6 +144,85 @@
             </summary>
             <param name="id">Product identifier.</param>
         </member>
+        <member name="T:LewisStores.Api.Controllers.QaController">
+            <summary>
+            QA training endpoints for inspecting scenario flags and audit events.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.QaController.GetFlags">
+            <summary>
+            Returns all QA feature flags with current state.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.QaController.UpdateFlag(System.String,LewisStores.Api.Controllers.QaController.UpdateFlagRequest)">
+            <summary>
+            Toggle a feature flag for QA scenario control.
+            </summary>
+            <param name="key">Feature flag key.</param>
+            <param name="request">Toggle payload.</param>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.QaController.GetAuditLogs(System.Int32,System.String)">
+            <summary>
+            Returns recent audit events for student investigations.
+            </summary>
+            <param name="take">Maximum number of events (default 100).</param>
+            <param name="eventType">Optional event type filter.</param>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.QaController.GetScenarioPacks">
+            <summary>
+            Returns pre-defined scenario packs for instructor-led training.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.QaController.ApplyScenarioPack(System.String)">
+            <summary>
+            Applies a scenario pack by updating grouped feature flags.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.ReturnsController">
+            <summary>
+            Handles return and refund workflows for customer orders.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.ReturnsController.GetReturns">
+            <summary>
+            Returns return requests. Support/admin roles can view all; customers view their own.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.ReturnsController.CreateReturn(LewisStores.Api.Controllers.ReturnsController.CreateReturnRequest)">
+            <summary>
+            Creates a new return request for the authenticated customer.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.ReturnsController.UpdateReturnStatus(System.Int32,LewisStores.Api.Controllers.ReturnsController.UpdateReturnStatusRequest)">
+            <summary>
+            Updates a return request status and refund details.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Controllers.SupportCasesController">
+            <summary>
+            Handles support case creation and role-based support operations.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.SupportCasesController.GetSupportCases(System.String)">
+            <summary>
+            Lists support cases. Staff roles can view all; customers only see their own.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.SupportCasesController.CreateSupportCase(LewisStores.Api.Controllers.SupportCasesController.CreateSupportCaseRequest)">
+            <summary>
+            Creates a support case for the authenticated user.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.SupportCasesController.AssignSupportCase(System.Int32,LewisStores.Api.Controllers.SupportCasesController.AssignSupportCaseRequest)">
+            <summary>
+            Assigns a support case to a support agent.
+            </summary>
+        </member>
+        <member name="M:LewisStores.Api.Controllers.SupportCasesController.UpdateSupportCaseStatus(System.Int32,LewisStores.Api.Controllers.SupportCasesController.UpdateSupportCaseStatusRequest)">
+            <summary>
+            Updates support case status.
+            </summary>
+        </member>
         <member name="T:LewisStores.Api.Models.Product">
             <summary>
             Product entity shown in catalog and product listing views.
@@ -182,6 +261,31 @@
         <member name="P:LewisStores.Api.Models.Product.Rating">
             <summary>
             Average customer rating.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.Category">
+            <summary>
+            Product category used for filtering and merchandising.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.Image">
+            <summary>
+            Public product image URL.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.Sku">
+            <summary>
+            Internal stock keeping unit code.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.StockQuantity">
+            <summary>
+            Current available inventory quantity.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.Product.IsActive">
+            <summary>
+            Indicates whether the product is currently active in the catalog.
             </summary>
         </member>
         <member name="T:LewisStores.Api.Models.Category">
@@ -407,6 +511,176 @@
         <member name="P:LewisStores.Api.Models.CreditApplication.MonthlyExpenses">
             <summary>
             Applicant's monthly expenses amount.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.ReturnRequest">
+            <summary>
+            Return and refund request raised against an order.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.ReturnRequest.Id">
+            <summary>
+            Numeric primary key.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.ReturnRequest.OrderId">
+            <summary>
+            Associated order identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.ReturnRequest.UserId">
+            <summary>
+            Customer/user identifier who submitted the request.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.ReturnRequest.Reason">
+            <summary>
+            Return reason provided by the customer.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.ReturnRequest.Status">
+            <summary>
+            Current return workflow status.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.ReturnRequest.RequestedAmount">
+            <summary>
+            Requested refund amount.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.ReturnRequest.ApprovedAmount">
+            <summary>
+            Approved refund amount once processed.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.ReturnRequest.ResolutionNotes">
+            <summary>
+            Resolution notes recorded by support.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.ReturnRequest.RequestedAtUtc">
+            <summary>
+            UTC timestamp when request was submitted.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.ReturnRequest.UpdatedAtUtc">
+            <summary>
+            UTC timestamp when request was last updated.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.SupportCase">
+            <summary>
+            Customer support case linked to account and order activity.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.SupportCase.Id">
+            <summary>
+            Numeric primary key.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.SupportCase.OrderId">
+            <summary>
+            Optional related order identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.SupportCase.UserId">
+            <summary>
+            Requesting customer/user identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.SupportCase.Subject">
+            <summary>
+            Support issue subject line.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.SupportCase.Description">
+            <summary>
+            Detailed support request description.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.SupportCase.Status">
+            <summary>
+            Current case workflow status.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.SupportCase.Priority">
+            <summary>
+            Priority marker used by support teams.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.SupportCase.AssignedToUserId">
+            <summary>
+            User identifier of assigned support agent.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.SupportCase.CreatedAtUtc">
+            <summary>
+            UTC timestamp when the case was created.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.SupportCase.UpdatedAtUtc">
+            <summary>
+            UTC timestamp when the case was last updated.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.QaFeatureFlag">
+            <summary>
+            Feature flag used to enable controlled training scenarios.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.QaFeatureFlag.Key">
+            <summary>
+            Unique feature flag identifier.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.QaFeatureFlag.Description">
+            <summary>
+            Human-readable description of the scenario.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.QaFeatureFlag.IsEnabled">
+            <summary>
+            True when the training scenario is active.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.QaFeatureFlag.UpdatedAtUtc">
+            <summary>
+            Last UTC update timestamp.
+            </summary>
+        </member>
+        <member name="T:LewisStores.Api.Models.AuditLog">
+            <summary>
+            Audit log entry for training investigations.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.AuditLog.Id">
+            <summary>
+            Numeric primary key.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.AuditLog.TimestampUtc">
+            <summary>
+            UTC timestamp of the event.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.AuditLog.EventType">
+            <summary>
+            Event type key.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.AuditLog.UserId">
+            <summary>
+            User identifier responsible for the event when available.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.AuditLog.Severity">
+            <summary>
+            Severity level classification.
+            </summary>
+        </member>
+        <member name="P:LewisStores.Api.Models.AuditLog.Details">
+            <summary>
+            Event details payload in plain text JSON-like format.
             </summary>
         </member>
     </members>

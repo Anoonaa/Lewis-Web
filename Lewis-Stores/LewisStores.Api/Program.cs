@@ -112,6 +112,9 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+var resetDatabaseOnStart = builder.Configuration.GetValue<bool>("ResetDatabaseOnStart")
+    || string.Equals(Environment.GetEnvironmentVariable("RESET_DATABASE_ON_START"), "true", StringComparison.OrdinalIgnoreCase);
+
 var renderPort = Environment.GetEnvironmentVariable("PORT");
 if (!string.IsNullOrWhiteSpace(renderPort))
 {
@@ -157,6 +160,12 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    if (resetDatabaseOnStart)
+    {
+        db.Database.EnsureDeleted();
+    }
+
     db.Database.EnsureCreated();
 }
 

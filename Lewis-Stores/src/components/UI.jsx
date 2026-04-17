@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { formatCurrency } from '../data/mockData'
 import { useShop } from '../context/ShopContext'
 
@@ -60,6 +60,8 @@ export function TopNav({ links }) {
   const { cartCount, searchQuery, setSearchQuery, isAuthenticated, logoutUser } = useShop()
   const [searchOpen, setSearchOpen] = useState(false)
   const inputRef = useRef(null)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const openSearch = () => {
     setSearchOpen(true)
@@ -78,6 +80,16 @@ export function TopNav({ links }) {
       setSearchOpen(false)
     }
   }
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value
+    setSearchQuery(value)
+
+    if (value.trim() && location.pathname !== '/products') {
+      navigate('/products')
+    }
+  }
+
   return (
     <header className="top-nav">
       {/* Lewis Logo */}
@@ -106,7 +118,7 @@ export function TopNav({ links }) {
               className="search-input"
               aria-label="Search products"
               value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
+              onChange={handleSearchChange}
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
             />

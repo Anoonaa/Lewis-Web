@@ -1,13 +1,25 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
+  applyQaScenarioPack,
+  assignSupportCase,
   addPaymentMethod,
+  createReturn,
   createOrder,
+  createSupportCase,
   getCurrentUser,
   getOrders,
   getPaymentMethods,
+  getQaAudit,
+  getQaFlags,
+  getQaScenarioPacks,
+  getReturns,
+  getSupportCases,
   login,
   register,
   removePaymentMethod,
+  updateQaFlag,
+  updateReturnStatus,
+  updateSupportCaseStatus,
   updateCurrentUser,
 } from '../lib/api';
 
@@ -53,6 +65,11 @@ export function ShopProvider({ children }) {
   const [authToken, setAuthToken] = useState(localStorage.getItem('ls_token') || '');
   const [orders, setOrders] = useState([]);
   const [paymentMethods, setPaymentMethods] = useState([]);
+  const [returnRequests, setReturnRequests] = useState([]);
+  const [supportCases, setSupportCases] = useState([]);
+  const [qaFlags, setQaFlags] = useState([]);
+  const [qaAuditLogs, setQaAuditLogs] = useState([]);
+  const [qaScenarioPacks, setQaScenarioPacks] = useState([]);
 
   const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
   const cartSubtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -191,6 +208,107 @@ export function ShopProvider({ children }) {
     showToast('Payment method removed.');
   };
 
+  const loadReturnRequests = async () => {
+    if (!localStorage.getItem('ls_token')) {
+      setReturnRequests([]);
+      return [];
+    }
+
+    const data = await getReturns();
+    setReturnRequests(data || []);
+    return data || [];
+  };
+
+  const submitReturnRequest = async (payload) => {
+    const created = await createReturn(payload);
+    await loadReturnRequests();
+    showToast('Return request submitted.');
+    return created;
+  };
+
+  const changeReturnStatus = async (id, payload) => {
+    const updated = await updateReturnStatus(id, payload);
+    await loadReturnRequests();
+    showToast('Return status updated.');
+    return updated;
+  };
+
+  const loadSupportCases = async (params = {}) => {
+    if (!localStorage.getItem('ls_token')) {
+      setSupportCases([]);
+      return [];
+    }
+
+    const data = await getSupportCases(params);
+    setSupportCases(data || []);
+    return data || [];
+  };
+
+  const submitSupportCase = async (payload) => {
+    const created = await createSupportCase(payload);
+    await loadSupportCases();
+    showToast('Support case created.');
+    return created;
+  };
+
+  const assignCase = async (id, assignedToUserId) => {
+    const updated = await assignSupportCase(id, assignedToUserId);
+    await loadSupportCases();
+    showToast('Case assigned.');
+    return updated;
+  };
+
+  const changeSupportCaseStatus = async (id, status) => {
+    const updated = await updateSupportCaseStatus(id, status);
+    await loadSupportCases();
+    showToast('Case status updated.');
+    return updated;
+  };
+
+  const loadQaFlags = async () => {
+    if (!localStorage.getItem('ls_token')) {
+      setQaFlags([]);
+      return [];
+    }
+    const data = await getQaFlags();
+    setQaFlags(data || []);
+    return data || [];
+  };
+
+  const toggleQaFlag = async (key, isEnabled) => {
+    const updated = await updateQaFlag(key, isEnabled);
+    await loadQaFlags();
+    showToast(`Flag ${key} updated.`);
+    return updated;
+  };
+
+  const loadQaAuditLogs = async (params = {}) => {
+    if (!localStorage.getItem('ls_token')) {
+      setQaAuditLogs([]);
+      return [];
+    }
+    const data = await getQaAudit(params);
+    setQaAuditLogs(data || []);
+    return data || [];
+  };
+
+  const loadQaScenarioPacks = async () => {
+    if (!localStorage.getItem('ls_token')) {
+      setQaScenarioPacks([]);
+      return [];
+    }
+    const data = await getQaScenarioPacks();
+    setQaScenarioPacks(data || []);
+    return data || [];
+  };
+
+  const applyScenarioPack = async (key) => {
+    const result = await applyQaScenarioPack(key);
+    await Promise.all([loadQaFlags(), loadQaAuditLogs({ take: 50 })]);
+    showToast(`Scenario pack applied: ${key}`);
+    return result;
+  };
+
   useEffect(() => {
     if (!authToken) return;
     refreshProfile().catch(() => {
@@ -198,6 +316,11 @@ export function ShopProvider({ children }) {
     });
     loadOrders().catch(() => {});
     loadPaymentMethods().catch(() => {});
+    loadReturnRequests().catch(() => {});
+    loadSupportCases().catch(() => {});
+    loadQaFlags().catch(() => {});
+    loadQaAuditLogs({ take: 50 }).catch(() => {});
+    loadQaScenarioPacks().catch(() => {});
   }, [authToken]);
 
   // Credit form handlers
@@ -260,6 +383,23 @@ export function ShopProvider({ children }) {
       loadPaymentMethods,
       savePaymentMethod,
       deletePaymentMethod,
+      returnRequests,
+      loadReturnRequests,
+      submitReturnRequest,
+      changeReturnStatus,
+      supportCases,
+      loadSupportCases,
+      submitSupportCase,
+      assignCase,
+      changeSupportCaseStatus,
+      qaFlags,
+      loadQaFlags,
+      toggleQaFlag,
+      qaAuditLogs,
+      loadQaAuditLogs,
+      qaScenarioPacks,
+      loadQaScenarioPacks,
+      applyScenarioPack,
     }}>
       {children}
       {toastMessage && (

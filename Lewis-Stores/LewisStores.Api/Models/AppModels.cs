@@ -42,6 +42,31 @@ namespace LewisStores.Api.Models
         /// Average customer rating.
         /// </summary>
         public double Rating { get; set; }
+
+        /// <summary>
+        /// Product category used for filtering and merchandising.
+        /// </summary>
+        public string Category { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Public product image URL.
+        /// </summary>
+        public string Image { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Internal stock keeping unit code.
+        /// </summary>
+        public string Sku { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Current available inventory quantity.
+        /// </summary>
+        public int StockQuantity { get; set; }
+
+        /// <summary>
+        /// Indicates whether the product is currently active in the catalog.
+        /// </summary>
+        public bool IsActive { get; set; } = true;
     }
 
     /// <summary>
@@ -273,5 +298,179 @@ namespace LewisStores.Api.Models
         /// Applicant's monthly expenses amount.
         /// </summary>
         public decimal MonthlyExpenses { get; set; }
+    }
+
+    /// <summary>
+    /// Return and refund request raised against an order.
+    /// </summary>
+    public class ReturnRequest
+    {
+        /// <summary>
+        /// Numeric primary key.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Associated order identifier.
+        /// </summary>
+        public string OrderId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Customer/user identifier who submitted the request.
+        /// </summary>
+        public string UserId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Return reason provided by the customer.
+        /// </summary>
+        public string Reason { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Current return workflow status.
+        /// </summary>
+        public string Status { get; set; } = "PendingReview";
+
+        /// <summary>
+        /// Requested refund amount.
+        /// </summary>
+        public decimal RequestedAmount { get; set; }
+
+        /// <summary>
+        /// Approved refund amount once processed.
+        /// </summary>
+        public decimal? ApprovedAmount { get; set; }
+
+        /// <summary>
+        /// Resolution notes recorded by support.
+        /// </summary>
+        public string ResolutionNotes { get; set; } = string.Empty;
+
+        /// <summary>
+        /// UTC timestamp when request was submitted.
+        /// </summary>
+        public DateTime RequestedAtUtc { get; set; } = DateTime.UtcNow;
+
+        /// <summary>
+        /// UTC timestamp when request was last updated.
+        /// </summary>
+        public DateTime UpdatedAtUtc { get; set; } = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Customer support case linked to account and order activity.
+    /// </summary>
+    public class SupportCase
+    {
+        /// <summary>
+        /// Numeric primary key.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Optional related order identifier.
+        /// </summary>
+        public string? OrderId { get; set; }
+
+        /// <summary>
+        /// Requesting customer/user identifier.
+        /// </summary>
+        public string UserId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Support issue subject line.
+        /// </summary>
+        public string Subject { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Detailed support request description.
+        /// </summary>
+        public string Description { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Current case workflow status.
+        /// </summary>
+        public string Status { get; set; } = "Open";
+
+        /// <summary>
+        /// Priority marker used by support teams.
+        /// </summary>
+        public string Priority { get; set; } = "Normal";
+
+        /// <summary>
+        /// User identifier of assigned support agent.
+        /// </summary>
+        public string? AssignedToUserId { get; set; }
+
+        /// <summary>
+        /// UTC timestamp when the case was created.
+        /// </summary>
+        public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
+
+        /// <summary>
+        /// UTC timestamp when the case was last updated.
+        /// </summary>
+        public DateTime UpdatedAtUtc { get; set; } = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Feature flag used to enable controlled training scenarios.
+    /// </summary>
+    public class QaFeatureFlag
+    {
+        /// <summary>
+        /// Unique feature flag identifier.
+        /// </summary>
+        public string Key { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Human-readable description of the scenario.
+        /// </summary>
+        public string Description { get; set; } = string.Empty;
+
+        /// <summary>
+        /// True when the training scenario is active.
+        /// </summary>
+        public bool IsEnabled { get; set; }
+
+        /// <summary>
+        /// Last UTC update timestamp.
+        /// </summary>
+        public DateTime UpdatedAtUtc { get; set; } = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Audit log entry for training investigations.
+    /// </summary>
+    public class AuditLog
+    {
+        /// <summary>
+        /// Numeric primary key.
+        /// </summary>
+        public long Id { get; set; }
+
+        /// <summary>
+        /// UTC timestamp of the event.
+        /// </summary>
+        public DateTime TimestampUtc { get; set; } = DateTime.UtcNow;
+
+        /// <summary>
+        /// Event type key.
+        /// </summary>
+        public string EventType { get; set; } = string.Empty;
+
+        /// <summary>
+        /// User identifier responsible for the event when available.
+        /// </summary>
+        public string? UserId { get; set; }
+
+        /// <summary>
+        /// Severity level classification.
+        /// </summary>
+        public string Severity { get; set; } = "Info";
+
+        /// <summary>
+        /// Event details payload in plain text JSON-like format.
+        /// </summary>
+        public string Details { get; set; } = string.Empty;
     }
 }

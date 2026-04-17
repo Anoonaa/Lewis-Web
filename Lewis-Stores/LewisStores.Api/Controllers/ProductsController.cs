@@ -26,7 +26,19 @@ namespace LewisStores.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            var products = await _context.Products.ToListAsync();
+
+            var duplicateDefectEnabled = await _context.QaFeatureFlags
+                .Where(f => f.Key == "product_duplicate_in_list")
+                .Select(f => f.IsEnabled)
+                .FirstOrDefaultAsync();
+
+            if (duplicateDefectEnabled && products.Count > 0)
+            {
+                products.Add(products[0]);
+            }
+
+            return products;
         }
 
         /// <summary>

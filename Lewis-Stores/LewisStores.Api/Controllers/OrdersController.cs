@@ -46,6 +46,16 @@ namespace LewisStores.Api.Controllers
                 .OrderByDescending(o => o.Date)
                 .ToListAsync();
 
+            var mismatchDefectEnabled = await _context.QaFeatureFlags
+                .Where(f => f.Key == "order_total_mismatch")
+                .Select(f => f.IsEnabled)
+                .FirstOrDefaultAsync();
+
+            if (mismatchDefectEnabled && orders.Count > 0)
+            {
+                orders[0].Total += 1.11m;
+            }
+
             return orders;
         }
 
@@ -81,6 +91,25 @@ namespace LewisStores.Api.Controllers
 
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
+
+            var verboseAudit = await _context.QaFeatureFlags
+                .Where(f => f.Key == "audit_verbose_events")
+                .Select(f => f.IsEnabled)
+                .FirstOrDefaultAsync();
+
+            if (verboseAudit)
+            {
+                _context.AuditLogs.Add(new AuditLog
+                {
+                    TimestampUtc = DateTime.UtcNow,
+                    EventType = "order.created",
+                    UserId = userId,
+                    Severity = "Info",
+                    Details = $"{{\"orderId\":\"{order.Id}\",\"total\":{order.Total}}}"
+                });
+                await _context.SaveChangesAsync();
+            }
+
             return CreatedAtAction(nameof(GetOrders), new { id = order.Id }, order);
         }
     }

@@ -82,10 +82,12 @@ namespace LewisStores.Api.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
             if (user == null || user.Password != request.Password)
             {
+                await AddAuditAsync("auth.login.failed", null, "Warning", $"{{\"email\":\"{request.Email.Trim()}\"}}");
                 return Unauthorized(new { Message = "Invalid credentials." });
             }
 
             var token = CreateToken(user.Id, user.Email, user.Role);
+            await AddAuditAsync("auth.login.success", user.Id, "Info", "{\"source\":\"api\"}");
 
             return Ok(new
             {
@@ -108,7 +110,13 @@ namespace LewisStores.Api.Controllers
                 return BadRequest(new { Message = "Full name, email, and password are required." });
             }
 
-            var existing = await _context.Users.AnyAsync(u => u.Email == request.Email);
+            var isCaseSensitiveDefectEnabled = await IsFlagEnabledAsync("auth_email_case_sensitive");
+            var email = request.Email.Trim();
+
+            var existing = isCaseSensitiveDefectEnabled
+                ? await _context.Users.AnyAsync(u => u.Email == email)
+                : await _context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
+
             if (existing)
             {
                 return Conflict(new { Message = "An account with this email already exists." });
@@ -117,7 +125,7 @@ namespace LewisStores.Api.Controllers
             var user = new Models.User
             {
                 Id = Guid.NewGuid().ToString("N"),
-                Email = request.Email.Trim(),
+                Email = email,
                 Password = request.Password,
                 Role = "Customer",
                 FullName = request.FullName.Trim(),
@@ -127,6 +135,7 @@ namespace LewisStores.Api.Controllers
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            await AddAuditAsync("auth.register.success", user.Id, "Info", "{\"source\":\"api\"}");
 
             var token = CreateToken(user.Id, user.Email, user.Role);
 
@@ -187,8 +196,37 @@ namespace LewisStores.Api.Controllers
             user.Address = request.Address?.Trim() ?? string.Empty;
 
             await _context.SaveChangesAsync();
+            await AddAuditAsync("profile.updated", user.Id, "Info", "{\"source\":\"api\"}");
 
             return Ok(new { user.Id, user.Email, user.Role, user.FullName, user.Phone, user.Address });
+        }
+
+        private async Task<bool> IsFlagEnabledAsync(string key)
+        {
+            return await _context.QaFeatureFlags
+                .Where(f => f.Key == key)
+                .Select(f => f.IsEnabled)
+                .FirstOrDefaultAsync();
+        }
+
+        private async Task AddAuditAsync(string eventType, string? userId, string severity, string details)
+        {
+            var verboseAudit = await IsFlagEnabledAsync("audit_verbose_events");
+            if (!verboseAudit)
+            {
+                return;
+            }
+
+            _context.AuditLogs.Add(new Models.AuditLog
+            {
+                TimestampUtc = DateTime.UtcNow,
+                EventType = eventType,
+                UserId = userId,
+                Severity = severity,
+                Details = details
+            });
+
+            await _context.SaveChangesAsync();
         }
 
         private static string CreateToken(string userId, string email, string role)
