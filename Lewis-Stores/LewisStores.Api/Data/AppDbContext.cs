@@ -225,6 +225,56 @@ namespace LewisStores.Api.Data
                     FullName = "Lewis Admin",
                     Phone = "+27 82 000 1111",
                     Address = "Lewis Head Office, Johannesburg"
+                },
+                new User
+                {
+                    Id = "demo-admin",
+                    Email = "admin@lewis-training.com",
+                    Password = "Admin123!",
+                    Role = "Admin",
+                    FullName = "Lewis Training Admin",
+                    Phone = "+27 82 700 1000",
+                    Address = "Lewis Training HQ, Johannesburg"
+                },
+                new User
+                {
+                    Id = "demo-manager",
+                    Email = "manager@lewis-training.com",
+                    Password = "Manager123!",
+                    Role = "Manager",
+                    FullName = "Lewis Training Manager",
+                    Phone = "+27 82 700 1001",
+                    Address = "Lewis Training HQ, Johannesburg"
+                },
+                new User
+                {
+                    Id = "demo-support",
+                    Email = "support@lewis-training.com",
+                    Password = "Support123!",
+                    Role = "Support",
+                    FullName = "Lewis Training Support",
+                    Phone = "+27 82 700 1002",
+                    Address = "Lewis Training HQ, Johannesburg"
+                },
+                new User
+                {
+                    Id = "demo-qa",
+                    Email = "qa@lewis-training.com",
+                    Password = "Qa123!",
+                    Role = "QaTester",
+                    FullName = "Lewis QA Tester",
+                    Phone = "+27 82 700 1003",
+                    Address = "Lewis Training HQ, Johannesburg"
+                },
+                new User
+                {
+                    Id = "demo-associate",
+                    Email = "associate@lewis-training.com",
+                    Password = "Associate123!",
+                    Role = "StoreAssociate",
+                    FullName = "Lewis Store Associate",
+                    Phone = "+27 82 700 1004",
+                    Address = "Lewis Training HQ, Johannesburg"
                 }
             };
 
